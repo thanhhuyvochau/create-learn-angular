@@ -22,7 +22,7 @@ export interface ApiListResponse<T> {
     last: boolean;
   };
 }
-
+ex
 export interface ApiSingleResponse<T> {
   status: number;
   message: string;
