@@ -12,7 +12,7 @@ interface SubjectCardData {
   imageSrc: string;
 }
 
-const PLACEHOLDER_ICON = 'assets/images/Demo-mode.png';
+const PLACEHOLDER_ICON = '/images/Demo-mode.png';
 
 const DEMO_SUBJECT_CARDS: SubjectCardData[] = [
   { id: 1, name: 'IBDP', imageSrc: PLACEHOLDER_ICON },
@@ -27,10 +27,10 @@ const DEMO_SUBJECT_CARDS: SubjectCardData[] = [
   imports: [RouterLink, MatCardModule, MatProgressSpinnerModule],
   template: `
     <section class="subject-section">
-      <h2 class="section-title">Chuong Trinh Hoc Thuat Quoc Te Noi Bat</h2>
+      <h2 class="section-title">Chương Trình Học Thuật Quốc Tế Nổi Bật</h2>
 
       @if (useDemo()) {
-        <p class="demo-notice">(Demo data - UI test)</p>
+        <p class="demo-notice">(Dữ liệu mẫu - Test UI)</p>
       }
 
       <div class="subject-grid">

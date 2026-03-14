@@ -15,7 +15,7 @@ import type { News } from '../../../models';
       <!-- Header Banner - Desktop -->
       <div class="page-header desktop">
         <div class="header-image">
-          <img src="assets/images/class-banner.png" alt="News Banner" />
+          <img src="/images/class-banner.png" alt="News Banner" />
           <div class="header-overlay">
             <h1 class="header-title">Kids' Coding Corner</h1>
             <h2 class="header-subtitle">

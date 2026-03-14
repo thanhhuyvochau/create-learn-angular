@@ -1,4 +1,5 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -18,7 +19,7 @@ const PAGE_SIZE = 10;
       <!-- Header Banner -->
       <div class="page-header">
         <div class="header-content">
-          <h1 class="header-title">{{ subject()?.name || 'Chuong Trinh Quoc Te Tai AlgoCore Education' }}</h1>
+          <h1 class="header-title">{{ subject()?.name || 'Chương Trình Học Quốc Tế Tại Algocore Education' }}</h1>
           <p class="header-description">
             {{ subject()?.description || 'Hoc theo nhom nho tinh gon, lo trinh ca nhan hoa va chien luoc lam bai bam sat syllabus. Tap trung cai thien diem so qua luyen past papers/FRQ, feedback chi tiet va theo sat tien do.' }}
           </p>
@@ -165,6 +166,7 @@ export class ClassBySubjectComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly classApi = inject(ClassApiService);
   private readonly subjectApi = inject(SubjectApiService);
+  private readonly destroyRef = inject(DestroyRef);
 
   isLoading = signal(true);
   error = signal(false);
@@ -177,15 +179,20 @@ export class ClassBySubjectComponent implements OnInit {
   private subjectId!: number;
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.subjectId = Number(id);
-      this.loadSubject();
-      this.loadClasses();
-    } else {
-      this.error.set(true);
-      this.isLoading.set(false);
-    }
+    this.route.paramMap
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((params) => {
+        const id = params.get('id');
+        if (id) {
+          this.subjectId = Number(id);
+          this.pageIndex.set(0); // Reset pagination on subject change
+          this.loadSubject();
+          this.loadClasses();
+        } else {
+          this.error.set(true);
+          this.isLoading.set(false);
+        }
+      });
   }
 
   private loadSubject(): void {

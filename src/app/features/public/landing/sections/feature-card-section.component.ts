@@ -11,31 +11,31 @@ interface FeatureCard {
 const FEATURE_CARDS_DATA: FeatureCard[] = [
   {
     id: 'academic-excellence',
-    icon: 'assets/images/react-icon.webp',
-    title: 'Giao duc\nhang dau',
+    icon: '/images/react-icon.webp',
+    title: 'Giáo dục\nhàng đầu',
     description:
-      'Lo trinh quoc te chuan hoa, duoc cap nhat lien tuc. Tap trung dung trong tam de toi uu diem so.',
+      'Lộ trình quốc tế chuẩn hóa, được cập nhật liên tục. Tập trung đúng trọng tâm để tối ưu điểm số.',
   },
   {
     id: 'small-group',
-    icon: 'assets/images/people-icon.webp',
-    title: 'Lop hoc\nquy mo nho',
+    icon: '/images/people-icon.webp',
+    title: 'Lớp học\nquy mô nhỏ',
     description:
-      'Toi da 3-5 hoc sinh/lop de tang tuong tac. Theo sat tien do va phan hoi chi tiet tung buoi.',
+      'Tối đa 3-5 học sinh/lớp để tăng tương tác. Theo sát tiến độ và phản hồi chi tiết từng buổi.',
   },
   {
     id: 'expert-teachers',
-    icon: 'assets/images/ideal-icon.webp',
-    title: 'Giao vien\ngiau kinh nghiem',
+    icon: '/images/ideal-icon.webp',
+    title: 'Giáo viên\ngiàu kinh nghiệm',
     description:
-      'Giao vien duoc tuyen chon ky va dao tao bai ban. Kinh nghiem luyen thi IB/AP/IGCSE/A Level thuc chien.',
+      'Giáo viên được tuyển chọn kỹ và đào tạo bài bản. Kinh nghiệm luyện thi IB/AP/IGCSE/A Level thực chiến.',
   },
   {
     id: 'result-oriented',
-    icon: 'assets/images/certificate.png',
-    title: 'Cam ket\ndau ra',
+    icon: '/images/certificate.png',
+    title: 'Cam kết\nđầu ra',
     description:
-      'Ca nhan hoa theo muc tieu va timeline cua hoc vien. Chua dat muc tieu se duoc ho tro bo sung den khi dat.',
+      'Cá nhân hóa theo mục tiêu và timeline của học viên. Chưa đạt mục tiêu sẽ được hỗ trợ bổ sung đến khi đạt.',
   },
 ];
 

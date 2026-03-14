@@ -12,16 +12,16 @@ import type { News } from '../../../../models';
   imports: [MatProgressSpinnerModule, ClassCardComponent],
   template: `
     <section class="news-section">
-      <h2 class="section-title">Blog hoc thuat cua AlgoCore</h2>
+      <h2 class="section-title">Blog học thuật của AlgoCore</h2>
 
       @if (isLoading()) {
         <div class="loading-container">
           <mat-spinner diameter="48"></mat-spinner>
         </div>
       } @else if (error()) {
-        <p class="error-message">Khong the tai tin tuc. Vui long thu lai sau.</p>
+        <p class="error-message">Không thể tải tin tức. Vui lòng thử lại sau.</p>
       } @else if (displayNews().length === 0) {
-        <p class="no-news">Chua co bai viet nao.</p>
+        <p class="no-news">Chưa có bài viết nào.</p>
       } @else {
         <div class="news-grid">
           @for (newsItem of displayNews(); track newsItem.id) {
@@ -29,7 +29,7 @@ import type { News } from '../../../../models';
               [imageUrl]="newsItem.image || 'https://picsum.photos/400/200'"
               [title]="newsItem.title"
               [description]="newsItem.brief || ''"
-              [buttonText]="'Learn More'"
+              [buttonText]="'Tìm hiểu thêm'"
               (cardClick)="navigateToNews(newsItem.id)"
             />
           }

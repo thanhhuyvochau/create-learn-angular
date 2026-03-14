@@ -26,41 +26,41 @@ interface DialogData {
     MatButtonModule,
   ],
   template: `
-    <h2 mat-dialog-title>Dang ky lop hoc</h2>
+    <h2 mat-dialog-title>Đăng ký lớp học</h2>
     <mat-dialog-content>
       <p class="class-name">{{ data.className }}</p>
       <form [formGroup]="form" class="registration-form">
         <mat-form-field appearance="outline">
-          <mat-label>Ho va ten</mat-label>
-          <input matInput formControlName="customerName" placeholder="Nhap ho va ten" />
+          <mat-label>Họ và tên</mat-label>
+          <input matInput formControlName="customerName" placeholder="Nhập họ và tên" />
           @if (form.get('customerName')?.hasError('required') && form.get('customerName')?.touched) {
-            <mat-error>Ho va ten la bat buoc</mat-error>
+            <mat-error>Họ và tên là bắt buộc</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="customerEmail" placeholder="Nhap email" />
+          <input matInput type="email" formControlName="customerEmail" placeholder="Nhập email" />
           @if (form.get('customerEmail')?.hasError('required') && form.get('customerEmail')?.touched) {
-            <mat-error>Email la bat buoc</mat-error>
+            <mat-error>Email là bắt buộc</mat-error>
           }
           @if (form.get('customerEmail')?.hasError('email') && form.get('customerEmail')?.touched) {
-            <mat-error>Email khong hop le</mat-error>
+            <mat-error>Email không hợp lệ</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>So dien thoai</mat-label>
-          <input matInput formControlName="phoneNumber" placeholder="Nhap so dien thoai" />
+          <mat-label>Số điện thoại</mat-label>
+          <input matInput formControlName="phoneNumber" placeholder="Nhập số điện thoại" />
           @if (form.get('phoneNumber')?.hasError('required') && form.get('phoneNumber')?.touched) {
-            <mat-error>So dien thoai la bat buoc</mat-error>
+            <mat-error>Số điện thoại là bắt buộc</mat-error>
           }
         </mat-form-field>
       </form>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Huy</button>
-      <button mat-raised-button color="primary" (click)="onSubmit()">Dang ky</button>
+      <button mat-button (click)="onCancel()">Hủy</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()">Đăng ký</button>
     </mat-dialog-actions>
   `,
   styles: [`

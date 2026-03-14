@@ -11,17 +11,17 @@ import { MatIconModule } from '@angular/material/icon';
       <div class="footer-container">
         <!-- Brand Section -->
         <div class="footer-brand">
-          <img src="assets/images/algocore-logo.jpg" alt="AlgoCore Education" class="footer-logo" />
+          <img src="/images/algocore-logo.jpg" alt="AlgoCore Education" class="footer-logo" />
           <h3 class="footer-title">AlgoCore Education</h3>
           <p class="footer-description">
-            Dong hanh cung hoc sinh IGCSE, AS/A Level, IB va AP chinh phuc 
-            chuong trinh quoc te voi phuong phap giang day hieu qua.
+            Đồng hành cùng học sinh IGCSE, AS/A Level, IB và AP chinh phục 
+            chương trình quốc tế với phương pháp giảng dạy hiệu quả.
           </p>
         </div>
 
         <!-- Programs Column -->
         <div class="footer-column">
-          <h4 class="column-title">Chuong trinh</h4>
+          <h4 class="column-title">Chương trình</h4>
           <ul class="footer-links">
             <li><a routerLink="/class/subject/1">IGCSE</a></li>
             <li><a routerLink="/class/subject/2">AS/A Level</a></li>
@@ -32,18 +32,18 @@ import { MatIconModule } from '@angular/material/icon';
 
         <!-- About Column -->
         <div class="footer-column">
-          <h4 class="column-title">Ve AlgoCore</h4>
+          <h4 class="column-title">Về AlgoCore</h4>
           <ul class="footer-links">
-            <li><a routerLink="/about">Gioi thieu</a></li>
-            <li><a routerLink="/teachers">Doi ngu giao vien</a></li>
-            <li><a routerLink="/news">Blog hoc thuat</a></li>
-            <li><a routerLink="/recruitment">Tuyen dung</a></li>
+            <li><a routerLink="/about">Giới thiệu</a></li>
+            <li><a routerLink="/teachers">Đội ngũ giáo viên</a></li>
+            <li><a routerLink="/news">Blog học thuật</a></li>
+            <li><a routerLink="/recruitment">Tuyển dụng</a></li>
           </ul>
         </div>
 
         <!-- Contact Column -->
         <div class="footer-column">
-          <h4 class="column-title">Lien he</h4>
+          <h4 class="column-title">Liên hệ</h4>
           <ul class="contact-info">
             <li>
               <mat-icon>location_on</mat-icon>
@@ -76,12 +76,12 @@ import { MatIconModule } from '@angular/material/icon';
       <div class="footer-bottom">
         <div class="footer-bottom-container">
           <p class="copyright">
-            &copy; {{ currentYear }} AlgoCore Education. All rights reserved.
+            &copy; {{ currentYear }} AlgoCore Education. Đã đăng ký bản quyền.
           </p>
           <div class="legal-links">
-            <a routerLink="/privacy">Chinh sach bao mat</a>
+            <a routerLink="/privacy">Chính sách bảo mật</a>
             <span class="divider">|</span>
-            <a routerLink="/terms">Dieu khoan su dung</a>
+            <a routerLink="/terms">Điều khoản sử dụng</a>
           </div>
         </div>
       </div>

@@ -12,58 +12,58 @@ interface Review {
 const REVIEW_DATA: Review[] = [
   {
     review:
-      'Lo trinh hoc ro rang, tap trung dung muc tieu IB/AP. Con cai thien ky nang lam bai chi sau vai buoi.',
+      'Lộ trình học rõ ràng, tập trung đúng mục tiêu IB/AP. Con cải thiện kỹ năng làm bài chỉ sau vài buổi.',
     rating: 5,
-    name: 'Phu huynh ban Minh',
+    name: 'Phụ huynh bạn Minh',
     date: '2024-01-15',
   },
   {
     review:
-      'Giao vien huong dan rat chien luoc, sua bai chi tiet. Hoc nhom nho nen con duoc theo sat lien tuc.',
+      'Giáo viên hướng dẫn rất chiến lược, sửa bài chi tiết. Học nhóm nhỏ nên con được theo sát liên tục.',
     rating: 5,
-    name: 'Phu huynh ban An',
+    name: 'Phụ huynh bạn An',
     date: '2024-01-12',
   },
   {
     review:
-      'Noi dung bam sat syllabus Cambridge, luyen de dung dang, giup con tu tin hon khi vao ky thi.',
+      'Nội dung bám sát syllabus Cambridge, luyện đề đúng dạng, giúp con tự tin hơn khi vào kỳ thi.',
     rating: 5,
-    name: 'Ban Khanh (AS Level)',
+    name: 'Bạn Khánh (AS Level)',
     date: '2024-01-10',
   },
   {
     review:
-      'Tu van hoc thuat rat ky, chi ra dung lo hong va dua ke hoach hoc phu hop. Tien bo thay ro.',
+      'Tư vấn học thuật rất kỹ, chỉ ra đúng lỗ hổng và đưa kế hoạch học phù hợp. Tiến bộ thấy rõ.',
     rating: 4,
-    name: 'Phu huynh ban Vy',
+    name: 'Phụ huynh bạn Vy',
     date: '2024-01-08',
   },
   {
     review:
-      'Moi truong hoc nghiem tuc va chat luong. Con hoc duoc tu duy giai bai thay vi hoc meo.',
+      'Môi trường học nghiêm túc và chất lượng. Con học được tư duy giải bài thay vì học mẹo.',
     rating: 5,
-    name: 'Ban Nam (IBDP)',
+    name: 'Bạn Nam (IBDP)',
     date: '2024-01-05',
   },
   {
     review:
-      'Thay co theo sat muc tieu diem so, feedback nhanh. Minh thay dung dinh vi "premium" cua AlgoCore.',
+      'Thầy cô theo sát mục tiêu điểm số, feedback nhanh. Mình thấy đúng định vị "premium" của AlgoCore.',
     rating: 5,
-    name: 'Ban Linh (AP)',
+    name: 'Bạn Linh (AP)',
     date: '2024-01-03',
   },
   {
     review:
-      'Lop hoc co cau truc ro rang: ly thuyet ngan gon, luyen tap trong tam, cham chua theo rubric.',
+      'Lớp học có cấu trúc rõ ràng: lý thuyết ngắn gọn, luyện tập trọng tâm, chấm chữa theo rubric.',
     rating: 5,
-    name: 'Phu huynh ban Huy',
+    name: 'Phụ huynh bạn Huy',
     date: '2023-12-28',
   },
   {
     review:
-      'Chuong trinh phu hop voi hoc sinh can tang toc. Giao vien huong dan cach hoc va tu luyen o nha.',
+      'Chương trình phù hợp với học sinh cần tăng tốc. Giáo viên hướng dẫn cách học và tự luyện ở nhà.',
     rating: 4,
-    name: 'Ban Trang (IGCSE)',
+    name: 'Bạn Trang (IGCSE)',
     date: '2023-12-25',
   },
 ];
@@ -74,9 +74,9 @@ const REVIEW_DATA: Review[] = [
   imports: [MatCardModule, MatIconModule],
   template: `
     <section class="review-section">
-      <h2 class="section-title">Phu huynh & hoc sinh tin tuong AlgoCore</h2>
+      <h2 class="section-title">Phụ huynh & học sinh tin tưởng AlgoCore</h2>
       <p class="section-subtitle">
-        Dinh huong hoc thuat ro rang • Nhom nho tinh gon • Tap trung ket qua IB, AP & Cambridge
+        Định hướng học thuật rõ ràng • Nhóm nhỏ tinh gọn • Tập trung kết quả IB, AP & Cambridge
       </p>
 
       <div class="reviews-container">

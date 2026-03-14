@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
     <mat-card class="class-card" (click)="onCardClick()">
       <div class="card-image-container">
         <img
-          [src]="imageUrl() || 'assets/images/placeholder-class.jpg'"
+          [src]="imageUrl() || '/images/placeholder-class.jpg'"
           [alt]="title()"
           class="card-image"
         />
@@ -103,7 +103,7 @@ export class ClassCardComponent {
   imageUrl = input<string>('');
   title = input.required<string>();
   description = input<string>('');
-  buttonText = input<string>('Xem chi tiet');
+  buttonText = input<string>('Xem chi tiết');
 
   cardClick = output<void>();
 

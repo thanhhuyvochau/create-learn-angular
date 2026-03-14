@@ -112,7 +112,7 @@ export class NewsCardComponent {
   // Computed values that check news object first, then fall back to individual inputs
   displayImage = computed(() => {
     const newsData = this.news();
-    return newsData?.image || this.imageUrl() || 'assets/images/placeholder-news.jpg';
+    return newsData?.image || this.imageUrl() || '/images/placeholder-news.jpg';
   });
 
   displayTitle = computed(() => {

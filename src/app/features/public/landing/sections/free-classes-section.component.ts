@@ -16,12 +16,12 @@ import type { Class } from '../../../../models';
         <!-- Top Row: Text + 2 Cards (desktop only) -->
         <div class="top-row">
           <div class="text-content">
-            <h2 class="section-title">Bat Dau Voi</h2>
-            <h2 class="section-title">Lop Hoc Thu Mien Phi</h2>
+            <h2 class="section-title">Bắt Đầu Với</h2>
+            <h2 class="section-title">Lớp Học Thử Miễn Phí</h2>
             <p class="section-description">
-              Trai nghiem phuong phap giang day chuan quoc te tai AlgoCore.
-              Hoc theo nhom nho, dinh huong ro muc tieu IB, AP & Cambridge,
-              tap trung tu duy hoc thuat va chien luoc nang cao diem so.
+              Trải nghiệm phương pháp giảng dạy chuẩn quốc tế tại AlgoCore.
+              Học theo nhóm nhỏ, định hướng rõ mục tiêu IB, AP & Cambridge,
+              tập trung tư duy học thuật và chiến lược nâng cao điểm số.
             </p>
           </div>
           <div class="top-cards">
@@ -31,7 +31,7 @@ import type { Class } from '../../../../models';
                   [imageUrl]="classItem.image || 'https://picsum.photos/400/200'"
                   [title]="classItem.brief || classItem.name || 'Class'"
                   [description]="classItem.brief || ''"
-                  [buttonText]="'Earn Free'"
+                  [buttonText]="'Học miễn phí'"
                   (cardClick)="navigateToClass(classItem.id)"
                 />
               </div>
@@ -47,7 +47,7 @@ import type { Class } from '../../../../models';
                 [imageUrl]="classItem.image || 'https://picsum.photos/400/200'"
                 [title]="classItem.brief || classItem.name || 'Class'"
                 [description]="classItem.brief || ''"
-                [buttonText]="'Earn Free'"
+                [buttonText]="'Nhận miễn phí'"
                 (cardClick)="navigateToClass(classItem.id)"
               />
             </div>

@@ -28,10 +28,10 @@ import { NotificationService } from '../../../../core/notifications/notification
   template: `
     <section class="consultation-section">
       <div class="section-header">
-        <h2 class="section-title">Dang Ky Tu Van Mien Phi</h2>
+        <h2 class="section-title">Đăng Ký Tư Vấn Miễn Phí</h2>
         <p class="section-subtitle">
-          Trao doi cung doi ngu hoc thuat AlgoCore de xay dung lo trinh phu hop
-          cho muc tieu IB, AP & Cambridge.
+          Trao đổi cùng đội ngũ học thuật AlgoCore để xây dựng lộ trình phù hợp
+          cho mục tiêu IB, AP & Cambridge.
         </p>
       </div>
 
@@ -61,42 +61,42 @@ import { NotificationService } from '../../../../core/notifications/notification
 
             <div class="form-fields">
               <mat-form-field appearance="outline">
-                <mat-label>Ho va ten</mat-label>
-                <input matInput formControlName="customerName" placeholder="Nhap ho va ten cua phu huynh/hoc sinh" />
+                <mat-label>Họ và tên</mat-label>
+                <input matInput formControlName="customerName" placeholder="Nhập họ và tên của phụ huynh/học sinh" />
                 @if (form.get('customerName')?.hasError('required') && form.get('customerName')?.touched) {
-                  <mat-error>Ho va ten la bat buoc</mat-error>
+                  <mat-error>Họ và tên là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline">
-                <mat-label>So dien thoai</mat-label>
-                <input matInput formControlName="phoneNumber" placeholder="Nhap so dien thoai de doi ngu tu van lien he" />
+                <mat-label>Số điện thoại</mat-label>
+                <input matInput formControlName="phoneNumber" placeholder="Nhập số điện thoại để đội ngũ tư vấn liên hệ" />
                 @if (form.get('phoneNumber')?.hasError('required') && form.get('phoneNumber')?.touched) {
-                  <mat-error>So dien thoai la bat buoc</mat-error>
+                  <mat-error>Số điện thoại là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput type="email" formControlName="email" placeholder="Nhap email de nhan lo trinh va tai lieu tham khao" />
+                <input matInput type="email" formControlName="email" placeholder="Nhập email để nhận lộ trình và tài liệu tham khảo" />
                 @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
-                  <mat-error>Email la bat buoc</mat-error>
+                  <mat-error>Email là bắt buộc</mat-error>
                 }
                 @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
-                  <mat-error>Email khong hop le</mat-error>
+                  <mat-error>Email không hợp lệ</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline">
-                <mat-label>Muc tieu & nhu cau hoc tap</mat-label>
+                <mat-label>Mục tiêu & nhu cầu học tập</mat-label>
                 <textarea
                   matInput
                   formControlName="content"
                   rows="4"
-                  placeholder="Chia se chuong trinh dang theo hoc (IB/AP/Cambridge), muc tieu diem so va nhung kho khan hien tai"
+                  placeholder="Chia sẻ chương trình đang theo học (IB/AP/Cambridge), mục tiêu điểm số và những khó khăn hiện tại"
                 ></textarea>
                 @if (form.get('content')?.hasError('required') && form.get('content')?.touched) {
-                  <mat-error>Noi dung la bat buoc</mat-error>
+                  <mat-error>Nội dung là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
@@ -108,9 +108,9 @@ import { NotificationService } from '../../../../core/notifications/notification
                 class="submit-button"
               >
                 @if (isLoading()) {
-                  <span>Dang gui...</span>
+                  <span>Đang gửi...</span>
                 } @else {
-                  <span>Dang Ky Tu Van Ngay</span>
+                  <span>Đăng Ký Tư Vấn Ngay</span>
                 }
               </button>
             </div>
@@ -255,7 +255,7 @@ export class FindBestClassSectionComponent {
     this.consultationApi.create(this.form.value).subscribe({
       next: () => {
         this.successMessage.set(
-          'Yeu cau tu van da duoc gui thanh cong! Chung toi se lien he voi ban som.'
+          'Yêu cầu tư vấn đã được gửi thành công! Chúng tôi sẽ liên hệ với bạn sớm.'
         );
         this.form.reset();
         this.isLoading.set(false);
@@ -263,7 +263,7 @@ export class FindBestClassSectionComponent {
       error: (err) => {
         console.error('Error submitting consultation:', err);
         this.errorMessage.set(
-          'Khong the gui yeu cau tu van. Vui long thu lai sau.'
+          'Không thể gửi yêu cầu tư vấn. Vui lòng thử lại sau.'
         );
         this.isLoading.set(false);
       },

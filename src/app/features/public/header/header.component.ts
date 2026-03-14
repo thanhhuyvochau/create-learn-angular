@@ -19,12 +19,12 @@ interface NavLink {
 }
 
 const NAVIGATION_LINKS: NavLink[] = [
-  { name: 'Gioi thieu', href: '/about' },
-  { name: 'Chuong trinh hoc', href: '/subjects', hasSubmenu: true },
-  { name: 'Khoa hoc', href: '/class' },
-  { name: 'Giao vien', href: '/teachers' },
-  { name: 'Blog hoc thuat', href: '/news' },
-  { name: 'Tuyen dung', href: '/recruitment' },
+  { name: 'Giới thiệu', href: '/about' },
+  { name: 'Chương trình học', href: '/subjects', hasSubmenu: true },
+  { name: 'Khóa học', href: '/class' },
+  { name: 'Giáo viên', href: '/teachers' },
+  { name: 'Blog học thuật', href: '/news' },
+  { name: 'Tuyển dụng', href: '/recruitment' },
 ];
 
 @Component({
@@ -46,8 +46,8 @@ const NAVIGATION_LINKS: NavLink[] = [
       <div class="header-container">
         <!-- Logo -->
         <a routerLink="/" class="logo-link">
-          <img src="assets/images/algocore-logo.jpg" alt="AlgoCore Education" class="logo" />
-          <span class="brand-name">AlgoCore</span>
+          <img src="/images/horizontal-logo.png" alt="AlgoCore Education" class="logo" />
+          <!-- <span class="brand-name">AlgoCore</span> -->
         </a>
 
         <!-- Desktop Navigation -->
@@ -65,7 +65,7 @@ const NAVIGATION_LINKS: NavLink[] = [
                   </a>
                 }
                 @if (subjects().length === 0) {
-                  <span mat-menu-item disabled>Loading...</span>
+                  <span mat-menu-item disabled>Đang tải...</span>
                 }
               </mat-menu>
             } @else {
@@ -87,17 +87,17 @@ const NAVIGATION_LINKS: NavLink[] = [
             <mat-menu #userMenu="matMenu">
               <a mat-menu-item routerLink="/management">
                 <mat-icon>dashboard</mat-icon>
-                <span>Management</span>
+                <span>Quản lý</span>
               </a>
               <mat-divider></mat-divider>
               <button mat-menu-item (click)="logout()">
                 <mat-icon>logout</mat-icon>
-                <span>Logout</span>
+                <span>Đăng xuất</span>
               </button>
             </mat-menu>
           } @else {
             <a mat-raised-button color="primary" routerLink="/login" class="login-btn">
-              Dang nhap
+              Đăng nhập
             </a>
           }
         </div>
@@ -113,7 +113,7 @@ const NAVIGATION_LINKS: NavLink[] = [
         <div class="mobile-overlay" (click)="closeMobileMenu()"></div>
         <nav class="mobile-nav">
           <div class="mobile-nav-header">
-            <img src="assets/images/algocore-logo.jpg" alt="AlgoCore" class="mobile-logo" />
+            <img src="/images/algocore-logo.jpg" alt="AlgoCore" class="mobile-logo" />
             <button mat-icon-button (click)="closeMobileMenu()" aria-label="Close navigation menu">
               <mat-icon>close</mat-icon>
             </button>
@@ -145,16 +145,16 @@ const NAVIGATION_LINKS: NavLink[] = [
           @if (auth.isLoggedIn()) {
               <a mat-list-item routerLink="/management" (click)="closeMobileMenu()">
                 <mat-icon matListItemIcon>dashboard</mat-icon>
-                <span matListItemTitle>Management</span>
+                <span matListItemTitle>Quản lý</span>
               </a>
               <button mat-list-item (click)="logout(); closeMobileMenu()">
                 <mat-icon matListItemIcon>logout</mat-icon>
-                <span matListItemTitle>Logout</span>
+                <span matListItemTitle>Đăng xuất</span>
               </button>
             } @else {
               <a mat-list-item routerLink="/login" (click)="closeMobileMenu()">
                 <mat-icon matListItemIcon>login</mat-icon>
-                <span matListItemTitle>Dang nhap</span>
+                <span matListItemTitle>Đăng nhập</span>
               </a>
             }
           </mat-nav-list>

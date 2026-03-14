@@ -31,9 +31,9 @@ import type { Class } from '../../../models';
         </div>
       } @else if (error() || !classData()) {
         <div class="error-container">
-          <p>Lop hoc khong ton tai hoac co loi xay ra.</p>
+          <p>Lớp học không tồn tại hoặc có lỗi xảy ra.</p>
           <button mat-raised-button color="primary" (click)="goBack()">
-            Quay lai
+            Quay lại
           </button>
         </div>
       } @else {
@@ -47,7 +47,7 @@ import type { Class } from '../../../models';
               />
               <!-- Expert Icons -->
               <div class="expert-icons">
-                <span class="expert-text">Duoc thiet ke boi cac chuyen gia hang dau</span>
+                <span class="expert-text">Được thiết kế bởi các chuyên gia hàng đầu</span>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ import type { Class } from '../../../models';
               <!-- Schedule -->
               @if (classData()!.scheduleResponses && classData()!.scheduleResponses.length) {
                 <div class="schedule-section">
-                  <p class="schedule-label">Schedule:</p>
+                  <p class="schedule-label">Lịch học:</p>
                   <div class="schedule-chips">
                     @for (schedule of classData()!.scheduleResponses; track schedule.id) {
                       <mat-chip-set>
@@ -82,7 +82,7 @@ import type { Class } from '../../../models';
                 class="register-button"
                 (click)="openRegistrationDialog()"
               >
-                Register for Class
+                Đăng ký lớp học
               </button>
             </div>
           </div>
@@ -322,7 +322,7 @@ export class ClassDetailComponent implements OnInit {
   }): void {
     const clazzId = this.classData()?.id;
     if (!clazzId) {
-      this.notification.showError('Loi: Khong tim thay lop hoc.');
+      this.notification.showError('Lỗi: Không tìm thấy lớp học.');
       return;
     }
 
@@ -336,11 +336,11 @@ export class ClassDetailComponent implements OnInit {
 
     this.registrationApi.create(submitData).subscribe({
       next: () => {
-        this.notification.showSuccess('Dang ky thanh cong!');
+        this.notification.showSuccess('Đăng ký thành công!');
       },
       error: (err) => {
         console.error('Registration error:', err);
-        this.notification.showError('Khong the dang ky. Vui long thu lai.');
+        this.notification.showError('Không thể đăng ký. Vui lòng thử lại.');
       },
     });
   }
