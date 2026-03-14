@@ -1,5 +1,6 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +24,7 @@ const NAVIGATION_LINKS: NavLink[] = [
   { name: 'Chương trình học', href: '/subjects', hasSubmenu: true },
   { name: 'Khóa học', href: '/class' },
   { name: 'Giáo viên', href: '/teachers' },
-  { name: 'Blog học thuật', href: '/news' },
+  { name: 'Bài viết', href: '/news' },
   { name: 'Tuyển dụng', href: '/recruitment' },
 ];
 
@@ -54,7 +55,7 @@ const NAVIGATION_LINKS: NavLink[] = [
         <nav class="desktop-nav">
           @for (link of navLinks; track link.href) {
             @if (link.hasSubmenu) {
-              <button mat-button [matMenuTriggerFor]="subjectMenu" class="nav-link">
+              <button mat-button [matMenuTriggerFor]="subjectMenu" class="nav-link" [class.active]="isOnSubjectRoute()">
                 {{ link.name }}
                 <mat-icon>expand_more</mat-icon>
               </button>
@@ -69,7 +70,7 @@ const NAVIGATION_LINKS: NavLink[] = [
                 }
               </mat-menu>
             } @else {
-              <a mat-button [routerLink]="link.href" routerLinkActive="active" class="nav-link">
+              <a mat-button [routerLink]="link.href" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
                 {{ link.name }}
               </a>
             }
@@ -328,9 +329,11 @@ export class HeaderComponent implements OnInit {
   subjects = signal<Subject[]>([]);
   mobileMenuOpen = signal(false);
   subjectExpanded = signal(false);
+  isOnSubjectRoute = signal(false);
 
   ngOnInit(): void {
     this.loadSubjects();
+    this.trackRouteChanges();
   }
 
   private loadSubjects(): void {
@@ -342,6 +345,17 @@ export class HeaderComponent implements OnInit {
       },
       error: (err) => console.error('Failed to load subjects:', err),
     });
+  }
+
+  private trackRouteChanges(): void {
+    this.updateSubjectRouteState();
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => this.updateSubjectRouteState());
+  }
+
+  private updateSubjectRouteState(): void {
+    this.isOnSubjectRoute.set(this.router.url.startsWith('/class/subject'));
   }
 
   toggleMobileMenu(): void {
