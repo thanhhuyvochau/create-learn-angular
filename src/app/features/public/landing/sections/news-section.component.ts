@@ -12,7 +12,7 @@ import type { News } from '../../../../models';
   imports: [MatProgressSpinnerModule, ClassCardComponent],
   template: `
     <section class="news-section">
-      <h2 class="section-title">Blog học thuật của AlgoCore</h2>
+      <h2 class="section-title">Bài viết học thuật của AlgoCore</h2>
 
       @if (isLoading()) {
         <div class="loading-container">
