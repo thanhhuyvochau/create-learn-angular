@@ -45,7 +45,7 @@ const PAGE_SIZE = 10;
                 [imageUrl]="classItem.image || 'https://picsum.photos/400/200'"
                 [title]="classItem.brief || classItem.name || 'Class'"
                 [description]="classItem.brief || ''"
-                [buttonText]="'Xem chi tiet'"
+                [buttonText]="'Xem chi tiết'"
                 (cardClick)="navigateToClass(classItem.id)"
               />
             }
@@ -61,7 +61,7 @@ const PAGE_SIZE = 10;
               [length]="totalElements()"
               [pageSize]="pageSize"
               [pageIndex]="pageIndex()"
-              [pageSizeOptions]="[10, 20, 50]"
+              [hidePageSize]="true"
               (page)="onPageChange($event)"
               showFirstLastButtons
               aria-label="Select page"
@@ -207,9 +207,7 @@ export class ClassListComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.pageIndex.set(event.pageIndex);
-    this.pageSize = event.pageSize;
     this.loadClasses();
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 

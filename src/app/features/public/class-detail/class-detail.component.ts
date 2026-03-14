@@ -45,10 +45,6 @@ import type { Class } from '../../../models';
                 [src]="classData()!.image || 'https://picsum.photos/600/400'"
                 [alt]="classData()!.name"
               />
-              <!-- Expert Icons -->
-              <div class="expert-icons">
-                <span class="expert-text">Được thiết kế bởi các chuyên gia hàng đầu</span>
-              </div>
             </div>
 
             <div class="class-info">
@@ -63,11 +59,17 @@ import type { Class } from '../../../models';
               <p class="class-brief">{{ classData()!.brief }}</p>
 
               <!-- Schedule -->
-              @if (classData()!.scheduleResponses && classData()!.scheduleResponses.length) {
+              @if (
+                classData()!.scheduleResponses &&
+                classData()!.scheduleResponses.length
+              ) {
                 <div class="schedule-section">
                   <p class="schedule-label">Lịch học:</p>
                   <div class="schedule-chips">
-                    @for (schedule of classData()!.scheduleResponses; track schedule.id) {
+                    @for (
+                      schedule of classData()!.scheduleResponses;
+                      track schedule.id
+                    ) {
                       <mat-chip-set>
                         <mat-chip>{{ schedule.time }}</mat-chip>
                       </mat-chip-set>
@@ -86,10 +88,11 @@ import type { Class } from '../../../models';
               </button>
             </div>
           </div>
-
+          <hr id="separate-line" />
           <!-- Description Section -->
           @if (classData()!.description) {
             <div class="description-section">
+              <!-- <h2 class="description-title">Mô tả lớp học</h2> -->
               <div
                 class="description-content"
                 [innerHTML]="classData()!.description | safeHtml"
@@ -100,160 +103,167 @@ import type { Class } from '../../../models';
       }
     </div>
   `,
-  styles: [`
-    .class-detail-page {
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
+  styles: [
+    `
+      .class-detail-page {
+        min-height: 100vh;
+        padding-bottom: 80px;
+      }
 
-    .loading-container,
-    .error-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 50vh;
-      gap: 16px;
-    }
-
-    .error-container p {
-      color: #dc2626;
-    }
-
-    .class-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .main-info {
-      display: flex;
-      gap: 20px;
-      padding: 24px;
-    }
-
-    .class-image {
-      flex: 0 0 auto;
-    }
-
-    .class-image img {
-      max-height: 350px;
-      width: auto;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-
-    .expert-icons {
-      margin-top: 16px;
-      text-align: center;
-    }
-
-    .expert-text {
-      font-size: 0.875rem;
-      color: #64748b;
-    }
-
-    .class-info {
-      flex: 1;
-      padding: 28px;
-      max-width: 700px;
-    }
-
-    .subject-tags {
-      font-size: 0.75rem;
-      color: #64748b;
-      margin: 0 0 8px 0;
-      text-transform: uppercase;
-    }
-
-    .class-name {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 600;
-      color: #2563eb;
-      margin: 0 0 12px 0;
-    }
-
-    .class-brief {
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #374151;
-      margin: 0 0 20px 0;
-      line-height: 1.5;
-    }
-
-    .schedule-section {
-      margin-bottom: 28px;
-    }
-
-    .schedule-label {
-      font-size: 1rem;
-      font-weight: 500;
-      color: #374151;
-      margin: 0 0 8px 0;
-    }
-
-    .schedule-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .register-button {
-      padding: 12px 32px;
-      font-size: 1rem;
-      border-radius: 8px;
-    }
-
-    .description-section {
-      max-width: 900px;
-      margin: 40px auto 100px;
-      padding: 0 24px;
-    }
-
-    .description-content {
-      line-height: 1.8;
-      color: #374151;
-    }
-
-    .description-content :deep(h1),
-    .description-content :deep(h2),
-    .description-content :deep(h3) {
-      color: #1a365d;
-      margin-top: 24px;
-      margin-bottom: 12px;
-    }
-
-    .description-content :deep(p) {
-      margin-bottom: 16px;
-    }
-
-    .description-content :deep(ul),
-    .description-content :deep(ol) {
-      padding-left: 24px;
-      margin-bottom: 16px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .main-info {
+      .loading-container,
+      .error-container {
+        display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        min-height: 50vh;
+        gap: 16px;
+      }
+
+      .error-container p {
+        color: #dc2626;
+      }
+
+      .class-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .main-info {
+        display: flex;
+        gap: 20px;
+        padding: 24px;
+      }
+
+      .class-image {
+        flex: 0 0 auto;
       }
 
       .class-image img {
-        max-width: 100%;
-        max-height: 250px;
+        max-height: 350px;
+        width: auto;
+        object-fit: contain;
+        border-radius: 12px;
       }
 
-      .class-info {
-        padding: 16px;
+      .expert-icons {
+        margin-top: 16px;
         text-align: center;
       }
 
-      .schedule-chips {
-        justify-content: center;
+      .expert-text {
+        font-size: 0.875rem;
+        color: #64748b;
       }
-    }
-  `],
+
+      .class-info {
+        flex: 1;
+        padding: 28px;
+        max-width: 700px;
+      }
+
+      .subject-tags {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin: 0 0 8px 0;
+        text-transform: uppercase;
+      }
+
+      .class-name {
+        font-weight: 600;
+        color: #2563eb;
+        margin: 0 0 12px 0;
+      }
+
+      .class-brief {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #374151;
+        margin: 0 0 20px 0;
+        line-height: 1.5;
+      }
+
+      .schedule-section {
+        margin-bottom: 28px;
+      }
+
+      .schedule-label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #374151;
+        margin: 0 0 8px 0;
+      }
+
+      .schedule-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .register-button {
+        padding: 12px 32px;
+        font-size: 1rem;
+        border-radius: 8px;
+      }
+
+      .description-section {
+        max-width: 900px;
+        margin: 40px auto 100px;
+        padding: 0 24px;
+      }
+
+      .description-content {
+        line-height: 1.8;
+        color: #374151;
+      }
+
+      .description-content :deep(h1),
+      .description-content :deep(h2),
+      .description-content :deep(h3) {
+        color: #1a365d;
+        margin-top: 24px;
+        margin-bottom: 12px;
+      }
+
+      .description-content :deep(p) {
+        margin-bottom: 16px;
+      }
+
+      .description-content :deep(ul),
+      .description-content :deep(ol) {
+        padding-left: 24px;
+        margin-bottom: 16px;
+      }
+      #separate-line {
+        border: none;
+        height: 1px;
+        background-color: rgba(0, 0, 0, 0.12);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        margin: 24px 0;
+      }
+      /* Responsive */
+      @media (max-width: 768px) {
+        .main-info {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .class-image img {
+          max-width: 100%;
+          max-height: 250px;
+        }
+
+        .class-info {
+          padding: 16px;
+          text-align: center;
+        }
+
+        .schedule-chips {
+          justify-content: center;
+        }
+      }
+    `,
+  ],
 })
 export class ClassDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
@@ -305,7 +315,10 @@ export class ClassDetailComponent implements OnInit {
   openRegistrationDialog(): void {
     const dialogRef = this.dialog.open(RegistrationDialogComponent, {
       width: '500px',
-      data: { classId: this.classData()?.id, className: this.classData()?.name },
+      data: {
+        classId: this.classData()?.id,
+        className: this.classData()?.name,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
