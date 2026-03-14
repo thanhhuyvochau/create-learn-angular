@@ -496,7 +496,7 @@ src/
 ├── environments/
 │   ├── environment.ts
 │   └── environment.prod.ts
-└── assets/
+└── /
     └── images/
         └── algocore-logo.jpg
 ```
