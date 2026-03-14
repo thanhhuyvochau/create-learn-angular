@@ -34,7 +34,7 @@ const PAGE_SIZE = 10;
           </div>
         } @else if (error()) {
           <div class="error-container">
-            <p>Co loi xay ra. Vui long thu lai sau.</p>
+            <p>Có lỗi xảy ra trong quá trình xử lý. Bạn vui lòng thử lại nhé.</p>
           </div>
         } @else {
           <div class="class-grid">
@@ -50,7 +50,7 @@ const PAGE_SIZE = 10;
           </div>
 
           @if (classes().length === 0) {
-            <p class="no-classes">Chua co lop hoc nao trong chuong trinh nay.</p>
+            <p class="no-classes">Chưa có lớp học nào trong danh sách</p>
           }
 
           <!-- Pagination -->
