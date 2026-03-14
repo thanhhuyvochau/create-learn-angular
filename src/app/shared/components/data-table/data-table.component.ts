@@ -22,6 +22,11 @@ export interface ColumnDef<T> {
   sortable?: boolean;
 }
 
+export interface CellTemplateContext<T> {
+  $implicit: T;
+  row: T;
+}
+
 export type SortDirection = 'asc' | 'desc' | '';
 
 export interface SortState {
@@ -67,7 +72,13 @@ export interface SortState {
               *matCellDef="let row"
               [style.text-align]="column.align || 'left'"
             >
-              {{ getCellValue(row, column) }}
+              @if (cellTemplates()[column.key.toString()]) {
+                <ng-container
+                  *ngTemplateOutlet="cellTemplates()[column.key.toString()]; context: { $implicit: row, row: row }"
+                ></ng-container>
+              } @else {
+                {{ getCellValue(row, column) }}
+              }
             </td>
           </ng-container>
         }
@@ -154,6 +165,7 @@ export class DataTableComponent<T extends { id: number | string }> {
   showActions = input<boolean>(true);
   sortState = input<SortState | null>(null);
   emptyMessage = input<string>('No data available');
+  cellTemplates = input<Record<string, TemplateRef<CellTemplateContext<T>>>>({});
 
   // Content projection for custom actions template
   actionsTemplate = contentChild<TemplateRef<{ $implicit: T }>>('actions');
