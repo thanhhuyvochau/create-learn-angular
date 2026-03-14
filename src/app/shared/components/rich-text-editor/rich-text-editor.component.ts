@@ -8,6 +8,8 @@ import {
   effect,
   inject,
   forwardRef,
+  SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -133,7 +135,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   ],
 })
 export class RichTextEditorComponent
-  implements OnInit, OnDestroy, ControlValueAccessor
+  implements OnInit, OnDestroy, OnChanges, ControlValueAccessor
 {
   // Inputs
   label = input<string>('');
@@ -143,6 +145,12 @@ export class RichTextEditorComponent
   error = input<string | null>(null);
   hint = input<string>('');
   minHeight = input<number>(200);
+  
+  // Content input for standalone usage (not with formControl)
+  initialContent = input<string>('', { alias: 'content' });
+  
+  // Output for content changes (for standalone usage)
+  contentChange = output<string>();
 
   // Internal state
   content = signal<string>('');
@@ -165,6 +173,17 @@ export class RichTextEditorComponent
 
   ngOnInit(): void {
     this.editor = new Editor();
+    // Set initial content from input if provided
+    if (this.initialContent()) {
+      this.content.set(this.initialContent());
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle content input changes for standalone usage
+    if ('initialContent' in changes && !changes['initialContent'].firstChange) {
+      this.content.set(this.initialContent());
+    }
   }
 
   ngOnDestroy(): void {
@@ -175,6 +194,8 @@ export class RichTextEditorComponent
     this.content.set(html);
     this.onChange(html);
     this.onTouched();
+    // Emit for standalone usage
+    this.contentChange.emit(html);
   }
 
   // ControlValueAccessor implementation
