@@ -21,7 +21,7 @@ const PAGE_SIZE = 10;
         <div class="header-content">
           <h1 class="header-title">{{ subject()?.name || 'Chương Trình Học Quốc Tế Tại Algocore Education' }}</h1>
           <p class="header-description">
-            {{ subject()?.description || 'Hoc theo nhom nho tinh gon, lo trinh ca nhan hoa va chien luoc lam bai bam sat syllabus. Tap trung cai thien diem so qua luyen past papers/FRQ, feedback chi tiet va theo sat tien do.' }}
+            {{ subject()?.description || 'Học theo nhóm nhỏ tinh gọn với lộ trình cá nhân hóa, bám sát syllabus và cải thiện điểm số thông qua luyện tập Past Papers/FRQ cùng feedback chi tiết sát sao.' }}
           </p>
         </div>
       </div>
