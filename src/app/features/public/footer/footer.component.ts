@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+
+import { SubjectApiService } from '../../../core/api';
+import type { Subject } from '../../../models';
 
 @Component({
   selector: 'app-footer',
@@ -23,10 +26,9 @@ import { MatIconModule } from '@angular/material/icon';
         <div class="footer-column">
           <h4 class="column-title">Chương trình</h4>
           <ul class="footer-links">
-            <li><a routerLink="/class/subject/1">IGCSE</a></li>
-            <li><a routerLink="/class/subject/2">AS/A Level</a></li>
-            <li><a routerLink="/class/subject/3">IB Diploma</a></li>
-            <li><a routerLink="/class/subject/4">AP</a></li>
+            @for (subject of subjects(); track subject.id) {
+              <li><a [routerLink]="'/class/subject/' + subject.id">{{ subject.name }}</a></li>
+            }
           </ul>
         </div>
 
@@ -36,7 +38,7 @@ import { MatIconModule } from '@angular/material/icon';
           <ul class="footer-links">
             <li><a routerLink="/about">Giới thiệu</a></li>
             <li><a routerLink="/teachers">Đội ngũ giáo viên</a></li>
-            <li><a routerLink="/news">Blog học thuật</a></li>
+            <li><a routerLink="/news">Bài viết học thuật</a></li>
             <li><a routerLink="/recruitment">Tuyển dụng</a></li>
           </ul>
         </div>
@@ -277,6 +279,20 @@ import { MatIconModule } from '@angular/material/icon';
     }
   `],
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
+  private readonly subjectApi = inject(SubjectApiService);
+
   currentYear = new Date().getFullYear();
+  subjects = signal<Subject[]>([]);
+
+  ngOnInit(): void {
+    this.subjectApi.getAll({ page: 0, size: 5, sort: 'id,desc' }).subscribe({
+      next: (response) => {
+        if (response.status === 200 && response.data) {
+          this.subjects.set(response.data.data);
+        }
+      },
+      error: (err) => console.error('Failed to load subjects:', err),
+    });
+  }
 }
