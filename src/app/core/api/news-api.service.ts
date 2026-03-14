@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BaseApiService } from './base-api.service';
+import { buildQueryString } from '../utils/auth.utils';
 import type {
   News,
   CreateNewsRequest,
   UpdateNewsRequest,
   ApiListResponse,
   ApiSingleResponse,
+  ApiFilters,
 } from '../../models';
 
 @Injectable({ providedIn: 'root' })
@@ -21,9 +23,10 @@ export class NewsApiService extends BaseApiService<
   /**
    * Get all news for admin view
    */
-  getAllNews(): Observable<ApiListResponse<News>> {
+  getAllNews(filters?: ApiFilters): Observable<ApiListResponse<News>> {
+    const qs = buildQueryString(filters);
     return this.http.get<ApiListResponse<News>>(
-      `${this.baseUrl}/api/news/admin`
+      `${this.baseUrl}/api/news/admin${qs}`
     );
   }
 
