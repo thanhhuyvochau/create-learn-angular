@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+
+  &.public-layout {
+    // Public pages may need some base styling
+    background: #f9fafb;
+  }
+}
