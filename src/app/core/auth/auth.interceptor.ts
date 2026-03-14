@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
 
 import { AuthApiService } from './auth-api.service';
+import { NotificationService } from '../notifications/notification.service';
 import { getStoredToken } from '../utils/auth.utils';
 
 let isRefreshing = false;
@@ -17,7 +18,7 @@ let isRefreshing = false;
  * HTTP Interceptor that:
  * 1. Adds JWT Bearer token to all requests
  * 2. Handles 401 errors by attempting token refresh
- * 3. Redirects to login on refresh failure
+ * 3. Redirects to login on refresh failure with "Session expired" message
  */
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -25,6 +26,7 @@ export const authInterceptor: HttpInterceptorFn = (
 ) => {
   const authApi = inject(AuthApiService);
   const router = inject(Router);
+  const notification = inject(NotificationService);
 
   // Skip auth header for refresh endpoint to avoid circular dependency
   const isRefreshRequest = req.url.includes('/api/auth/refresh');
@@ -49,6 +51,7 @@ export const authInterceptor: HttpInterceptorFn = (
             isRefreshing = false;
             // Refresh failed - clear tokens and redirect to login
             authApi.removeTokens();
+            notification.showError('Session expired. Please log in again.');
             router.navigate(['/login']);
             return throwError(() => refreshError);
           })

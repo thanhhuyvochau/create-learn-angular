@@ -1,5 +1,7 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed, effect } from '@angular/core';
 import { Router } from '@angular/router';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 import { AuthApiService } from './auth-api.service';
 import type { LoginRequest, AuthState, UserLogin } from '../../models';
@@ -33,6 +35,9 @@ export class AuthService {
     isLoading: this._isLoading(),
     error: this._error(),
   }));
+
+  // Observable for auth state (useful for subscriptions)
+  readonly authState$: Observable<AuthState> = toObservable(this.state);
 
   /**
    * Initialize auth state - called in APP_INITIALIZER
