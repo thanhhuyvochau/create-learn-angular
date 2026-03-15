@@ -21,49 +21,49 @@ export interface StatusConfig {
 
 const STATUS_CONFIGS: Record<string, StatusConfig> = {
   PROCESSING: {
-    label: 'Đang xử lý',
+    label: 'Processing',
     color: 'primary',
     bgColor: '#e3f2fd',
     textColor: '#1565c0',
   },
   PROCESSED: {
-    label: 'Đã xử lý',
+    label: 'Processed',
     color: 'accent',
     bgColor: '#e8f5e9',
     textColor: '#2e7d32',
   },
   REJECTED: {
-    label: 'Từ chối',
+    label: 'Rejected',
     color: 'warn',
     bgColor: '#ffebee',
     textColor: '#c62828',
   },
   ACTIVE: {
-    label: 'Hoạt động',
+    label: 'Active',
     color: 'accent',
     bgColor: '#e8f5e9',
     textColor: '#2e7d32',
   },
   INACTIVE: {
-    label: 'Không hoạt động',
+    label: 'Inactive',
     color: 'default',
     bgColor: '#f5f5f5',
     textColor: '#616161',
   },
   HIDDEN: {
-    label: 'Ẩn',
+    label: 'Hidden',
     color: 'warn',
     bgColor: '#ffebee',
     textColor: '#c62828',
   },
   PUBLISHED: {
-    label: 'Đã đăng',
+    label: 'Published',
     color: 'accent',
     bgColor: '#e8f5e9',
     textColor: '#2e7d32',
   },
   DRAFT: {
-    label: 'Bản nháp',
+    label: 'Draft',
     color: 'default',
     bgColor: '#fff3e0',
     textColor: '#e65100',
@@ -71,7 +71,7 @@ const STATUS_CONFIGS: Record<string, StatusConfig> = {
 };
 
 const DEFAULT_CONFIG: StatusConfig = {
-  label: 'Không xác định',
+  label: 'Unknown',
   color: 'default',
   bgColor: '#f5f5f5',
   textColor: '#616161',

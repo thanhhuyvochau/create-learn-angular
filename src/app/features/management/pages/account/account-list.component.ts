@@ -343,7 +343,7 @@ export class AccountListComponent implements OnInit {
     {
       key: 'activated',
       header: 'Trạng thái',
-      width: '100px',
+      width: '200px',
     },
   ];
 

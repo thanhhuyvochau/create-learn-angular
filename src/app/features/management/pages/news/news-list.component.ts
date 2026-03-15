@@ -443,7 +443,7 @@ export class NewsListComponent implements OnInit {
     {
       key: 'isDisplay',
       header: 'Trạng thái',
-      width: '100px',
+      width: '200px',
     },
   ];
 

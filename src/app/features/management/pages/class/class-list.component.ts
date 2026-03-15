@@ -664,7 +664,7 @@ export class ClassListComponent implements OnInit {
     {
       key: 'isDisplayed',
       header: 'Trạng thái',
-      width: '100px',
+      width: '200px',
     },
     {
       key: 'grades',

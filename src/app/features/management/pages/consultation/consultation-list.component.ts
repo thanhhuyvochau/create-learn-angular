@@ -303,7 +303,7 @@ export class ConsultationListComponent implements OnInit {
     {
       key: 'status',
       header: 'Trạng thái',
-      width: '120px',
+      width: '200px',
     },
   ];
 
