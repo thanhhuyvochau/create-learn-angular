@@ -41,8 +41,8 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
   template: `
     <div class="grade-list-container">
       <app-page-header
-        title="Grades"
-        subtitle="Manage educational grades"
+        title="Khối lớp"
+        subtitle="Quản lý các khối lớp học"
         (addClick)="openCreateDialog()"
       ></app-page-header>
 
@@ -52,7 +52,7 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
         <div class="error-message">
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
-          <button mat-button color="primary" (click)="loadGrades()">Retry</button>
+          <button mat-button color="primary" (click)="loadGrades()">Thử lại</button>
         </div>
       } @else {
         <div class="table-section">
@@ -60,7 +60,7 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
             [data]="grades()"
             [columns]="columns"
             [showActions]="true"
-            [emptyMessage]="'No grades found'"
+            [emptyMessage]="'Không tìm thấy khối lớp nào'"
             [cellTemplates]="cellTemplates()"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
@@ -82,7 +82,7 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ grades().length }} of {{ totalElements() }} items
+              Hiển thị {{ grades().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -99,32 +99,32 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
         <div class="dialog-overlay" (click)="closeDialog()">
           <div class="dialog-content" (click)="$event.stopPropagation()">
             <div class="dialog-header">
-              <h2>{{ editingGrade() ? 'Edit Grade' : 'Create Grade' }}</h2>
+              <h2>{{ editingGrade() ? 'Chỉnh sửa khối lớp' : 'Tạo khối lớp' }}</h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
             </div>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-body">
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="name" placeholder="Enter grade name" />
+                <mat-label>Tên</mat-label>
+                <input matInput formControlName="name" placeholder="Nhập tên khối lớp" />
                 @if (form.controls.name.hasError('required')) {
-                  <mat-error>Name is required</mat-error>
+                  <mat-error>Tên là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Description</mat-label>
+                <mat-label>Mô tả</mat-label>
                 <textarea
                   matInput
                   formControlName="description"
-                  placeholder="Enter grade description"
+                  placeholder="Nhập mô tả khối lớp"
                   rows="3"
                 ></textarea>
               </mat-form-field>
 
               <div class="file-upload-section">
-                <label class="file-upload-label">Icon</label>
+                <label class="file-upload-label">Biểu tượng</label>
                 <input
                   type="file"
                   #fileInput
@@ -138,7 +138,7 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
                   (click)="fileInput.click()"
                 >
                   <mat-icon>upload</mat-icon>
-                  {{ selectedFile() ? 'Change File' : 'Upload Icon' }}
+                  {{ selectedFile() ? 'Đổi tệp' : 'Tải lên biểu tượng' }}
                 </button>
                 @if (selectedFile()) {
                   <span class="file-name">{{ selectedFile()?.name }}</span>
@@ -147,7 +147,7 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
 
               @if (previewUrl()) {
                 <div class="icon-preview">
-                  <img [src]="previewUrl()" alt="Icon preview" />
+                  <img [src]="previewUrl()" alt="Xem trước biểu tượng" />
                 </div>
               }
 
@@ -158,7 +158,7 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
                   (click)="closeDialog()"
                   [disabled]="submitting()"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
@@ -169,7 +169,7 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
                   @if (submitting()) {
                     <mat-spinner diameter="20"></mat-spinner>
                   } @else {
-                    {{ editingGrade() ? 'Update' : 'Create' }}
+                    {{ editingGrade() ? 'Cập nhật' : 'Tạo mới' }}
                   }
                 </button>
               </div>
@@ -356,13 +356,13 @@ export class GradeListComponent implements OnInit {
   columns: ColumnDef<Grade>[] = [
     {
       key: 'iconBase64',
-      header: 'Icon',
+      header: 'Biểu tượng',
       sortable: false,
       width: '80px',
       align: 'center',
     },
-    { key: 'name', header: 'Name' },
-    { key: 'description', header: 'Description' },
+    { key: 'name', header: 'Tên' },
+    { key: 'description', header: 'Mô tả' },
   ];
 
   ngOnInit(): void {
@@ -386,7 +386,7 @@ export class GradeListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load grades:', err);
-          this.error.set('Failed to load grades. Please try again.');
+          this.error.set('Không thể tải danh sách khối lớp. Vui lòng thử lại.');
         },
       });
   }
@@ -461,13 +461,13 @@ export class GradeListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Grade updated successfully');
+            this.notification.showSuccess('Cập nhật khối lớp thành công');
             this.closeDialog();
             this.loadGrades();
           },
           error: (err) => {
             console.error('Failed to update grade:', err);
-            this.notification.showError('Failed to update grade');
+            this.notification.showError('Không thể cập nhật khối lớp');
           },
         });
     } else {
@@ -482,13 +482,13 @@ export class GradeListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Grade created successfully');
+            this.notification.showSuccess('Tạo khối lớp thành công');
             this.closeDialog();
             this.loadGrades();
           },
           error: (err) => {
             console.error('Failed to create grade:', err);
-            this.notification.showError('Failed to create grade');
+            this.notification.showError('Không thể tạo khối lớp');
           },
         });
     }
@@ -497,10 +497,10 @@ export class GradeListComponent implements OnInit {
   openDeleteDialog(grade: Grade): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete Grade',
-        message: `Are you sure you want to delete "${grade.name}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa khối lớp',
+        message: `Bạn có chắc chắn muốn xóa "${grade.name}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -515,12 +515,12 @@ export class GradeListComponent implements OnInit {
   private deleteGrade(grade: Grade): void {
     this.gradeApi.delete(grade.id).subscribe({
       next: () => {
-        this.notification.showSuccess('Grade deleted successfully');
+        this.notification.showSuccess('Xóa khối lớp thành công');
         this.loadGrades();
       },
       error: (err) => {
         console.error('Failed to delete grade:', err);
-        this.notification.showError('Failed to delete grade');
+        this.notification.showError('Không thể xóa khối lớp');
       },
     });
   }

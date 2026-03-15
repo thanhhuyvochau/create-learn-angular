@@ -75,7 +75,7 @@ export class PageHeaderComponent {
   title = input.required<string>();
   subtitle = input<string>('');
   showAddButton = input<boolean>(true);
-  addButtonText = input<string>('Add New');
+  addButtonText = input<string>('Thêm mới');
 
   addClick = output<void>();
 }

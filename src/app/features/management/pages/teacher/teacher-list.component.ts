@@ -51,8 +51,8 @@ import type {
   template: `
     <div class="teacher-list-container">
       <app-page-header
-        title="Teachers"
-        subtitle="Manage teachers and instructors"
+        title="Giáo viên"
+        subtitle="Quản lý giáo viên và giảng viên"
         (addClick)="openCreateDialog()"
       ></app-page-header>
 
@@ -62,7 +62,7 @@ import type {
         <div class="error-message">
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
-          <button mat-button color="primary" (click)="loadTeachers()">Retry</button>
+          <button mat-button color="primary" (click)="loadTeachers()">Thử lại</button>
         </div>
       } @else {
         <div class="table-section">
@@ -71,7 +71,7 @@ import type {
             [columns]="columns"
             [cellTemplates]="cellTemplates()"
             [showActions]="true"
-            [emptyMessage]="'No teachers found'"
+            [emptyMessage]="'Không tìm thấy giáo viên nào'"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
           >
@@ -93,7 +93,7 @@ import type {
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ teachers().length }} of {{ totalElements() }} items
+              Hiển thị {{ teachers().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -110,7 +110,7 @@ import type {
         <div class="dialog-overlay" (click)="closeDialog()">
           <div class="dialog-content dialog-large" (click)="$event.stopPropagation()">
             <div class="dialog-header">
-              <h2>{{ editingTeacher() ? 'Edit Teacher' : 'Create Teacher' }}</h2>
+              <h2>{{ editingTeacher() ? 'Chỉnh sửa giáo viên' : 'Tạo giáo viên' }}</h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
@@ -118,50 +118,50 @@ import type {
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-body">
               <div class="form-row">
                 <mat-form-field appearance="outline" class="half-width">
-                  <mat-label>First Name</mat-label>
-                  <input matInput formControlName="firstName" placeholder="Enter first name" />
+                  <mat-label>Họ</mat-label>
+                  <input matInput formControlName="firstName" placeholder="Nhập họ" />
                   @if (form.controls.firstName.hasError('required')) {
-                    <mat-error>First name is required</mat-error>
+                    <mat-error>Họ là bắt buộc</mat-error>
                   }
                   @if (form.controls.firstName.hasError('minlength')) {
-                    <mat-error>First name is too short</mat-error>
+                    <mat-error>Họ quá ngắn</mat-error>
                   }
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="half-width">
-                  <mat-label>Last Name</mat-label>
-                  <input matInput formControlName="lastName" placeholder="Enter last name" />
+                  <mat-label>Tên</mat-label>
+                  <input matInput formControlName="lastName" placeholder="Nhập tên" />
                   @if (form.controls.lastName.hasError('required')) {
-                    <mat-error>Last name is required</mat-error>
+                    <mat-error>Tên là bắt buộc</mat-error>
                   }
                   @if (form.controls.lastName.hasError('minlength')) {
-                    <mat-error>Last name is too short</mat-error>
+                    <mat-error>Tên quá ngắn</mat-error>
                   }
                 </mat-form-field>
               </div>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Gender</mat-label>
+                <mat-label>Giới tính</mat-label>
                 <mat-select formControlName="gender">
-                  <mat-option value="MALE">Male</mat-option>
-                  <mat-option value="FEMALE">Female</mat-option>
+                  <mat-option value="MALE">Nam</mat-option>
+                  <mat-option value="FEMALE">Nữ</mat-option>
                 </mat-select>
               </mat-form-field>
 
               <div class="form-field-group">
-                <label class="form-label">Introduction <span class="required">*</span></label>
+                <label class="form-label">Giới thiệu <span class="required">*</span></label>
                 <app-rich-text-editor
                   [content]="form.controls.introduction.value || ''"
                   (contentChange)="form.controls.introduction.setValue($event)"
-                  placeholder="Write the teacher's introduction..."
+                  placeholder="Viết giới thiệu về giáo viên..."
                 ></app-rich-text-editor>
                 @if (form.controls.introduction.hasError('required') && form.controls.introduction.touched) {
-                  <span class="error-text">Introduction is required</span>
+                  <span class="error-text">Giới thiệu là bắt buộc</span>
                 }
               </div>
 
               <div class="file-upload-section">
-                <label class="file-upload-label">Profile Image</label>
+                <label class="file-upload-label">Ảnh đại diện</label>
                 <input
                   type="file"
                   #fileInput
@@ -176,7 +176,7 @@ import type {
                   [disabled]="uploading()"
                 >
                   <mat-icon>upload</mat-icon>
-                  {{ selectedFile() ? 'Change Image' : 'Upload Image' }}
+                  {{ selectedFile() ? 'Đổi ảnh' : 'Tải lên ảnh' }}
                 </button>
                 @if (selectedFile()) {
                   <span class="file-name">{{ selectedFile()?.name }}</span>
@@ -188,7 +188,7 @@ import type {
 
               @if (previewUrl()) {
                 <div class="image-preview">
-                  <img [src]="previewUrl()" alt="Profile preview" />
+                  <img [src]="previewUrl()" alt="Xem trước ảnh đại diện" />
                 </div>
               }
 
@@ -199,7 +199,7 @@ import type {
                   (click)="closeDialog()"
                   [disabled]="submitting() || uploading()"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
@@ -210,7 +210,7 @@ import type {
                   @if (submitting()) {
                     <mat-spinner diameter="20"></mat-spinner>
                   } @else {
-                    {{ editingTeacher() ? 'Update' : 'Create' }}
+                    {{ editingTeacher() ? 'Cập nhật' : 'Tạo mới' }}
                   }
                 </button>
               </div>
@@ -449,16 +449,16 @@ export class TeacherListComponent implements OnInit {
   columns: ColumnDef<Teacher>[] = [
     {
       key: 'profileImageUrl',
-      header: 'Image',
+      header: 'Ảnh',
       sortable: false,
       width: '80px',
     },
-    { key: 'firstName', header: 'First Name' },
-    { key: 'lastName', header: 'Last Name' },
+    { key: 'firstName', header: 'Họ' },
+    { key: 'lastName', header: 'Tên' },
     {
       key: 'gender',
-      header: 'Gender',
-      render: (row) => row.gender === 'MALE' ? 'Male' : 'Female',
+      header: 'Giới tính',
+      render: (row) => row.gender === 'MALE' ? 'Nam' : 'Nữ',
     },
   ];
 
@@ -483,7 +483,7 @@ export class TeacherListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load teachers:', err);
-          this.error.set('Failed to load teachers. Please try again.');
+          this.error.set('Không thể tải danh sách giáo viên. Vui lòng thử lại.');
         },
       });
   }
@@ -555,12 +555,12 @@ export class TeacherListComponent implements OnInit {
           if (response.status === 200 && response.data) {
             this.uploadedImageUrl.set(response.data);
             this.form.patchValue({ profileImageUrl: response.data });
-            this.notification.showSuccess('Image uploaded successfully');
+            this.notification.showSuccess('Tải ảnh lên thành công');
           }
         },
         error: (err) => {
           console.error('Failed to upload image:', err);
-          this.notification.showError('Failed to upload image');
+          this.notification.showError('Không thể tải ảnh lên');
           this.selectedFile.set(null);
           this.previewUrl.set(this.editingTeacher()?.profileImageUrl || null);
         },
@@ -588,13 +588,13 @@ export class TeacherListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Teacher updated successfully');
+            this.notification.showSuccess('Cập nhật giáo viên thành công');
             this.closeDialog();
             this.loadTeachers();
           },
           error: (err) => {
             console.error('Failed to update teacher:', err);
-            this.notification.showError('Failed to update teacher');
+            this.notification.showError('Không thể cập nhật giáo viên');
           },
         });
     } else {
@@ -611,13 +611,13 @@ export class TeacherListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Teacher created successfully');
+            this.notification.showSuccess('Tạo giáo viên thành công');
             this.closeDialog();
             this.loadTeachers();
           },
           error: (err) => {
             console.error('Failed to create teacher:', err);
-            this.notification.showError('Failed to create teacher');
+            this.notification.showError('Không thể tạo giáo viên');
           },
         });
     }
@@ -626,10 +626,10 @@ export class TeacherListComponent implements OnInit {
   openDeleteDialog(teacher: Teacher): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete Teacher',
-        message: `Are you sure you want to delete "${teacher.firstName} ${teacher.lastName}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa giáo viên',
+        message: `Bạn có chắc chắn muốn xóa "${teacher.firstName} ${teacher.lastName}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -644,12 +644,12 @@ export class TeacherListComponent implements OnInit {
   private deleteTeacher(teacher: Teacher): void {
     this.teacherApi.delete(teacher.id).subscribe({
       next: () => {
-        this.notification.showSuccess('Teacher deleted successfully');
+        this.notification.showSuccess('Xóa giáo viên thành công');
         this.loadTeachers();
       },
       error: (err) => {
         console.error('Failed to delete teacher:', err);
-        this.notification.showError('Failed to delete teacher');
+        this.notification.showError('Không thể xóa giáo viên');
       },
     });
   }

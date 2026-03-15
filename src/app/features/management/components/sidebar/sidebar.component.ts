@@ -17,59 +17,59 @@ export interface SidebarItem {
 export const SIDEBAR_ITEMS: SidebarItem[] = [
   {
     id: 'subject',
-    label: 'Subject',
+    label: 'Môn học',
     icon: 'functions',
     route: '/management/subject',
-    description: 'Manage Subjects',
+    description: 'Quản lý môn học',
   },
   {
     id: 'grades',
-    label: 'Grades',
+    label: 'Khối lớp',
     icon: 'school',
     route: '/management/grade',
-    description: 'Manage Grades',
+    description: 'Quản lý khối lớp',
   },
   {
     id: 'teachers',
-    label: 'Teachers',
+    label: 'Giáo viên',
     icon: 'person',
     route: '/management/teacher',
-    description: 'Manage Teachers',
+    description: 'Quản lý giáo viên',
   },
   {
     id: 'class',
-    label: 'Classes',
+    label: 'Lớp học',
     icon: 'class',
     route: '/management/class',
-    description: 'Manage Classes',
+    description: 'Quản lý lớp học',
   },
   {
     id: 'consultation',
-    label: 'Consultation',
+    label: 'Tư vấn',
     icon: 'support_agent',
     route: '/management/consultation',
-    description: 'Manage Consultation',
+    description: 'Quản lý tư vấn',
   },
   {
     id: 'news',
-    label: 'News',
+    label: 'Tin tức',
     icon: 'newspaper',
     route: '/management/news',
-    description: 'Manage News',
+    description: 'Quản lý tin tức',
   },
   {
     id: 'account',
-    label: 'Account',
+    label: 'Tài khoản',
     icon: 'person_add',
     route: '/management/account',
-    description: 'Manage Accounts',
+    description: 'Quản lý tài khoản',
   },
   {
     id: 'registration',
-    label: 'Registration',
+    label: 'Đăng ký',
     icon: 'how_to_reg',
     route: '/management/registration',
-    description: 'Manage Registrations',
+    description: 'Quản lý đăng ký',
   },
 ];
 
@@ -90,13 +90,13 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
       <!-- Header -->
       <div class="sidebar-header">
         @if (!collapsed()) {
-          <span class="sidebar-title">Management</span>
+          <span class="sidebar-title">Quản lý</span>
         }
         <button
           mat-icon-button
           class="toggle-button"
           (click)="onToggle()"
-          [matTooltip]="collapsed() ? 'Expand' : 'Collapse'"
+          [matTooltip]="collapsed() ? 'Mở rộng' : 'Thu gọn'"
         >
           <mat-icon>{{ collapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
         </button>

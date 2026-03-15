@@ -49,8 +49,8 @@ import type {
   template: `
     <div class="consultation-list-container">
       <app-page-header
-        title="Consultations"
-        subtitle="Manage customer consultation requests"
+        title="Tư vấn"
+        subtitle="Quản lý yêu cầu tư vấn của khách hàng"
         [showAddButton]="false"
       ></app-page-header>
 
@@ -60,7 +60,7 @@ import type {
         <div class="error-message">
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
-          <button mat-button color="primary" (click)="loadConsultations()">Retry</button>
+          <button mat-button color="primary" (click)="loadConsultations()">Thử lại</button>
         </div>
       } @else {
         <div class="table-section">
@@ -69,7 +69,7 @@ import type {
             [columns]="columns"
             [cellTemplates]="cellTemplates()"
             [showActions]="true"
-            [emptyMessage]="'No consultations found'"
+            [emptyMessage]="'Không tìm thấy yêu cầu tư vấn nào'"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
           >
@@ -81,7 +81,7 @@ import type {
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ consultations().length }} of {{ totalElements() }} items
+              Hiển thị {{ consultations().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -98,27 +98,27 @@ import type {
         <div class="dialog-overlay" (click)="closeDialog()">
           <div class="dialog-content" (click)="$event.stopPropagation()">
             <div class="dialog-header">
-              <h2>Update Consultation Status</h2>
+              <h2>Cập nhật trạng thái tư vấn</h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
             </div>
             <div class="dialog-body">
               <div class="info-section">
-                <p><strong>Customer:</strong> {{ editingConsultation()?.customerName }}</p>
+                <p><strong>Khách hàng:</strong> {{ editingConsultation()?.customerName }}</p>
                 <p><strong>Email:</strong> {{ editingConsultation()?.email }}</p>
-                <p><strong>Phone:</strong> {{ editingConsultation()?.phoneNumber }}</p>
-                <p><strong>Content:</strong></p>
+                <p><strong>Số điện thoại:</strong> {{ editingConsultation()?.phoneNumber }}</p>
+                <p><strong>Nội dung:</strong></p>
                 <p class="content-text">{{ editingConsultation()?.content }}</p>
               </div>
 
               <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Status</mat-label>
+                  <mat-label>Trạng thái</mat-label>
                   <mat-select formControlName="status">
-                    <mat-option value="PROCESSING">Processing</mat-option>
-                    <mat-option value="PROCESSED">Processed</mat-option>
-                    <mat-option value="REJECTED">Rejected</mat-option>
+                    <mat-option value="PROCESSING">Đang xử lý</mat-option>
+                    <mat-option value="PROCESSED">Đã xử lý</mat-option>
+                    <mat-option value="REJECTED">Từ chối</mat-option>
                   </mat-select>
                 </mat-form-field>
 
@@ -129,7 +129,7 @@ import type {
                     (click)="closeDialog()"
                     [disabled]="submitting()"
                   >
-                    Cancel
+                    Hủy
                   </button>
                   <button
                     type="submit"
@@ -140,7 +140,7 @@ import type {
                     @if (submitting()) {
                       <mat-spinner diameter="20"></mat-spinner>
                     } @else {
-                      Update Status
+                      Cập nhật trạng thái
                     }
                   </button>
                 </div>
@@ -292,17 +292,17 @@ export class ConsultationListComponent implements OnInit {
 
   // Column definitions
   columns: ColumnDef<Consultation>[] = [
-    { key: 'customerName', header: 'Customer Name' },
+    { key: 'customerName', header: 'Tên khách hàng' },
     { key: 'email', header: 'Email' },
-    { key: 'phoneNumber', header: 'Phone' },
+    { key: 'phoneNumber', header: 'Số điện thoại' },
     {
       key: 'content',
-      header: 'Content',
+      header: 'Nội dung',
       render: (row) => row.content?.length > 50 ? row.content.slice(0, 50) + '...' : row.content,
     },
     {
       key: 'status',
-      header: 'Status',
+      header: 'Trạng thái',
       width: '120px',
     },
   ];
@@ -328,7 +328,7 @@ export class ConsultationListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load consultations:', err);
-          this.error.set('Failed to load consultations. Please try again.');
+          this.error.set('Không thể tải danh sách tư vấn. Vui lòng thử lại.');
         },
       });
   }
@@ -369,13 +369,13 @@ export class ConsultationListComponent implements OnInit {
       .pipe(finalize(() => this.submitting.set(false)))
       .subscribe({
         next: () => {
-          this.notification.showSuccess('Consultation status updated successfully');
+          this.notification.showSuccess('Cập nhật trạng thái tư vấn thành công');
           this.closeDialog();
           this.loadConsultations();
         },
         error: (err) => {
           console.error('Failed to update consultation:', err);
-          this.notification.showError('Failed to update consultation');
+          this.notification.showError('Không thể cập nhật tư vấn');
         },
       });
   }
@@ -383,10 +383,10 @@ export class ConsultationListComponent implements OnInit {
   openDeleteDialog(consultation: Consultation): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete Consultation',
-        message: `Are you sure you want to delete this consultation from "${consultation.customerName}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa yêu cầu tư vấn',
+        message: `Bạn có chắc chắn muốn xóa yêu cầu tư vấn từ "${consultation.customerName}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -401,12 +401,12 @@ export class ConsultationListComponent implements OnInit {
   private deleteConsultation(consultation: Consultation): void {
     this.consultationApi.delete(consultation.id).subscribe({
       next: () => {
-        this.notification.showSuccess('Consultation deleted successfully');
+        this.notification.showSuccess('Xóa yêu cầu tư vấn thành công');
         this.loadConsultations();
       },
       error: (err) => {
         console.error('Failed to delete consultation:', err);
-        this.notification.showError('Failed to delete consultation');
+        this.notification.showError('Không thể xóa yêu cầu tư vấn');
       },
     });
   }

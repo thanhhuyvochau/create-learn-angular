@@ -20,31 +20,31 @@ export interface ConfirmDialogData {
   standalone: true,
   imports: [MatDialogModule, MatButtonModule],
   template: `
-    <h2 mat-dialog-title>{{ data.title || 'Confirm' }}</h2>
+    <h2 mat-dialog-title>{{ data.title || 'Xác nhận' }}</h2>
     <mat-dialog-content>
       @if (data.entityLabel) {
         <p>
-          Are you sure you want to delete
+          Bạn có chắc chắn muốn xóa
           <strong>{{ data.entityLabel }}</strong
           >?
         </p>
       } @else if (data.message) {
         <p>{{ data.message }}</p>
       } @else {
-        <p>Are you sure you want to proceed?</p>
+        <p>Bạn có chắc chắn muốn tiếp tục?</p>
       }
-      <p class="warning-text">This action cannot be undone.</p>
+      <p class="warning-text">Hành động này không thể hoàn tác.</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-button (click)="onCancel()">
-        {{ data.cancelText || 'Cancel' }}
+        {{ data.cancelText || 'Hủy' }}
       </button>
       <button
         mat-flat-button
         [color]="data.confirmColor || 'warn'"
         (click)="onConfirm()"
       >
-        {{ data.confirmText || 'Delete' }}
+        {{ data.confirmText || 'Xóa' }}
       </button>
     </mat-dialog-actions>
   `,

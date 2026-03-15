@@ -47,8 +47,8 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
   template: `
     <div class="news-list-container">
       <app-page-header
-        title="News"
-        subtitle="Manage news articles"
+        title="Tin tức"
+        subtitle="Quản lý bài viết tin tức"
         (addClick)="openCreateDialog()"
       ></app-page-header>
 
@@ -58,7 +58,7 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
         <div class="error-message">
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
-          <button mat-button color="primary" (click)="loadNews()">Retry</button>
+          <button mat-button color="primary" (click)="loadNews()">Thử lại</button>
         </div>
       } @else {
         <div class="table-section">
@@ -67,7 +67,7 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
             [columns]="columns"
             [cellTemplates]="cellTemplates()"
             [showActions]="true"
-            [emptyMessage]="'No news found'"
+            [emptyMessage]="'Không tìm thấy tin tức nào'"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
           >
@@ -93,7 +93,7 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ newsList().length }} of {{ totalElements() }} items
+              Hiển thị {{ newsList().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -110,44 +110,44 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
         <div class="dialog-overlay" (click)="closeDialog()">
           <div class="dialog-content dialog-large" (click)="$event.stopPropagation()">
             <div class="dialog-header">
-              <h2>{{ editingNews() ? 'Edit News' : 'Create News' }}</h2>
+              <h2>{{ editingNews() ? 'Chỉnh sửa tin tức' : 'Tạo tin tức' }}</h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
             </div>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-body">
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Title</mat-label>
-                <input matInput formControlName="title" placeholder="Enter news title" />
+                <mat-label>Tiêu đề</mat-label>
+                <input matInput formControlName="title" placeholder="Nhập tiêu đề tin tức" />
                 @if (form.controls.title.hasError('required')) {
-                  <mat-error>Title is required</mat-error>
+                  <mat-error>Tiêu đề là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Brief</mat-label>
+                <mat-label>Mô tả ngắn</mat-label>
                 <textarea
                   matInput
                   formControlName="brief"
-                  placeholder="Enter brief description"
+                  placeholder="Nhập mô tả ngắn"
                   rows="2"
                 ></textarea>
                 @if (form.controls.brief.hasError('required')) {
-                  <mat-error>Brief is required</mat-error>
+                  <mat-error>Mô tả ngắn là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <div class="form-field-group">
-                <label class="form-label">Content <span class="required">*</span></label>
+                <label class="form-label">Nội dung <span class="required">*</span></label>
                 <app-rich-text-editor
                   [content]="form.controls.content.value || ''"
                   (contentChange)="form.controls.content.setValue($event)"
-                  placeholder="Write the news content..."
+                  placeholder="Viết nội dung tin tức..."
                 ></app-rich-text-editor>
               </div>
 
               <div class="file-upload-section">
-                <label class="file-upload-label">Image</label>
+                <label class="file-upload-label">Hình ảnh</label>
                 <input
                   type="file"
                   #fileInput
@@ -162,7 +162,7 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
                   [disabled]="uploading()"
                 >
                   <mat-icon>upload</mat-icon>
-                  {{ selectedFile() ? 'Change Image' : 'Upload Image' }}
+                  {{ selectedFile() ? 'Đổi hình ảnh' : 'Tải hình ảnh' }}
                 </button>
                 @if (selectedFile()) {
                   <span class="file-name">{{ selectedFile()?.name }}</span>
@@ -174,12 +174,12 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
 
               @if (previewUrl()) {
                 <div class="image-preview">
-                  <img [src]="previewUrl()" alt="News preview" />
+                  <img [src]="previewUrl()" alt="Xem trước tin tức" />
                 </div>
               }
 
               <div class="checkbox-row">
-                <mat-checkbox formControlName="isDisplay">Display this news</mat-checkbox>
+                <mat-checkbox formControlName="isDisplay">Hiển thị tin tức này</mat-checkbox>
               </div>
 
               <div class="dialog-actions">
@@ -189,7 +189,7 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
                   (click)="closeDialog()"
                   [disabled]="submitting() || uploading()"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
@@ -200,7 +200,7 @@ import type { News, CreateNewsRequest, UpdateNewsRequest } from '../../../../mod
                   @if (submitting()) {
                     <mat-spinner diameter="20"></mat-spinner>
                   } @else {
-                    {{ editingNews() ? 'Update' : 'Create' }}
+                    {{ editingNews() ? 'Cập nhật' : 'Tạo mới' }}
                   }
                 </button>
               </div>
@@ -430,19 +430,19 @@ export class NewsListComponent implements OnInit {
   columns: ColumnDef<News>[] = [
     {
       key: 'image',
-      header: 'Image',
+      header: 'Hình ảnh',
       sortable: false,
       width: '80px',
     },
-    { key: 'title', header: 'Title' },
+    { key: 'title', header: 'Tiêu đề' },
     {
       key: 'brief',
-      header: 'Brief',
+      header: 'Mô tả ngắn',
       render: (row) => row.brief?.length > 50 ? row.brief.slice(0, 50) + '...' : row.brief,
     },
     {
       key: 'isDisplay',
-      header: 'Status',
+      header: 'Trạng thái',
       width: '100px',
     },
   ];
@@ -468,7 +468,7 @@ export class NewsListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load news:', err);
-          this.error.set('Failed to load news. Please try again.');
+          this.error.set('Không thể tải tin tức. Vui lòng thử lại.');
         },
       });
   }
@@ -538,12 +538,12 @@ export class NewsListComponent implements OnInit {
           if (response.status === 200 && response.data) {
             this.uploadedImageUrl.set(response.data);
             this.form.patchValue({ image: response.data });
-            this.notification.showSuccess('Image uploaded successfully');
+            this.notification.showSuccess('Tải hình ảnh thành công');
           }
         },
         error: (err) => {
           console.error('Failed to upload image:', err);
-          this.notification.showError('Failed to upload image');
+          this.notification.showError('Không thể tải hình ảnh');
           this.selectedFile.set(null);
           this.previewUrl.set(this.editingNews()?.image || null);
         },
@@ -572,13 +572,13 @@ export class NewsListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('News updated successfully');
+            this.notification.showSuccess('Cập nhật tin tức thành công');
             this.closeDialog();
             this.loadNews();
           },
           error: (err) => {
             console.error('Failed to update news:', err);
-            this.notification.showError('Failed to update news');
+            this.notification.showError('Không thể cập nhật tin tức');
           },
         });
     } else {
@@ -595,13 +595,13 @@ export class NewsListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('News created successfully');
+            this.notification.showSuccess('Tạo tin tức thành công');
             this.closeDialog();
             this.loadNews();
           },
           error: (err) => {
             console.error('Failed to create news:', err);
-            this.notification.showError('Failed to create news');
+            this.notification.showError('Không thể tạo tin tức');
           },
         });
     }
@@ -610,10 +610,10 @@ export class NewsListComponent implements OnInit {
   openDeleteDialog(news: News): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete News',
-        message: `Are you sure you want to delete "${news.title}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa tin tức',
+        message: `Bạn có chắc chắn muốn xóa "${news.title}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -628,12 +628,12 @@ export class NewsListComponent implements OnInit {
   private deleteNews(news: News): void {
     this.newsApi.delete(news.id).subscribe({
       next: () => {
-        this.notification.showSuccess('News deleted successfully');
+        this.notification.showSuccess('Xóa tin tức thành công');
         this.loadNews();
       },
       error: (err) => {
         console.error('Failed to delete news:', err);
-        this.notification.showError('Failed to delete news');
+        this.notification.showError('Không thể xóa tin tức');
       },
     });
   }

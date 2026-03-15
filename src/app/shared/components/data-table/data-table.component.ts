@@ -86,7 +86,7 @@ export interface SortState {
         @if (showActions()) {
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef style="width: 120px; text-align: center">
-              Actions
+              Thao tác
             </th>
             <td mat-cell *matCellDef="let row" style="text-align: center">
               @if (actionsTemplate()) {
@@ -97,7 +97,7 @@ export interface SortState {
                 <button
                   mat-icon-button
                   color="primary"
-                  matTooltip="Edit"
+                  matTooltip="Chỉnh sửa"
                   (click)="edit.emit(row)"
                 >
                   <mat-icon>edit</mat-icon>
@@ -105,7 +105,7 @@ export interface SortState {
                 <button
                   mat-icon-button
                   color="warn"
-                  matTooltip="Delete"
+                  matTooltip="Xóa"
                   (click)="delete.emit(row)"
                 >
                   <mat-icon>delete</mat-icon>
@@ -164,7 +164,7 @@ export class DataTableComponent<T extends { id: number | string }> {
   columns = input.required<ColumnDef<T>[]>();
   showActions = input<boolean>(true);
   sortState = input<SortState | null>(null);
-  emptyMessage = input<string>('No data available');
+  emptyMessage = input<string>('Không có dữ liệu');
   cellTemplates = input<Record<string, TemplateRef<CellTemplateContext<T>>>>({});
 
   // Content projection for custom actions template
@@ -194,7 +194,7 @@ export class DataTableComponent<T extends { id: number | string }> {
       return '—';
     }
     if (typeof value === 'boolean') {
-      return value ? 'Yes' : 'No';
+      return value ? 'Có' : 'Không';
     }
     if (value instanceof Date) {
       return value.toLocaleDateString();

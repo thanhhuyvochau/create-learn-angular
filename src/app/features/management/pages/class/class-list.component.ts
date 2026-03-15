@@ -85,8 +85,8 @@ interface ScheduleEntry {
   template: `
     <div class="class-list-container">
       <app-page-header
-        title="Classes"
-        subtitle="Manage educational classes"
+        title="Lớp học"
+        subtitle="Quản lý các lớp học"
         (addClick)="openCreateDialog()"
       ></app-page-header>
 
@@ -97,7 +97,7 @@ interface ScheduleEntry {
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
           <button mat-button color="primary" (click)="loadClasses()">
-            Retry
+            Thử lại
           </button>
         </div>
       } @else {
@@ -107,7 +107,7 @@ interface ScheduleEntry {
             [columns]="columns"
             [cellTemplates]="cellTemplates()"
             [showActions]="true"
-            [emptyMessage]="'No classes found'"
+            [emptyMessage]="'Không tìm thấy lớp học nào'"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
           >
@@ -139,7 +139,7 @@ interface ScheduleEntry {
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ classes().length }} of {{ totalElements() }} items
+              Hiển thị {{ classes().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -159,7 +159,7 @@ interface ScheduleEntry {
             (click)="$event.stopPropagation()"
           >
             <div class="dialog-header">
-              <h2>{{ editingClass() ? 'Edit Class' : 'Create Class' }}</h2>
+              <h2>{{ editingClass() ? 'Chỉnh sửa lớp học' : 'Tạo lớp học' }}</h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
@@ -171,60 +171,60 @@ interface ScheduleEntry {
             >
               <div class="form-row">
                 <mat-form-field appearance="outline" class="half-width">
-                  <mat-label>Name</mat-label>
+                  <mat-label>Tên lớp</mat-label>
                   <input
                     matInput
                     formControlName="name"
-                    placeholder="Enter class name"
+                    placeholder="Nhập tên lớp học"
                   />
                   @if (form.controls.name.hasError('required')) {
-                    <mat-error>Name is required</mat-error>
+                    <mat-error>Tên lớp là bắt buộc</mat-error>
                   }
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="half-width">
-                  <mat-label>Price</mat-label>
+                  <mat-label>Học phí</mat-label>
                   <input
                     matInput
                     type="number"
                     formControlName="price"
-                    placeholder="Enter price"
+                    placeholder="Nhập học phí"
                   />
                   @if (form.controls.price.hasError('required')) {
-                    <mat-error>Price is required</mat-error>
+                    <mat-error>Học phí là bắt buộc</mat-error>
                   }
                   @if (form.controls.price.hasError('min')) {
-                    <mat-error>Price must be non-negative</mat-error>
+                    <mat-error>Học phí không được âm</mat-error>
                   }
                 </mat-form-field>
               </div>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Brief</mat-label>
+                <mat-label>Mô tả ngắn</mat-label>
                 <input
                   matInput
                   formControlName="brief"
-                  placeholder="Enter brief description"
+                  placeholder="Nhập mô tả ngắn"
                 />
                 @if (form.controls.brief.hasError('required')) {
-                  <mat-error>Brief is required</mat-error>
+                  <mat-error>Mô tả ngắn là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <div class="form-field-group">
                 <label class="form-label"
-                  >Description <span class="required">*</span></label
+                  >Mô tả chi tiết <span class="required">*</span></label
                 >
                 <app-rich-text-editor
                   [content]="form.controls.description.value || ''"
                   (contentChange)="form.controls.description.setValue($event)"
-                  placeholder="Write the class description..."
+                  placeholder="Viết mô tả chi tiết về lớp học..."
                 ></app-rich-text-editor>
               </div>
 
               <div class="form-row">
                 <mat-form-field appearance="outline" class="half-width">
-                  <mat-label>Requirement</mat-label>
+                  <mat-label>Yêu cầu</mat-label>
                   <textarea
                     matInput
                     formControlName="requirement"
@@ -233,7 +233,7 @@ interface ScheduleEntry {
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="half-width">
-                  <mat-label>Guarantee</mat-label>
+                  <mat-label>Cam kết</mat-label>
                   <textarea
                     matInput
                     formControlName="guarantee"
@@ -244,7 +244,7 @@ interface ScheduleEntry {
 
               <div class="form-row">
                 <mat-form-field appearance="outline" class="third-width">
-                  <mat-label>Subjects</mat-label>
+                  <mat-label>Môn học</mat-label>
                   <mat-select formControlName="subjectIds" multiple>
                     @for (subject of subjects(); track subject.id) {
                       <mat-option [value]="subject.id">{{
@@ -255,7 +255,7 @@ interface ScheduleEntry {
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="third-width">
-                  <mat-label>Grades</mat-label>
+                  <mat-label>Khối lớp</mat-label>
                   <mat-select formControlName="gradeIds" multiple>
                     @for (grade of grades(); track grade.id) {
                       <mat-option [value]="grade.id">{{
@@ -266,9 +266,9 @@ interface ScheduleEntry {
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="third-width">
-                  <mat-label>Teacher</mat-label>
+                  <mat-label>Giáo viên</mat-label>
                   <mat-select formControlName="teacherId">
-                    <mat-option [value]="null">None</mat-option>
+                    <mat-option [value]="null">Không có</mat-option>
                     @for (teacher of teachers(); track teacher.id) {
                       <mat-option [value]="teacher.id">
                         {{ teacher.firstName }} {{ teacher.lastName }}
@@ -280,7 +280,7 @@ interface ScheduleEntry {
 
               <!-- Schedules -->
               <div class="schedules-section">
-                <label class="form-label">Schedules</label>
+                <label class="form-label">Lịch học</label>
                 @for (
                   schedule of schedules.controls;
                   track $index;
@@ -291,7 +291,7 @@ interface ScheduleEntry {
                       <input
                         matInput
                         [formControl]="getScheduleControl(i)"
-                        placeholder="e.g., Tuesday - 8am to 9am"
+                        placeholder="VD: Thứ Ba - 8h đến 9h"
                       />
                     </mat-form-field>
                     <button
@@ -318,7 +318,7 @@ interface ScheduleEntry {
 
               <!-- Image Upload -->
               <div class="file-upload-section">
-                <label class="file-upload-label">Image</label>
+                <label class="file-upload-label">Hình ảnh</label>
                 <input
                   type="file"
                   #fileInput
@@ -333,7 +333,7 @@ interface ScheduleEntry {
                   [disabled]="uploading()"
                 >
                   <mat-icon>upload</mat-icon>
-                  {{ selectedFile() ? 'Change Image' : 'Upload Image' }}
+                  {{ selectedFile() ? 'Đổi hình ảnh' : 'Tải hình ảnh' }}
                 </button>
                 @if (selectedFile()) {
                   <span class="file-name">{{ selectedFile()?.name }}</span>
@@ -345,13 +345,13 @@ interface ScheduleEntry {
 
               @if (previewUrl()) {
                 <div class="image-preview">
-                  <img [src]="previewUrl()" alt="Class preview" />
+                  <img [src]="previewUrl()" alt="Xem trước lớp học" />
                 </div>
               }
 
               <div class="checkbox-row">
                 <mat-checkbox formControlName="isDisplayed"
-                  >Display this class</mat-checkbox
+                  >Hiển thị lớp học này</mat-checkbox
                 >
               </div>
 
@@ -362,7 +362,7 @@ interface ScheduleEntry {
                   (click)="closeDialog()"
                   [disabled]="submitting() || uploading()"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
@@ -373,7 +373,7 @@ interface ScheduleEntry {
                   @if (submitting()) {
                     <mat-spinner diameter="20"></mat-spinner>
                   } @else {
-                    {{ editingClass() ? 'Update' : 'Create' }}
+                    {{ editingClass() ? 'Cập nhật' : 'Tạo mới' }}
                   }
                 </button>
               </div>
@@ -643,32 +643,32 @@ export class ClassListComponent implements OnInit {
 
   // Column definitions
   columns: ColumnDef<Class>[] = [
-    { key: 'name', header: 'Name' },
+    { key: 'name', header: 'Tên lớp' },
     {
       key: 'brief',
-      header: 'Brief',
+      header: 'Mô tả ngắn',
       render: (row) =>
         row.brief?.length > 50 ? row.brief.slice(0, 50) + '...' : row.brief,
     },
     {
       key: 'teacher',
-      header: 'Teacher',
+      header: 'Giáo viên',
       render: (row) =>
         row.teacher ? `${row.teacher.firstName} ${row.teacher.lastName}` : '—',
     },
     {
       key: 'price',
-      header: 'Price',
+      header: 'Học phí',
       render: (row) => `$${row.price}`,
     },
     {
       key: 'isDisplayed',
-      header: 'Status',
+      header: 'Trạng thái',
       width: '100px',
     },
     {
       key: 'grades',
-      header: 'Grades',
+      header: 'Khối lớp',
     },
   ];
 
@@ -709,7 +709,7 @@ export class ClassListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load classes:', err);
-          this.error.set('Failed to load classes. Please try again.');
+          this.error.set('Không thể tải danh sách lớp học. Vui lòng thử lại.');
         },
       });
   }
@@ -852,12 +852,12 @@ export class ClassListComponent implements OnInit {
           if (response.status === 200 && response.data) {
             this.uploadedImageUrl.set(response.data);
             this.form.patchValue({ image: response.data });
-            this.notification.showSuccess('Image uploaded successfully');
+            this.notification.showSuccess('Tải hình ảnh thành công');
           }
         },
         error: (err) => {
           console.error('Failed to upload image:', err);
-          this.notification.showError('Failed to upload image');
+          this.notification.showError('Không thể tải hình ảnh');
           this.selectedFile.set(null);
           this.previewUrl.set(this.editingClass()?.image || null);
         },
@@ -893,13 +893,13 @@ export class ClassListComponent implements OnInit {
         .subscribe({
           next: () => {
             this.handleSchedules(this.editingClass()!.id);
-            this.notification.showSuccess('Class updated successfully');
+            this.notification.showSuccess('Cập nhật lớp học thành công');
             this.closeDialog();
             this.loadClasses();
           },
           error: (err) => {
             console.error('Failed to update class:', err);
-            this.notification.showError('Failed to update class');
+            this.notification.showError('Không thể cập nhật lớp học');
           },
         });
     } else {
@@ -925,13 +925,13 @@ export class ClassListComponent implements OnInit {
             if (response.data?.id) {
               this.handleSchedules(response.data.id);
             }
-            this.notification.showSuccess('Class created successfully');
+            this.notification.showSuccess('Tạo lớp học thành công');
             this.closeDialog();
             this.loadClasses();
           },
           error: (err) => {
             console.error('Failed to create class:', err);
-            this.notification.showError('Failed to create class');
+            this.notification.showError('Không thể tạo lớp học');
           },
         });
     }
@@ -975,10 +975,10 @@ export class ClassListComponent implements OnInit {
   openDeleteDialog(classItem: Class): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete Class',
-        message: `Are you sure you want to delete "${classItem.name}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa lớp học',
+        message: `Bạn có chắc chắn muốn xóa "${classItem.name}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -993,12 +993,12 @@ export class ClassListComponent implements OnInit {
   private deleteClass(classItem: Class): void {
     this.classApi.delete(classItem.id).subscribe({
       next: () => {
-        this.notification.showSuccess('Class deleted successfully');
+        this.notification.showSuccess('Xóa lớp học thành công');
         this.loadClasses();
       },
       error: (err) => {
         console.error('Failed to delete class:', err);
-        this.notification.showError('Failed to delete class');
+        this.notification.showError('Không thể xóa lớp học');
       },
     });
   }

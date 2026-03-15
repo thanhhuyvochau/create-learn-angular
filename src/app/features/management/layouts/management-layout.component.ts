@@ -32,19 +32,19 @@ import { AuthService } from '../../../core/auth/auth.service';
           <button mat-icon-button (click)="toggleMobileMenu()" aria-label="Toggle sidebar menu">
             <mat-icon>menu</mat-icon>
           </button>
-          <span class="header-title">Management</span>
+          <span class="header-title">Quản lý</span>
           <span class="spacer"></span>
           <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
             <mat-icon>account_circle</mat-icon>
           </button>
           <mat-menu #userMenu="matMenu">
             <div class="user-menu-header">
-              <strong>{{ user()?.sub || 'User' }}</strong>
-              <small>{{ user()?.role || 'Member' }}</small>
+              <strong>{{ user()?.sub || 'Người dùng' }}</strong>
+              <small>{{ user()?.role || 'Thành viên' }}</small>
             </div>
             <button mat-menu-item (click)="logout()">
               <mat-icon color="warn">logout</mat-icon>
-              <span>Logout</span>
+              <span>Đăng xuất</span>
             </button>
           </mat-menu>
         </mat-toolbar>
@@ -80,8 +80,8 @@ import { AuthService } from '../../../core/auth/auth.service';
               </button>
               <mat-menu #desktopUserMenu="matMenu">
                 <div class="user-menu-header">
-                  <strong>{{ user()?.sub || 'User' }}</strong>
-                  <small>{{ user()?.role || 'Member' }}</small>
+                  <strong>{{ user()?.sub || 'Người dùng' }}</strong>
+                  <small>{{ user()?.role || 'Thành viên' }}</small>
                 </div>
                 <button mat-menu-item (click)="logout()">
                   <mat-icon color="warn">logout</mat-icon>

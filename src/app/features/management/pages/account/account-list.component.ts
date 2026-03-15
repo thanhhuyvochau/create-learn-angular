@@ -49,8 +49,8 @@ import type {
   template: `
     <div class="account-list-container">
       <app-page-header
-        title="Accounts"
-        subtitle="Manage user accounts"
+        title="Tài khoản"
+        subtitle="Quản lý tài khoản người dùng"
         (addClick)="openCreateDialog()"
       ></app-page-header>
 
@@ -60,7 +60,7 @@ import type {
         <div class="error-message">
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
-          <button mat-button color="primary" (click)="loadAccounts()">Retry</button>
+          <button mat-button color="primary" (click)="loadAccounts()">Thử lại</button>
         </div>
       } @else {
         <div class="table-section">
@@ -69,7 +69,7 @@ import type {
             [columns]="columns"
             [cellTemplates]="cellTemplates()"
             [showActions]="true"
-            [emptyMessage]="'No accounts found'"
+            [emptyMessage]="'Không tìm thấy tài khoản nào'"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
           >
@@ -81,7 +81,7 @@ import type {
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ accounts().length }} of {{ totalElements() }} items
+              Hiển thị {{ accounts().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -98,23 +98,23 @@ import type {
         <div class="dialog-overlay" (click)="closeDialog()">
           <div class="dialog-content" (click)="$event.stopPropagation()">
             <div class="dialog-header">
-              <h2>{{ editingAccount() ? 'Edit Account' : 'Create Account' }}</h2>
+              <h2>{{ editingAccount() ? 'Chỉnh sửa tài khoản' : 'Tạo tài khoản' }}</h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
             </div>
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-body" autocomplete="off">
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Username</mat-label>
+                <mat-label>Tên đăng nhập</mat-label>
                 <input
                   matInput
                   formControlName="username"
-                  placeholder="Enter username"
+                  placeholder="Nhập tên đăng nhập"
                   autocomplete="off"
                   data-form-type="other"
                 />
                 @if (form.controls.username.hasError('required')) {
-                  <mat-error>Username is required</mat-error>
+                  <mat-error>Tên đăng nhập là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
@@ -123,53 +123,53 @@ import type {
                 <input
                   matInput
                   formControlName="email"
-                  placeholder="Enter email address"
+                  placeholder="Nhập địa chỉ email"
                   type="email"
                   autocomplete="off"
                   data-form-type="other"
                 />
                 @if (form.controls.email.hasError('required')) {
-                  <mat-error>Email is required</mat-error>
+                  <mat-error>Email là bắt buộc</mat-error>
                 } @else if (form.controls.email.hasError('pattern')) {
-                  <mat-error>Please enter a valid email address</mat-error>
+                  <mat-error>Vui lòng nhập địa chỉ email hợp lệ</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>{{ editingAccount() ? 'Password (leave empty to keep current)' : 'Password' }}</mat-label>
+                <mat-label>{{ editingAccount() ? 'Mật khẩu (để trống nếu giữ nguyên)' : 'Mật khẩu' }}</mat-label>
                 <input
                   matInput
                   formControlName="password"
-                  [placeholder]="editingAccount() ? 'Leave empty to keep current password' : 'Enter password'"
+                  [placeholder]="editingAccount() ? 'Để trống để giữ mật khẩu hiện tại' : 'Nhập mật khẩu'"
                   type="password"
                   autocomplete="new-password"
                   data-form-type="other"
                 />
                 @if (form.controls.password.hasError('required')) {
-                  <mat-error>Password is required</mat-error>
+                  <mat-error>Mật khẩu là bắt buộc</mat-error>
                 } @else if (form.controls.password.hasError('minlength')) {
-                  <mat-error>Password must be at least 6 characters</mat-error>
+                  <mat-error>Mật khẩu phải có ít nhất 6 ký tự</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Phone</mat-label>
+                <mat-label>Số điện thoại</mat-label>
                 <input
                   matInput
                   formControlName="phone"
-                  placeholder="Enter phone number"
+                  placeholder="Nhập số điện thoại"
                   autocomplete="off"
                   data-form-type="other"
                 />
                 @if (form.controls.phone.hasError('required')) {
-                  <mat-error>Phone is required</mat-error>
+                  <mat-error>Số điện thoại là bắt buộc</mat-error>
                 } @else if (form.controls.phone.hasError('pattern')) {
-                  <mat-error>Please enter a valid phone number</mat-error>
+                  <mat-error>Vui lòng nhập số điện thoại hợp lệ</mat-error>
                 }
               </mat-form-field>
 
               <div class="checkbox-row">
-                <mat-checkbox formControlName="activated">Account Activated</mat-checkbox>
+                <mat-checkbox formControlName="activated">Kích hoạt tài khoản</mat-checkbox>
               </div>
 
               <div class="dialog-actions">
@@ -179,7 +179,7 @@ import type {
                   (click)="closeDialog()"
                   [disabled]="submitting()"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
@@ -190,7 +190,7 @@ import type {
                   @if (submitting()) {
                     <mat-spinner diameter="20"></mat-spinner>
                   } @else {
-                    {{ editingAccount() ? 'Update' : 'Create' }}
+                    {{ editingAccount() ? 'Cập nhật' : 'Tạo mới' }}
                   }
                 </button>
               </div>
@@ -337,12 +337,12 @@ export class AccountListComponent implements OnInit {
 
   // Column definitions
   columns: ColumnDef<Account>[] = [
-    { key: 'username', header: 'Username' },
+    { key: 'username', header: 'Tên đăng nhập' },
     { key: 'email', header: 'Email' },
-    { key: 'phone', header: 'Phone' },
+    { key: 'phone', header: 'Số điện thoại' },
     {
       key: 'activated',
-      header: 'Status',
+      header: 'Trạng thái',
       width: '100px',
     },
   ];
@@ -368,7 +368,7 @@ export class AccountListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load accounts:', err);
-          this.error.set('Failed to load accounts. Please try again.');
+          this.error.set('Không thể tải danh sách tài khoản. Vui lòng thử lại.');
         },
       });
   }
@@ -435,13 +435,13 @@ export class AccountListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Account updated successfully');
+            this.notification.showSuccess('Cập nhật tài khoản thành công');
             this.closeDialog();
             this.loadAccounts();
           },
           error: (err) => {
             console.error('Failed to update account:', err);
-            this.notification.showError('Failed to update account');
+            this.notification.showError('Không thể cập nhật tài khoản');
           },
         });
     } else {
@@ -458,13 +458,13 @@ export class AccountListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Account created successfully');
+            this.notification.showSuccess('Tạo tài khoản thành công');
             this.closeDialog();
             this.loadAccounts();
           },
           error: (err) => {
             console.error('Failed to create account:', err);
-            this.notification.showError('Failed to create account');
+            this.notification.showError('Không thể tạo tài khoản');
           },
         });
     }
@@ -473,10 +473,10 @@ export class AccountListComponent implements OnInit {
   openDeleteDialog(account: Account): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete Account',
-        message: `Are you sure you want to delete the account "${account.username}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa tài khoản',
+        message: `Bạn có chắc chắn muốn xóa tài khoản "${account.username}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -491,12 +491,12 @@ export class AccountListComponent implements OnInit {
   private deleteAccount(account: Account): void {
     this.accountApi.delete(account.id).subscribe({
       next: () => {
-        this.notification.showSuccess('Account deleted successfully');
+        this.notification.showSuccess('Xóa tài khoản thành công');
         this.loadAccounts();
       },
       error: (err) => {
         console.error('Failed to delete account:', err);
-        this.notification.showError('Failed to delete account');
+        this.notification.showError('Không thể xóa tài khoản');
       },
     });
   }

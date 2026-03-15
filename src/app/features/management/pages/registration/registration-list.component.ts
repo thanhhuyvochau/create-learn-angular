@@ -49,8 +49,8 @@ import type {
   template: `
     <div class="registration-list-container">
       <app-page-header
-        title="Registrations"
-        subtitle="Manage class registrations"
+        title="Đăng ký"
+        subtitle="Quản lý đăng ký lớp học"
         [showAddButton]="false"
       ></app-page-header>
 
@@ -60,7 +60,7 @@ import type {
         <div class="error-message">
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
-          <button mat-button color="primary" (click)="loadRegistrations()">Retry</button>
+          <button mat-button color="primary" (click)="loadRegistrations()">Thử lại</button>
         </div>
       } @else {
         <div class="table-section">
@@ -69,7 +69,7 @@ import type {
             [columns]="columns"
             [cellTemplates]="cellTemplates()"
             [showActions]="true"
-            [emptyMessage]="'No registrations found'"
+            [emptyMessage]="'Không tìm thấy đăng ký nào'"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
           >
@@ -81,7 +81,7 @@ import type {
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ registrations().length }} of {{ totalElements() }} items
+              Hiển thị {{ registrations().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -98,7 +98,7 @@ import type {
         <div class="dialog-overlay" (click)="closeDialog()">
           <div class="dialog-content" (click)="$event.stopPropagation()">
             <div class="dialog-header">
-              <h2>Update Registration Status</h2>
+              <h2>Cập nhật trạng thái đăng ký</h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
@@ -106,7 +106,7 @@ import type {
             <div class="dialog-body">
               <div class="info-section">
                 <div class="info-row">
-                  <span class="info-label">Customer:</span>
+                  <span class="info-label">Khách hàng:</span>
                   <span class="info-value">{{ editingRegistration()?.customerName }}</span>
                 </div>
                 <div class="info-row">
@@ -114,15 +114,15 @@ import type {
                   <span class="info-value">{{ editingRegistration()?.customerEmail }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Phone:</span>
+                  <span class="info-label">Điện thoại:</span>
                   <span class="info-value">{{ editingRegistration()?.phoneNumber }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Class:</span>
+                  <span class="info-label">Lớp học:</span>
                   <span class="info-value">{{ editingRegistration()?.classResponse?.name || 'N/A' }}</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Teacher:</span>
+                  <span class="info-label">Giáo viên:</span>
                   <span class="info-value">
                     @if (editingRegistration()?.classResponse?.teacher) {
                       {{ editingRegistration()?.classResponse?.teacher?.firstName }}
@@ -136,11 +136,11 @@ import type {
 
               <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline" class="full-width">
-                  <mat-label>Status</mat-label>
+                  <mat-label>Trạng thái</mat-label>
                   <mat-select formControlName="status">
-                    <mat-option value="PROCESSING">Processing</mat-option>
-                    <mat-option value="PROCESSED">Processed</mat-option>
-                    <mat-option value="REJECTED">Rejected</mat-option>
+                    <mat-option value="PROCESSING">Đang xử lý</mat-option>
+                    <mat-option value="PROCESSED">Đã xử lý</mat-option>
+                    <mat-option value="REJECTED">Từ chối</mat-option>
                   </mat-select>
                 </mat-form-field>
 
@@ -151,7 +151,7 @@ import type {
                     (click)="closeDialog()"
                     [disabled]="submitting()"
                   >
-                    Cancel
+                    Hủy
                   </button>
                   <button
                     type="submit"
@@ -162,7 +162,7 @@ import type {
                     @if (submitting()) {
                       <mat-spinner diameter="20"></mat-spinner>
                     } @else {
-                      Update Status
+                      Cập nhật trạng thái
                     }
                   </button>
                 </div>
@@ -327,17 +327,17 @@ export class RegistrationListComponent implements OnInit {
 
   // Column definitions
   columns: ColumnDef<Registration>[] = [
-    { key: 'customerName', header: 'Customer Name' },
+    { key: 'customerName', header: 'Tên khách hàng' },
     { key: 'customerEmail', header: 'Email' },
-    { key: 'phoneNumber', header: 'Phone' },
+    { key: 'phoneNumber', header: 'Điện thoại' },
     {
       key: 'classResponse',
-      header: 'Class',
+      header: 'Lớp học',
       render: (row) => row.classResponse?.name || 'N/A',
     },
     {
       key: 'teacher',
-      header: 'Teacher',
+      header: 'Giáo viên',
       render: (row) => {
         const teacher = row.classResponse?.teacher;
         return teacher ? `${teacher.firstName} ${teacher.lastName}` : 'N/A';
@@ -345,12 +345,12 @@ export class RegistrationListComponent implements OnInit {
     },
     {
       key: 'status',
-      header: 'Status',
+      header: 'Trạng thái',
       width: '120px',
     },
     {
       key: 'createdAt',
-      header: 'Created',
+      header: 'Ngày tạo',
       render: (row) => {
         if (!row.createdAt) return 'N/A';
         return new Date(row.createdAt).toLocaleDateString();
@@ -390,7 +390,7 @@ export class RegistrationListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load data:', err);
-          this.error.set('Failed to load registrations. Please try again.');
+          this.error.set('Không thể tải danh sách đăng ký. Vui lòng thử lại.');
         },
       });
   }
@@ -412,7 +412,7 @@ export class RegistrationListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load registrations:', err);
-          this.error.set('Failed to load registrations. Please try again.');
+          this.error.set('Không thể tải danh sách đăng ký. Vui lòng thử lại.');
         },
       });
   }
@@ -453,13 +453,13 @@ export class RegistrationListComponent implements OnInit {
       .pipe(finalize(() => this.submitting.set(false)))
       .subscribe({
         next: () => {
-          this.notification.showSuccess('Registration status updated successfully');
+          this.notification.showSuccess('Cập nhật trạng thái đăng ký thành công');
           this.closeDialog();
           this.loadRegistrations();
         },
         error: (err) => {
           console.error('Failed to update registration:', err);
-          this.notification.showError('Failed to update registration');
+          this.notification.showError('Không thể cập nhật đăng ký');
         },
       });
   }
@@ -467,10 +467,10 @@ export class RegistrationListComponent implements OnInit {
   openDeleteDialog(registration: Registration): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete Registration',
-        message: `Are you sure you want to delete the registration from "${registration.customerName}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa đăng ký',
+        message: `Bạn có chắc chắn muốn xóa đăng ký của "${registration.customerName}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -485,12 +485,12 @@ export class RegistrationListComponent implements OnInit {
   private deleteRegistration(registration: Registration): void {
     this.registrationApi.delete(registration.id).subscribe({
       next: () => {
-        this.notification.showSuccess('Registration deleted successfully');
+        this.notification.showSuccess('Xóa đăng ký thành công');
         this.loadRegistrations();
       },
       error: (err) => {
         console.error('Failed to delete registration:', err);
-        this.notification.showError('Failed to delete registration');
+        this.notification.showError('Không thể xóa đăng ký');
       },
     });
   }

@@ -53,8 +53,8 @@ import type {
   template: `
     <div class="subject-list-container">
       <app-page-header
-        title="Subjects"
-        subtitle="Manage educational subjects"
+        title="Môn học"
+        subtitle="Quản lý các môn học"
         (addClick)="openCreateDialog()"
       ></app-page-header>
 
@@ -65,7 +65,7 @@ import type {
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
           <button mat-button color="primary" (click)="loadSubjects()">
-            Retry
+            Thử lại
           </button>
         </div>
       } @else {
@@ -74,7 +74,7 @@ import type {
             [data]="subjects()"
             [columns]="columns"
             [showActions]="true"
-            [emptyMessage]="'No subjects found'"
+            [emptyMessage]="'Không tìm thấy môn học nào'"
             [cellTemplates]="cellTemplates()"
             (edit)="openEditDialog($event)"
             (delete)="openDeleteDialog($event)"
@@ -114,7 +114,7 @@ import type {
 
           <div class="table-footer">
             <span class="table-caption">
-              Showing {{ subjects().length }} of {{ totalElements() }} items
+              Hiển thị {{ subjects().length }} trên {{ totalElements() }} mục
             </span>
             <app-pagination
               [totalElements]="totalElements()"
@@ -132,7 +132,7 @@ import type {
           <div class="dialog-content" (click)="$event.stopPropagation()">
             <div class="dialog-header">
               <h2>
-                {{ editingSubject() ? 'Edit Subject' : 'Create Subject' }}
+                {{ editingSubject() ? 'Chỉnh sửa môn học' : 'Tạo môn học' }}
               </h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
@@ -144,29 +144,29 @@ import type {
               class="dialog-body"
             >
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Name</mat-label>
+                <mat-label>Tên</mat-label>
                 <input
                   matInput
                   formControlName="name"
-                  placeholder="Enter subject name"
+                  placeholder="Nhập tên môn học"
                 />
                 @if (form.controls.name.hasError('required')) {
-                  <mat-error>Name is required</mat-error>
+                  <mat-error>Tên là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Description</mat-label>
+                <mat-label>Mô tả</mat-label>
                 <textarea
                   matInput
                   formControlName="description"
-                  placeholder="Enter subject description"
+                  placeholder="Nhập mô tả môn học"
                   rows="3"
                 ></textarea>
               </mat-form-field>
 
               <div class="file-upload-section">
-                <label class="file-upload-label">Icon</label>
+                <label class="file-upload-label">Biểu tượng</label>
                 <input
                   type="file"
                   #fileInput
@@ -180,7 +180,7 @@ import type {
                   (click)="fileInput.click()"
                 >
                   <mat-icon>upload</mat-icon>
-                  {{ selectedFile() ? 'Change File' : 'Upload Icon' }}
+                  {{ selectedFile() ? 'Đổi tệp' : 'Tải lên biểu tượng' }}
                 </button>
                 @if (selectedFile()) {
                   <span class="file-name">{{ selectedFile()?.name }}</span>
@@ -189,7 +189,7 @@ import type {
 
               @if (previewUrl()) {
                 <div class="icon-preview">
-                  <img [src]="previewUrl()" alt="Icon preview" />
+                  <img [src]="previewUrl()" alt="Xem trước biểu tượng" />
                 </div>
               }
 
@@ -200,7 +200,7 @@ import type {
                   (click)="closeDialog()"
                   [disabled]="submitting()"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
@@ -211,7 +211,7 @@ import type {
                   @if (submitting()) {
                     <mat-spinner diameter="20"></mat-spinner>
                   } @else {
-                    {{ editingSubject() ? 'Update' : 'Create' }}
+                    {{ editingSubject() ? 'Cập nhật' : 'Tạo mới' }}
                   }
                 </button>
               </div>
@@ -401,13 +401,13 @@ export class SubjectListComponent implements OnInit {
   columns: ColumnDef<Subject>[] = [
     {
       key: 'iconBase64',
-      header: 'Icon',
+      header: 'Biểu tượng',
       sortable: false,
       width: '80px',
       align: 'center',
     },
-    { key: 'name', header: 'Name' },
-    { key: 'description', header: 'Description' },
+    { key: 'name', header: 'Tên' },
+    { key: 'description', header: 'Mô tả' },
   ];
 
   ngOnInit(): void {
@@ -431,7 +431,7 @@ export class SubjectListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load subjects:', err);
-          this.error.set('Failed to load subjects. Please try again.');
+          this.error.set('Không thể tải danh sách môn học. Vui lòng thử lại.');
         },
       });
   }
@@ -507,13 +507,13 @@ export class SubjectListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Subject updated successfully');
+            this.notification.showSuccess('Cập nhật môn học thành công');
             this.closeDialog();
             this.loadSubjects();
           },
           error: (err) => {
             console.error('Failed to update subject:', err);
-            this.notification.showError('Failed to update subject');
+            this.notification.showError('Không thể cập nhật môn học');
           },
         });
     } else {
@@ -528,13 +528,13 @@ export class SubjectListComponent implements OnInit {
         .pipe(finalize(() => this.submitting.set(false)))
         .subscribe({
           next: () => {
-            this.notification.showSuccess('Subject created successfully');
+            this.notification.showSuccess('Tạo môn học thành công');
             this.closeDialog();
             this.loadSubjects();
           },
           error: (err) => {
             console.error('Failed to create subject:', err);
-            this.notification.showError('Failed to create subject');
+            this.notification.showError('Không thể tạo môn học');
           },
         });
     }
@@ -543,10 +543,10 @@ export class SubjectListComponent implements OnInit {
   openDeleteDialog(subject: Subject): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
-        title: 'Delete Subject',
-        message: `Are you sure you want to delete "${subject.name}"? This action cannot be undone.`,
-        confirmText: 'Delete',
-        cancelText: 'Cancel',
+        title: 'Xóa môn học',
+        message: `Bạn có chắc chắn muốn xóa "${subject.name}"? Hành động này không thể hoàn tác.`,
+        confirmText: 'Xóa',
+        cancelText: 'Hủy',
         confirmColor: 'warn',
       } as ConfirmDialogData,
     });
@@ -561,12 +561,12 @@ export class SubjectListComponent implements OnInit {
   private deleteSubject(subject: Subject): void {
     this.subjectApi.delete(subject.id).subscribe({
       next: () => {
-        this.notification.showSuccess('Subject deleted successfully');
+        this.notification.showSuccess('Xóa môn học thành công');
         this.loadSubjects();
       },
       error: (err) => {
         console.error('Failed to delete subject:', err);
-        this.notification.showError('Failed to delete subject');
+        this.notification.showError('Không thể xóa môn học');
       },
     });
   }
