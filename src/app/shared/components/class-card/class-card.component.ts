@@ -30,7 +30,9 @@ import { MatButtonModule } from '@angular/material/button';
     `
       .class-card {
         cursor: pointer;
-        height: 100%;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 13 / 16;
         display: flex;
         flex-direction: column;
         transition:
@@ -48,7 +50,7 @@ import { MatButtonModule } from '@angular/material/button';
       .card-image-container {
         position: relative;
         width: 100%;
-        padding-top: 56.25%; /* 16:9 aspect ratio */
+        padding-top: 55%; /* ~55% of card width for image, leaving room for content */
         overflow: hidden;
       }
 
@@ -99,8 +101,8 @@ import { MatButtonModule } from '@angular/material/button';
 
       .card-button {
         width: 100%;
-        background-color: var(--color-brand-teal-6);
-        color: var(--color-surface-1);
+        background-color: var(--color-brand-teal-6) !important;
+        color: var(--color-surface-1) !important;
         font-weight: 500;
         transition: background-color 0.3s;
       }

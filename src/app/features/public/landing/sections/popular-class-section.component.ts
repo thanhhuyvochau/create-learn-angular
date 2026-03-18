@@ -121,7 +121,7 @@ const MAX_ITEMS = 8;
     }
 
     .class-grid app-class-card {
-      flex: 0 0 260px;
+      flex: 1 1 220px;
       max-width: 260px;
     }
 

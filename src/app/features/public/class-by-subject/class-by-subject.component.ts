@@ -126,7 +126,7 @@ const PAGE_SIZE = 10;
     }
 
     .class-grid app-class-card {
-      flex: 0 0 260px;
+      flex: 1 1 220px;
       max-width: 260px;
     }
 
