@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Subject, takeUntil } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -26,7 +25,6 @@ import { AuthService } from '../../../../core/auth/auth.service';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule,
   ],
   template: `
     <div class="login-container">
@@ -88,7 +86,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
               [disabled]="!canSubmit() || isSubmitting()"
             >
               @if (isSubmitting()) {
-                <mat-spinner diameter="20" color="accent"></mat-spinner>
+                <mat-icon class="spinning-icon">sync</mat-icon>
                 <span>Signing in...</span>
               } @else {
                 <span>Login</span>
@@ -209,6 +207,23 @@ import { AuthService } from '../../../../core/auth/auth.service';
         }
         50% {
           transform: scale(1.1);
+        }
+      }
+
+      .spinning-icon {
+        animation: spin 2s linear infinite;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
         }
       }
 
