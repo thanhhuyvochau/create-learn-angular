@@ -199,7 +199,7 @@ const NAVIGATION_LINKS: NavLink[] = [
     .brand-name {
       font-size: 1.5rem;
       font-weight: 700;
-      color: #1a365d;
+      color: var(--color-brand-navy-6);
     }
 
     .desktop-nav {

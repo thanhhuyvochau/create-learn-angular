@@ -87,7 +87,7 @@ const MAX_ITEMS = 8;
     .section-title {
       font-size: clamp(1.5rem, 3vw, 2.25rem);
       font-weight: 600;
-      color: #1a365d;
+      color: var(--color-brand-navy-6);
       margin: 0 0 16px 0;
     }
 

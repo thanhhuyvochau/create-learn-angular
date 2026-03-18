@@ -78,7 +78,7 @@ import type { News } from '../../../models';
     .card-title {
       font-size: 1.125rem;
       font-weight: 600;
-      color: #1a365d;
+      color: var(--color-brand-navy-6);
       margin: 8px 0;
       display: -webkit-box;
       -webkit-line-clamp: 2;

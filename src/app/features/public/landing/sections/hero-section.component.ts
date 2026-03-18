@@ -71,7 +71,7 @@ const HERO_CONTENT = {
     `
       .hero {
         width: 100%;
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        background:var(--gradient-brand)
       }
 
       /* Desktop Hero */
@@ -94,7 +94,7 @@ const HERO_CONTENT = {
       .hero-title {
         font-size: clamp(2rem, 4vw, 3rem);
         font-weight: 700;
-        color: #1a365d;
+        color: var(--color-brand-navy-6);
         margin: 0 0 8px 0;
         line-height: 1.2;
       }
@@ -102,12 +102,12 @@ const HERO_CONTENT = {
       .hero-subtitle {
         font-size: clamp(1.5rem, 3vw, 2rem);
         font-weight: 600;
-        color: #1a365d;
+        color: var(--color-brand-navy-6);
         margin: 0 0 24px 0;
       }
 
       .brand-highlight {
-        color: #0d9488;
+        color: var(--color-brand-teal-6);
         font-weight: 800;
       }
 

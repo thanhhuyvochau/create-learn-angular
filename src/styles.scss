@@ -1,4 +1,103 @@
-/* You can add global styles to this file, and also import other style files */
+// =============================================================================
+// Global Styles
+// =============================================================================
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Import design tokens (CSS custom properties)
+@use 'styles/theme';
+
+// Import and apply Angular Material custom theme
+@use 'styles/material-theme';
+
+// Base styles
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--color-surface-1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Typography defaults
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  color: var(--text-color-heading);
+  margin-top: 0;
+}
+
+h1 {
+  font-size: var(--heading-h1-size);
+  line-height: var(--heading-h1-line-height);
+  font-weight: var(--heading-h1-weight);
+}
+
+h2 {
+  font-size: var(--heading-h2-size);
+  line-height: var(--heading-h2-line-height);
+  font-weight: var(--heading-h2-weight);
+}
+
+h3 {
+  font-size: var(--heading-h3-size);
+  line-height: var(--heading-h3-line-height);
+  font-weight: var(--heading-h3-weight);
+}
+
+h4 {
+  font-size: var(--heading-h4-size);
+  line-height: var(--heading-h4-line-height);
+  font-weight: var(--heading-h4-weight);
+}
+
+h5 {
+  font-size: var(--heading-h5-size);
+  line-height: var(--heading-h5-line-height);
+  font-weight: var(--heading-h5-weight);
+}
+
+h6 {
+  font-size: var(--heading-h6-size);
+  line-height: var(--heading-h6-line-height);
+  font-weight: var(--heading-h6-weight);
+}
+
+// Link defaults
+a {
+  color: var(--color-brand-teal-6);
+  text-decoration: none;
+  transition: color var(--duration-short) var(--easing-ease-in-out);
+
+  &:hover {
+    color: var(--color-brand-teal-7);
+  }
+}
+
+// Selection highlight
+::selection {
+  background-color: var(--color-brand-teal-2);
+  color: var(--color-brand-navy-8);
+}
+
+// Scrollbar styling (optional - for webkit browsers)
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-slate-4);
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    background: var(--color-slate-5);
+  }
+}

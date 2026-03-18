@@ -119,7 +119,7 @@ import type { News } from '../../../models';
     .news-body :deep(h2),
     .news-body :deep(h3),
     .news-body :deep(h4) {
-      color: #1a365d;
+      color: var(--color-brand-navy-6);
       margin-top: 32px;
       margin-bottom: 16px;
     }

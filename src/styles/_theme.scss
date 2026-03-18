@@ -1,0 +1,274 @@
+// =============================================================================
+// Theme Design Tokens (CSS Custom Properties)
+// Translated from Mantine theme for Angular project
+// =============================================================================
+
+:root {
+  // ===========================================================================
+  // COLORS
+  // ===========================================================================
+
+  // Brand Teal (Accent & CTA) - Primary action color
+  --color-brand-teal-0: #e6f7f4;
+  --color-brand-teal-1: #cff1ec;
+  --color-brand-teal-2: #a3e5da;
+  --color-brand-teal-3: #74d9c8;
+  --color-brand-teal-4: #47cdb6;
+  --color-brand-teal-5: #1bc1a5;
+  --color-brand-teal-6: #00a896; // Main brand teal
+  --color-brand-teal-7: #008a7b;
+  --color-brand-teal-8: #006d61;
+  --color-brand-teal-9: #004f46;
+
+  // Brand Navy (Primary) - Headers, navigation, footer
+  --color-brand-navy-0: #e7eef7;
+  --color-brand-navy-1: #cfe0f2;
+  --color-brand-navy-2: #a6c0e6;
+  --color-brand-navy-3: #7ea0da;
+  --color-brand-navy-4: #5680ce;
+  --color-brand-navy-5: #2e60c2;
+  --color-brand-navy-6: #002b5b; // Main brand navy
+  --color-brand-navy-7: #022449;
+  --color-brand-navy-8: #031d38;
+  --color-brand-navy-9: #041627;
+
+  // Slate (Body text, muted text)
+  --color-slate-0: #f7fafc;
+  --color-slate-1: #edf2f7;
+  --color-slate-2: #e2e8f0;
+  --color-slate-3: #cbd5e0;
+  --color-slate-4: #a0aec0;
+  --color-slate-5: #718096;
+  --color-slate-6: #4a5568; // Main body text
+  --color-slate-7: #2d3748;
+  --color-slate-8: #1a202c;
+  --color-slate-9: #171923;
+
+  // Surface (Backgrounds)
+  --color-surface-0: #ffffff; // Pure white
+  --color-surface-1: #f8f9fa; // Off-white (recommended)
+  --color-surface-2: #f0f4f8; // Alternative off-white
+  --color-surface-3: #e9eef5;
+  --color-surface-4: #dde5ef;
+  --color-surface-5: #c9d4e3;
+  --color-surface-6: #b3c2d8;
+  --color-surface-7: #93a6c0;
+  --color-surface-8: #6f7f96;
+  --color-surface-9: #4b596b;
+
+  // Error Red
+  --color-error-0: #ffebee;
+  --color-error-1: #ffcdd2;
+  --color-error-2: #ef9a9a;
+  --color-error-3: #e57373;
+  --color-error-4: #ef5350;
+  --color-error-5: #d32f2f;
+  --color-error-6: #c62828; // Main error
+  --color-error-7: #b71c1c;
+  --color-error-8: #8e0000;
+  --color-error-9: #6d0000;
+
+  // Warning Orange
+  --color-warning-0: #fff3e0;
+  --color-warning-1: #ffe0b2;
+  --color-warning-2: #ffcc80;
+  --color-warning-3: #ffb74d;
+  --color-warning-4: #ff9800;
+  --color-warning-5: #ed6c02;
+  --color-warning-6: #e65100; // Main warning
+  --color-warning-7: #d84315;
+  --color-warning-8: #bf360c;
+  --color-warning-9: #a02f0b;
+
+  // Fresh Orange (legacy)
+  --color-fresh-orange-0: #fff3e0;
+  --color-fresh-orange-1: #ffe0b2;
+  --color-fresh-orange-2: #ffcc80;
+  --color-fresh-orange-3: #ffb74d;
+  --color-fresh-orange-4: #ffa726;
+  --color-fresh-orange-5: #fb8c00;
+  --color-fresh-orange-6: #f57c00;
+  --color-fresh-orange-7: #ef6c00;
+  --color-fresh-orange-8: #e65100;
+  --color-fresh-orange-9: #bf360c;
+
+  // Fresh Cyan (legacy)
+  --color-fresh-cyan-0: #e1f5fe;
+  --color-fresh-cyan-1: #b3e5fc;
+  --color-fresh-cyan-2: #81d4fa;
+  --color-fresh-cyan-3: #4fc3f7;
+  --color-fresh-cyan-4: #29b6f6;
+  --color-fresh-cyan-5: #03a9f4;
+  --color-fresh-cyan-6: #039be5;
+  --color-fresh-cyan-7: #0288d1;
+  --color-fresh-cyan-8: #0277bd;
+  --color-fresh-cyan-9: #01579b;
+
+  // Fresh Blue (legacy)
+  --color-fresh-blue-0: #e1f5fe;
+  --color-fresh-blue-1: #b3e5fc;
+  --color-fresh-blue-2: #81d4fa;
+  --color-fresh-blue-3: #4fc3f7;
+  --color-fresh-blue-4: #40c4ff;
+  --color-fresh-blue-5: #00b0ff;
+  --color-fresh-blue-6: #0091ea;
+  --color-fresh-blue-7: #0288d1;
+  --color-fresh-blue-8: #0277bd;
+  --color-fresh-blue-9: #01579b;
+
+  // Fresh Green (legacy)
+  --color-fresh-green-0: #e8f5e9;
+  --color-fresh-green-1: #c8e6c9;
+  --color-fresh-green-2: #a5d6a7;
+  --color-fresh-green-3: #81c784;
+  --color-fresh-green-4: #66bb6a;
+  --color-fresh-green-5: #4caf50;
+  --color-fresh-green-6: #43a047;
+  --color-fresh-green-7: #388e3c;
+  --color-fresh-green-8: #2e7d32;
+  --color-fresh-green-9: #1b5e20;
+
+  // ===========================================================================
+  // TYPOGRAPHY
+  // ===========================================================================
+
+  --font-family:
+    Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    Arial, sans-serif;
+  --font-family-heading:
+    Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    Arial, sans-serif;
+
+  // Font weights
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  // Body text color
+  --text-color: var(--color-slate-6);
+  --text-color-muted: var(--color-slate-5);
+  --text-color-heading: var(--color-brand-navy-6);
+
+  // Heading sizes
+  --heading-h1-size: 6rem;
+  --heading-h1-line-height: 1.167;
+  --heading-h1-weight: 700;
+
+  --heading-h2-size: 3.75rem;
+  --heading-h2-line-height: 1.2;
+  --heading-h2-weight: 700;
+
+  --heading-h3-size: 3rem;
+  --heading-h3-line-height: 1.167;
+  --heading-h3-weight: 500;
+
+  --heading-h4-size: 2.125rem;
+  --heading-h4-line-height: 1.235;
+  --heading-h4-weight: 500;
+
+  --heading-h5-size: 1.5rem;
+  --heading-h5-line-height: 1.334;
+  --heading-h5-weight: 500;
+
+  --heading-h6-size: 1.25rem;
+  --heading-h6-line-height: 1.6;
+  --heading-h6-weight: 500;
+
+  // ===========================================================================
+  // SPACING
+  // ===========================================================================
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+
+  // ===========================================================================
+  // BORDER RADIUS
+  // ===========================================================================
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+
+  // ===========================================================================
+  // SHADOWS
+  // ===========================================================================
+
+  --shadow-xs:
+    0px 1px 1px 0px rgba(36, 24, 24, 0.14), 0px 1px 2px 0px rgba(0, 0, 0, 0.12);
+  --shadow-sm:
+    0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  --shadow-md:
+    0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  --shadow-lg:
+    0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+  --shadow-xl:
+    0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14),
+    0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+
+  // ===========================================================================
+  // TRANSITIONS
+  // ===========================================================================
+
+  // Easing curves
+  --easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+
+  // Durations
+  --duration-shortest: 150ms;
+  --duration-shorter: 200ms;
+  --duration-short: 250ms;
+  --duration-standard: 300ms;
+  --duration-complex: 375ms;
+  --duration-entering: 225ms;
+  --duration-leaving: 195ms;
+
+  // ===========================================================================
+  // GRADIENTS
+  // ===========================================================================
+
+  --gradient-brand:
+    radial-gradient(
+      900px 500px at 15% 15%,
+      rgba(0, 168, 150, 0.18) 0%,
+      rgba(0, 168, 150, 0.06) 35%,
+      rgba(255, 255, 255, 0) 70%
+    ),
+    radial-gradient(
+      800px 420px at 85% 30%,
+      rgba(0, 43, 91, 0.12) 0%,
+      rgba(0, 43, 91, 0.05) 35%,
+      rgba(255, 255, 255, 0) 70%
+    ),
+    radial-gradient(
+      900px 520px at 70% 85%,
+      rgba(0, 168, 150, 0.12) 0%,
+      rgba(0, 168, 150, 0.04) 40%,
+      rgba(255, 255, 255, 0) 75%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+
+  // ===========================================================================
+  // BREAKPOINTS (for reference - use in @media queries)
+  // ===========================================================================
+  // xs:    30em   (480px)
+  // xssm:  35rem  (560px)
+  // sm:    48em   (768px)
+  // smmd:  70em   (1120px)
+  // md:    64em   (1024px)
+  // lg:    74em   (1184px)
+  // xl:    90em   (1440px)
+  // xxl:   123.75rem (1980px)
+  // xxxl:  152.5rem
+}

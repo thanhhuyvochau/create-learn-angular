@@ -58,7 +58,7 @@ import type { Class } from '../../../../models';
   `,
   styles: [`
     .free-classes-section {
-      background: linear-gradient(135deg, #1a365d 0%, #0f172a 100%);
+      background: linear-gradient(135deg, var(--color-brand-navy-6) 0%, #0f172a 100%);
       padding: 48px 24px;
     }
 

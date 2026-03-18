@@ -50,7 +50,11 @@ import { NotificationService } from '../../../../core/notifications/notification
           </div>
         }
 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="consultation-form">
+        <form
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          class="consultation-form"
+        >
           <div class="form-layout">
             <div class="form-image">
               <img
@@ -62,27 +66,52 @@ import { NotificationService } from '../../../../core/notifications/notification
             <div class="form-fields">
               <mat-form-field appearance="outline">
                 <mat-label>Họ và tên</mat-label>
-                <input matInput formControlName="customerName" placeholder="Nhập họ và tên của phụ huynh/học sinh" />
-                @if (form.get('customerName')?.hasError('required') && form.get('customerName')?.touched) {
+                <input
+                  matInput
+                  formControlName="customerName"
+                  placeholder="Nhập họ và tên của phụ huynh/học sinh"
+                />
+                @if (
+                  form.get('customerName')?.hasError('required') &&
+                  form.get('customerName')?.touched
+                ) {
                   <mat-error>Họ và tên là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline">
                 <mat-label>Số điện thoại</mat-label>
-                <input matInput formControlName="phoneNumber" placeholder="Nhập số điện thoại để đội ngũ tư vấn liên hệ" />
-                @if (form.get('phoneNumber')?.hasError('required') && form.get('phoneNumber')?.touched) {
+                <input
+                  matInput
+                  formControlName="phoneNumber"
+                  placeholder="Nhập số điện thoại để đội ngũ tư vấn liên hệ"
+                />
+                @if (
+                  form.get('phoneNumber')?.hasError('required') &&
+                  form.get('phoneNumber')?.touched
+                ) {
                   <mat-error>Số điện thoại là bắt buộc</mat-error>
                 }
               </mat-form-field>
 
               <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput type="email" formControlName="email" placeholder="Nhập email để nhận lộ trình và tài liệu tham khảo" />
-                @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+                <input
+                  matInput
+                  type="email"
+                  formControlName="email"
+                  placeholder="Nhập email để nhận lộ trình và tài liệu tham khảo"
+                />
+                @if (
+                  form.get('email')?.hasError('required') &&
+                  form.get('email')?.touched
+                ) {
                   <mat-error>Email là bắt buộc</mat-error>
                 }
-                @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+                @if (
+                  form.get('email')?.hasError('email') &&
+                  form.get('email')?.touched
+                ) {
                   <mat-error>Email không hợp lệ</mat-error>
                 }
               </mat-form-field>
@@ -95,7 +124,10 @@ import { NotificationService } from '../../../../core/notifications/notification
                   rows="4"
                   placeholder="Chia sẻ chương trình đang theo học (IB/AP/Cambridge), mục tiêu điểm số và những khó khăn hiện tại"
                 ></textarea>
-                @if (form.get('content')?.hasError('required') && form.get('content')?.touched) {
+                @if (
+                  form.get('content')?.hasError('required') &&
+                  form.get('content')?.touched
+                ) {
                   <mat-error>Nội dung là bắt buộc</mat-error>
                 }
               </mat-form-field>
@@ -119,9 +151,10 @@ import { NotificationService } from '../../../../core/notifications/notification
       </mat-card>
     </section>
   `,
-  styles: [`
+  styles: [
+    `
     .consultation-section {
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      background:var(--gradient-brand);
       padding: 48px 24px;
     }
 
@@ -133,7 +166,7 @@ import { NotificationService } from '../../../../core/notifications/notification
     .section-title {
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 500;
-      color: #1a365d;
+      color: var(--color-brand-navy-6);
       margin: 0 0 16px 0;
     }
 
@@ -224,7 +257,8 @@ import { NotificationService } from '../../../../core/notifications/notification
         max-width: 90%;
       }
     }
-  `],
+  `,
+  ],
 })
 export class FindBestClassSectionComponent {
   private readonly fb = inject(FormBuilder);
@@ -255,7 +289,7 @@ export class FindBestClassSectionComponent {
     this.consultationApi.create(this.form.value).subscribe({
       next: () => {
         this.successMessage.set(
-          'Yêu cầu tư vấn đã được gửi thành công! Chúng tôi sẽ liên hệ với bạn sớm.'
+          'Yêu cầu tư vấn đã được gửi thành công! Chúng tôi sẽ liên hệ với bạn sớm.',
         );
         this.form.reset();
         this.isLoading.set(false);
@@ -263,7 +297,7 @@ export class FindBestClassSectionComponent {
       error: (err) => {
         console.error('Error submitting consultation:', err);
         this.errorMessage.set(
-          'Không thể gửi yêu cầu tư vấn. Vui lòng thử lại sau.'
+          'Không thể gửi yêu cầu tư vấn. Vui lòng thử lại sau.',
         );
         this.isLoading.set(false);
       },

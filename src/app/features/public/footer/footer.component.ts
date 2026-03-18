@@ -91,7 +91,7 @@ import type { Subject } from '../../../models';
   `,
   styles: [`
     .footer {
-      background: linear-gradient(135deg, #1a365d 0%, #0f172a 100%);
+      background: linear-gradient(135deg, var(--color-brand-navy-6) 0%, var(--color-brand-navy-9) 100%);
       color: white;
     }
 

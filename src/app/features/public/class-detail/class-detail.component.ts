@@ -55,7 +55,7 @@ import type { Class } from '../../../models';
                 </p>
               }
 
-              <h1 class="class-name">{{ classData()!.name }}</h1>
+              <h5 class="class-name">{{ classData()!.name }}</h5>
               <p class="class-brief">{{ classData()!.brief }}</p>
 
               <!-- Schedule -->
@@ -220,7 +220,7 @@ import type { Class } from '../../../models';
       .description-content :deep(h1),
       .description-content :deep(h2),
       .description-content :deep(h3) {
-        color: #1a365d;
+        color: var(--color-brand-navy-6);
         margin-top: 24px;
         margin-bottom: 12px;
       }

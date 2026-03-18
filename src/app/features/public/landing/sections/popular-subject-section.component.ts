@@ -60,7 +60,7 @@ const DEMO_SUBJECT_CARDS: SubjectCardData[] = [
     .section-title {
       font-size: clamp(1.75rem, 4vw, 3rem);
       font-weight: 600;
-      color: #0d9488;
+      color: var(--color-brand-teal-6);
       margin: 0 0 16px 0;
     }
 
@@ -115,7 +115,7 @@ const DEMO_SUBJECT_CARDS: SubjectCardData[] = [
     .subject-name {
       font-size: 1.25rem;
       font-weight: 600;
-      color: #1a365d;
+      color: var(--color-brand-navy-6);
       margin: 0;
     }
 

@@ -64,7 +64,7 @@ const FEATURE_CARDS_DATA: FeatureCard[] = [
   `,
   styles: [`
     .feature-section {
-      background: linear-gradient(135deg, #1a365d 0%, #0f172a 100%);
+      background: linear-gradient(135deg, var(--color-brand-navy-6) 0%, #0f172a 100%);
       padding: 100px 24px 62px;
     }
 
@@ -118,7 +118,7 @@ const FEATURE_CARDS_DATA: FeatureCard[] = [
     .feature-title {
       font-size: 1.35rem;
       font-weight: 600;
-      color: #0d9488;
+      color: var(--color-brand-teal-6);
       margin: 0 0 16px 0;
       white-space: pre-line;
       line-height: 1.3;

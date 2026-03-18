@@ -1,0 +1,209 @@
+// =============================================================================
+// Custom Angular Material M3 Theme
+// Mapped from Mantine brand colors (brand-teal, brand-navy)
+// =============================================================================
+
+@use '@angular/material' as mat;
+
+// Define custom theme using M3 color system
+// Primary: brand-navy (#002B5B)
+// Tertiary (accent): brand-teal (#00A896)
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,      // Will be overridden by custom colors
+    tertiary: mat.$cyan-palette,      // Will be overridden by custom colors
+  ),
+  typography: (
+    brand-family: 'Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+    plain-family: 'Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif',
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+// Include core styles (required once)
+@include mat.core();
+
+// Apply theme to all Angular Material components
+:root {
+  @include mat.all-component-themes($theme);
+
+  // Override Material color tokens with our brand colors
+  // Primary colors (brand-navy)
+  --mat-app-primary: #002B5B;
+  --mat-app-on-primary: #FFFFFF;
+  --mdc-filled-button-container-color: #002B5B;
+  --mdc-filled-button-label-text-color: #FFFFFF;
+  --mdc-protected-button-label-text-color: #002B5B;
+  --mdc-text-button-label-text-color: #002B5B;
+  --mdc-outlined-button-label-text-color: #002B5B;
+  --mdc-outlined-button-outline-color: #002B5B;
+
+  // FAB colors (brand-teal for accent)
+  --mdc-fab-container-color: #00A896;
+  --mat-fab-foreground-color: #FFFFFF;
+  --mat-fab-state-layer-color: #00A896;
+
+  // Checkbox / Radio / Slide toggle (brand-teal for selections)
+  --mdc-checkbox-selected-checkmark-color: #FFFFFF;
+  --mdc-checkbox-selected-focus-icon-color: #00A896;
+  --mdc-checkbox-selected-hover-icon-color: #00A896;
+  --mdc-checkbox-selected-icon-color: #00A896;
+  --mdc-checkbox-selected-pressed-icon-color: #00A896;
+  --mdc-radio-selected-focus-icon-color: #00A896;
+  --mdc-radio-selected-hover-icon-color: #00A896;
+  --mdc-radio-selected-icon-color: #00A896;
+  --mdc-radio-selected-pressed-icon-color: #00A896;
+  --mdc-switch-selected-track-color: #00A896;
+  --mdc-switch-selected-handle-color: #FFFFFF;
+  --mdc-switch-selected-focus-track-color: #008A7B;
+  --mdc-switch-selected-hover-track-color: #008A7B;
+  --mdc-switch-selected-pressed-track-color: #008A7B;
+
+  // Progress indicators (brand-teal)
+  --mdc-linear-progress-active-indicator-color: #00A896;
+  --mdc-circular-progress-active-indicator-color: #00A896;
+
+  // Tabs (brand-navy)
+  --mat-tab-header-active-label-text-color: #002B5B;
+  --mat-tab-header-active-ripple-color: #002B5B;
+  --mat-tab-header-inactive-label-text-color: #4A5568;
+  --mat-tab-header-active-focus-label-text-color: #002B5B;
+  --mat-tab-header-active-hover-label-text-color: #002B5B;
+  --mat-tab-header-active-focus-indicator-color: #002B5B;
+  --mat-tab-header-active-hover-indicator-color: #002B5B;
+
+  // Form fields (brand-teal for focus)
+  --mdc-filled-text-field-focus-active-indicator-color: #00A896;
+  --mdc-filled-text-field-focus-label-text-color: #00A896;
+  --mdc-outlined-text-field-focus-outline-color: #00A896;
+  --mdc-outlined-text-field-focus-label-text-color: #00A896;
+  --mat-form-field-focus-select-arrow-color: #00A896;
+
+  // Select / Option (brand-teal for selected state)
+  --mat-option-selected-state-label-text-color: #00A896;
+  --mat-minimal-pseudo-checkbox-selected-checkmark-color: #00A896;
+
+  // Slider (brand-teal)
+  --mdc-slider-handle-color: #00A896;
+  --mdc-slider-focus-handle-color: #00A896;
+  --mdc-slider-hover-handle-color: #00A896;
+  --mdc-slider-active-track-color: #00A896;
+  --mdc-slider-inactive-track-color: #CFF1EC;
+  --mdc-slider-with-tick-marks-active-container-color: #FFFFFF;
+  --mdc-slider-with-tick-marks-inactive-container-color: #00A896;
+
+  // Chips (brand-teal for selected)
+  --mat-chip-selected-trailing-icon-color: #00A896;
+  --mat-chip-selected-leading-icon-color: #00A896;
+
+  // Datepicker (brand-navy primary, brand-teal accent)
+  --mat-datepicker-calendar-date-selected-state-background-color: #002B5B;
+  --mat-datepicker-calendar-date-selected-state-text-color: #FFFFFF;
+  --mat-datepicker-calendar-date-today-outline-color: #00A896;
+  --mat-datepicker-calendar-date-focus-state-background-color: rgba(0, 168, 150, 0.3);
+  --mat-datepicker-calendar-date-hover-state-background-color: rgba(0, 168, 150, 0.3);
+
+  // Stepper (brand-navy)
+  --mat-stepper-header-selected-state-icon-background-color: #002B5B;
+  --mat-stepper-header-selected-state-icon-foreground-color: #FFFFFF;
+  --mat-stepper-header-done-state-icon-background-color: #00A896;
+  --mat-stepper-header-done-state-icon-foreground-color: #FFFFFF;
+  --mat-stepper-header-edit-state-icon-background-color: #002B5B;
+  --mat-stepper-header-edit-state-icon-foreground-color: #FFFFFF;
+
+  // Menu / List
+  --mat-menu-item-label-text-color: #4A5568;
+  --mat-menu-item-icon-color: #4A5568;
+  --mdc-list-list-item-label-text-color: #4A5568;
+
+  // Snackbar
+  --mdc-snackbar-container-color: #2D3748;
+  --mdc-snackbar-supporting-text-color: #FFFFFF;
+
+  // Toolbar (brand-navy)
+  --mat-toolbar-container-background-color: #002B5B;
+  --mat-toolbar-container-text-color: #FFFFFF;
+
+  // Sidenav
+  --mat-sidenav-container-background-color: #FFFFFF;
+  --mat-sidenav-content-background-color: #F8F9FA;
+
+  // Card
+  --mdc-elevated-card-container-color: #FFFFFF;
+  --mdc-outlined-card-container-color: #FFFFFF;
+  --mdc-outlined-card-outline-color: #E2E8F0;
+
+  // Dialog
+  --mdc-dialog-container-color: #FFFFFF;
+  --mdc-dialog-subhead-color: #2D3748;
+  --mdc-dialog-supporting-text-color: #4A5568;
+
+  // Divider
+  --mat-divider-color: #E2E8F0;
+
+  // Table
+  --mat-table-background-color: #FFFFFF;
+  --mat-table-header-headline-color: #2D3748;
+  --mat-table-row-item-label-text-color: #4A5568;
+  --mat-table-row-item-outline-color: #E2E8F0;
+
+  // Paginator
+  --mat-paginator-container-background-color: #FFFFFF;
+  --mat-paginator-container-text-color: #4A5568;
+
+  // Sort header
+  --mat-sort-header-arrow-color: #4A5568;
+
+  // Badge (brand-teal)
+  --mat-badge-background-color: #00A896;
+  --mat-badge-text-color: #FFFFFF;
+
+  // Bottom sheet
+  --mat-bottom-sheet-container-background-color: #FFFFFF;
+  --mat-bottom-sheet-container-text-color: #4A5568;
+
+  // Expansion panel
+  --mat-expansion-container-background-color: #FFFFFF;
+  --mat-expansion-container-text-color: #4A5568;
+  --mat-expansion-header-text-color: #2D3748;
+}
+
+// Error state overrides
+.mat-mdc-form-field.mat-form-field-invalid {
+  --mdc-filled-text-field-focus-active-indicator-color: #c62828;
+  --mdc-filled-text-field-focus-label-text-color: #c62828;
+  --mdc-outlined-text-field-focus-outline-color: #c62828;
+  --mdc-outlined-text-field-focus-label-text-color: #c62828;
+  --mdc-outlined-text-field-error-outline-color: #c62828;
+  --mdc-outlined-text-field-error-focus-outline-color: #c62828;
+  --mdc-outlined-text-field-error-hover-outline-color: #c62828;
+}
+
+// Warn button overrides
+.mat-mdc-button.mat-warn,
+.mat-mdc-raised-button.mat-warn,
+.mat-mdc-unelevated-button.mat-warn,
+.mat-mdc-outlined-button.mat-warn {
+  --mdc-filled-button-container-color: #c62828;
+  --mdc-filled-button-label-text-color: #FFFFFF;
+  --mdc-protected-button-label-text-color: #c62828;
+  --mdc-text-button-label-text-color: #c62828;
+  --mdc-outlined-button-label-text-color: #c62828;
+  --mdc-outlined-button-outline-color: #c62828;
+}
+
+// Accent button overrides (brand-teal)
+.mat-mdc-button.mat-accent,
+.mat-mdc-raised-button.mat-accent,
+.mat-mdc-unelevated-button.mat-accent,
+.mat-mdc-outlined-button.mat-accent {
+  --mdc-filled-button-container-color: #00A896;
+  --mdc-filled-button-label-text-color: #FFFFFF;
+  --mdc-protected-button-label-text-color: #00A896;
+  --mdc-text-button-label-text-color: #00A896;
+  --mdc-outlined-button-label-text-color: #00A896;
+  --mdc-outlined-button-outline-color: #00A896;
+}
