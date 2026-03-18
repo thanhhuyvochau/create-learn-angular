@@ -560,7 +560,8 @@ export class TeacherListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to upload image:', err);
-          this.notification.showError('Không thể tải ảnh lên');
+          const msg = err?.error?.message || 'Không thể tải ảnh lên';
+          this.notification.showError(msg);
           this.selectedFile.set(null);
           this.previewUrl.set(this.editingTeacher()?.profileImageUrl || null);
         },

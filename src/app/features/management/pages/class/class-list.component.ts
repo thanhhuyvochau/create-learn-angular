@@ -857,7 +857,8 @@ export class ClassListComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to upload image:', err);
-          this.notification.showError('Không thể tải hình ảnh');
+          const msg = err?.error?.message || 'Không thể tải hình ảnh';
+          this.notification.showError(msg);
           this.selectedFile.set(null);
           this.previewUrl.set(this.editingClass()?.image || null);
         },
