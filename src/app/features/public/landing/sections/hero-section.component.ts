@@ -245,7 +245,7 @@ export class HeroSectionComponent {
   content = HERO_CONTENT;
 
   scrollToFreeClasses(): void {
-    const element = document.getElementById('free-classes-section');
+    const element = document.getElementById('find-best-class');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }

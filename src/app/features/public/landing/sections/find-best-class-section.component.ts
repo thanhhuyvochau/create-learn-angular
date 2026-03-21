@@ -26,7 +26,7 @@ import { NotificationService } from '../../../../core/notifications/notification
     MatIconModule,
   ],
   template: `
-    <section class="consultation-section">
+    <section id="find-best-class" class="consultation-section">
       <div class="section-header">
         <h2 class="section-title">Đăng Ký Tư Vấn Miễn Phí</h2>
         <p class="section-subtitle">
