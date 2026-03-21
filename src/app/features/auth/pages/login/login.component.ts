@@ -44,25 +44,28 @@ import { AuthService } from '../../../../core/auth/auth.service';
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Username</mat-label>
+              <mat-label>Tài khoản</mat-label>
               <input
                 matInput
                 formControlName="username"
-                placeholder="Enter your username"
+                placeholder="Tài khoản"
                 autocomplete="username"
               />
-              @if (loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched) {
-                <mat-error>Username is required</mat-error>
+              @if (
+                loginForm.get('username')?.hasError('required') &&
+                loginForm.get('username')?.touched
+              ) {
+                <mat-error>Vui lòng nhập tài khoản</mat-error>
               }
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Password</mat-label>
+              <mat-label>Mật khẩu</mat-label>
               <input
                 matInput
                 [type]="hidePassword() ? 'password' : 'text'"
                 formControlName="password"
-                placeholder="Enter your password"
+                placeholder="Mật khẩu"
                 autocomplete="current-password"
               />
               <button
@@ -71,10 +74,15 @@ import { AuthService } from '../../../../core/auth/auth.service';
                 type="button"
                 (click)="togglePasswordVisibility()"
               >
-                <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                <mat-icon>{{
+                  hidePassword() ? 'visibility_off' : 'visibility'
+                }}</mat-icon>
               </button>
-              @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
-                <mat-error>Password is required</mat-error>
+              @if (
+                loginForm.get('password')?.hasError('required') &&
+                loginForm.get('password')?.touched
+              ) {
+                <mat-error>Vui lòng nhập mật khẩu</mat-error>
               }
             </mat-form-field>
 
@@ -87,9 +95,9 @@ import { AuthService } from '../../../../core/auth/auth.service';
             >
               @if (isSubmitting()) {
                 <mat-icon class="spinning-icon">sync</mat-icon>
-                <span>Signing in...</span>
+                <span>Đang đăng nhập...</span>
               } @else {
-                <span>Login</span>
+                <span>Đăng nhập</span>
               }
             </button>
           </form>
@@ -98,7 +106,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
 
       <div class="login-image-section">
         <div class="image-overlay">
-          <h2>Create & Learn</h2>
+          <h2>Algocore Education</h2>
           <p>Your educational journey starts here</p>
         </div>
       </div>
@@ -341,7 +349,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       // Navigation is handled by authState$ subscription
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : 'Login failed. Please try again.';
+        error instanceof Error
+          ? error.message
+          : 'Login failed. Please try again.';
       this.errorMessage.set(message);
       this.isSubmitting.set(false);
     }

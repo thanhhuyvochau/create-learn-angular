@@ -1,5 +1,10 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import { filter } from 'rxjs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,7 +52,11 @@ const NAVIGATION_LINKS: NavLink[] = [
       <div class="header-container">
         <!-- Logo -->
         <a routerLink="/" class="logo-link">
-          <img src="/images/horizontal-logo.png" alt="AlgoCore Education" class="logo" />
+          <img
+            src="/images/horizontal-logo.png"
+            alt="AlgoCore Education"
+            class="logo"
+          />
           <!-- <span class="brand-name">AlgoCore</span> -->
         </a>
 
@@ -55,13 +64,21 @@ const NAVIGATION_LINKS: NavLink[] = [
         <nav class="desktop-nav">
           @for (link of navLinks; track link.href) {
             @if (link.hasSubmenu) {
-              <button mat-button [matMenuTriggerFor]="subjectMenu" class="nav-link" [class.active]="isOnSubjectRoute()">
+              <button
+                mat-button
+                [matMenuTriggerFor]="subjectMenu"
+                class="nav-link"
+                [class.active]="isOnSubjectRoute()"
+              >
                 {{ link.name }}
                 <mat-icon>expand_more</mat-icon>
               </button>
               <mat-menu #subjectMenu="matMenu">
                 @for (subject of subjects(); track subject.id) {
-                  <a mat-menu-item [routerLink]="['/class/subject', subject.id]">
+                  <a
+                    mat-menu-item
+                    [routerLink]="['/class/subject', subject.id]"
+                  >
                     {{ subject.name }}
                   </a>
                 }
@@ -70,7 +87,13 @@ const NAVIGATION_LINKS: NavLink[] = [
                 }
               </mat-menu>
             } @else {
-              <a mat-button [routerLink]="link.href" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
+              <a
+                mat-button
+                [routerLink]="link.href"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="nav-link"
+              >
                 {{ link.name }}
               </a>
             }
@@ -79,8 +102,12 @@ const NAVIGATION_LINKS: NavLink[] = [
 
         <!-- Auth Section -->
         <div class="auth-section">
-            @if (auth.isLoggedIn()) {
-            <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-trigger">
+          @if (auth.isLoggedIn()) {
+            <button
+              mat-button
+              [matMenuTriggerFor]="userMenu"
+              class="user-menu-trigger"
+            >
               <mat-icon>account_circle</mat-icon>
               <span class="user-name">{{ auth.user()?.sub }}</span>
               <mat-icon>expand_more</mat-icon>
@@ -97,14 +124,24 @@ const NAVIGATION_LINKS: NavLink[] = [
               </button>
             </mat-menu>
           } @else {
-            <a mat-raised-button color="primary" routerLink="/login" class="login-btn">
+            <a
+              mat-raised-button
+              color="primary"
+              routerLink="/login"
+              class="login-btn"
+            >
               Đăng nhập
             </a>
           }
         </div>
 
         <!-- Mobile Menu Button -->
-        <button mat-icon-button class="mobile-menu-btn" (click)="toggleMobileMenu()" aria-label="Toggle navigation menu">
+        <button
+          mat-icon-button
+          class="mobile-menu-btn"
+          (click)="toggleMobileMenu()"
+          aria-label="Toggle navigation menu"
+        >
           <mat-icon>{{ mobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
         </button>
       </div>
@@ -114,8 +151,16 @@ const NAVIGATION_LINKS: NavLink[] = [
         <div class="mobile-overlay" (click)="closeMobileMenu()"></div>
         <nav class="mobile-nav">
           <div class="mobile-nav-header">
-            <img src="/images/algocore-logo.jpg" alt="AlgoCore" class="mobile-logo" />
-            <button mat-icon-button (click)="closeMobileMenu()" aria-label="Close navigation menu">
+            <img
+              src="/images/algocore-logo.jpg"
+              alt="AlgoCore"
+              class="mobile-logo"
+            />
+            <button
+              mat-icon-button
+              (click)="closeMobileMenu()"
+              aria-label="Close navigation menu"
+            >
               <mat-icon>close</mat-icon>
             </button>
           </div>
@@ -130,21 +175,33 @@ const NAVIGATION_LINKS: NavLink[] = [
                 </mat-list-item>
                 @if (subjectExpanded()) {
                   @for (subject of subjects(); track subject.id) {
-                    <a mat-list-item [routerLink]="['/class/subject', subject.id]" 
-                       (click)="closeMobileMenu()" class="submenu-item">
+                    <a
+                      mat-list-item
+                      [routerLink]="['/class/subject', subject.id]"
+                      (click)="closeMobileMenu()"
+                      class="submenu-item"
+                    >
                       {{ subject.name }}
                     </a>
                   }
                 }
               } @else {
-                <a mat-list-item [routerLink]="link.href" (click)="closeMobileMenu()">
+                <a
+                  mat-list-item
+                  [routerLink]="link.href"
+                  (click)="closeMobileMenu()"
+                >
                   <span matListItemTitle>{{ link.name }}</span>
                 </a>
               }
             }
             <mat-divider></mat-divider>
-          @if (auth.isLoggedIn()) {
-              <a mat-list-item routerLink="/management" (click)="closeMobileMenu()">
+            @if (auth.isLoggedIn()) {
+              <a
+                mat-list-item
+                routerLink="/management"
+                (click)="closeMobileMenu()"
+              >
                 <mat-icon matListItemIcon>dashboard</mat-icon>
                 <span matListItemTitle>Quản lý</span>
               </a>
@@ -163,162 +220,164 @@ const NAVIGATION_LINKS: NavLink[] = [
       }
     </header>
   `,
-  styles: [`
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .header-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 72px;
-    }
-
-    .logo-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .logo {
-      height: 48px;
-      width: auto;
-      border-radius: 8px;
-    }
-
-    .brand-name {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--color-brand-navy-6);
-    }
-
-    .desktop-nav {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-link {
-      font-weight: 500;
-      color: #374151;
-    }
-
-    .nav-link.active {
-      color: #2563eb;
-    }
-
-    .auth-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .user-menu-trigger {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .user-name {
-      max-width: 120px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .login-btn {
-      font-weight: 500;
-    }
-
-    .mobile-menu-btn {
-      display: none;
-    }
-
-    .mobile-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1001;
-    }
-
-    .mobile-nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 300px;
-      height: 100vh;
-      background: white;
-      z-index: 1002;
-      overflow-y: auto;
-      animation: slideIn 0.3s ease;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-      }
-      to {
-        transform: translateX(0);
-      }
-    }
-
-    .mobile-nav-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .mobile-logo {
-      height: 40px;
-      width: auto;
-      border-radius: 8px;
-    }
-
-    .submenu-item {
-      padding-left: 32px !important;
-      background: #f9fafb;
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .desktop-nav {
-        display: none;
-      }
-
-      .auth-section {
-        display: none;
-      }
-
-      .mobile-menu-btn {
-        display: flex;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .brand-name {
-        display: none;
+  styles: [
+    `
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .header-container {
-        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 72px;
       }
-    }
-  `],
+
+      .logo-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .logo {
+        height: 48px;
+        width: auto;
+        border-radius: 8px;
+      }
+
+      .brand-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-brand-navy-6);
+      }
+
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        color: #374151 !important;
+      }
+
+      .nav-link.active {
+        color: var(--color-brand-teal-6) !important;
+      }
+
+      .auth-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .user-menu-trigger {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .user-name {
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .login-btn {
+        font-weight: 500;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+      }
+
+      .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+      }
+
+      .mobile-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100vh;
+        background: white;
+        z-index: 1002;
+        overflow-y: auto;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      .mobile-nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .mobile-logo {
+        height: 40px;
+        width: auto;
+        border-radius: 8px;
+      }
+
+      .submenu-item {
+        padding-left: 32px !important;
+        background: #f9fafb;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .desktop-nav {
+          display: none;
+        }
+
+        .auth-section {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: flex;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .brand-name {
+          display: none;
+        }
+
+        .header-container {
+          padding: 0 16px;
+        }
+      }
+    `,
+  ],
 })
 export class HeaderComponent implements OnInit {
   readonly auth = inject(AuthService);

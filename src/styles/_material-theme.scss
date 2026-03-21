@@ -31,15 +31,23 @@ $theme: mat.define-theme((
   @include mat.all-component-themes($theme);
 
   // Override Material color tokens with our brand colors
-  // Primary colors (brand-navy)
-  --mat-app-primary: #002B5B;
+  // Primary colors (brand-teal)
+  --mat-app-primary: #00A896;
   --mat-app-on-primary: #FFFFFF;
-  --mdc-filled-button-container-color: #002B5B;
+  // mat-flat-button (filled/unelevated)
+  --mdc-filled-button-container-color: #00A896;
   --mdc-filled-button-label-text-color: #FFFFFF;
-  --mdc-protected-button-label-text-color: #002B5B;
-  --mdc-text-button-label-text-color: #002B5B;
-  --mdc-outlined-button-label-text-color: #002B5B;
-  --mdc-outlined-button-outline-color: #002B5B;
+  --mdc-filled-button-hover-container-color: #008A7B;
+  --mdc-filled-button-focus-container-color: #008A7B;
+  --mdc-filled-button-pressed-container-color: #006D61;
+  // mat-raised-button (elevated/protected)
+  --mdc-protected-button-container-color: #00A896;
+  --mdc-protected-button-label-text-color: #FFFFFF;
+  --mat-protected-button-state-layer-color: #FFFFFF;
+  // mat-button / mat-stroked-button (text & outlined)
+  --mdc-text-button-label-text-color: #00A896;
+  --mdc-outlined-button-label-text-color: #00A896;
+  --mdc-outlined-button-outline-color: #00A896;
 
   // FAB colors (brand-teal for accent)
   --mdc-fab-container-color: #00A896;
