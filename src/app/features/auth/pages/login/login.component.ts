@@ -105,6 +105,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
       </div>
 
       <div class="login-image-section">
+        <img src="/images/login-page.png" alt="Login background" class="login-bg-image" />
         <div class="image-overlay">
           <h2>Algocore Education</h2>
           <p>Your educational journey starts here</p>
@@ -184,38 +185,32 @@ import { AuthService } from '../../../../core/auth/auth.service';
       }
 
       .login-image-section {
-        flex: 0 0 60%;
-        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+        flex: 1 1 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
         overflow: hidden;
+        box-shadow: -8px 0 24px rgba(0, 0, 0, 0.25);
+      }
+
+      .login-bg-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
       }
 
       .login-image-section::before {
         content: '';
         position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.1) 0%,
-          transparent 70%
-        );
-        animation: pulse 15s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.1);
-        }
+        inset: 0;
+        background: rgba(0, 0, 0, 0.40);
+        animation: none;
+        z-index: 1;
       }
 
       .spinning-icon {
@@ -236,20 +231,46 @@ import { AuthService } from '../../../../core/auth/auth.service';
       }
 
       .image-overlay {
+        position: relative;
+        z-index: 2;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
         color: white;
-        z-index: 1;
+        padding: 32px 40px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(6px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
       }
 
       .image-overlay h2 {
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 16px;
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+        letter-spacing: 0.01em;
+      }
+
+      .image-overlay h2::after {
+        content: '';
+        display: block;
+        width: 48px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 2px;
+        margin: 12px auto 0;
       }
 
       .image-overlay p {
         font-size: 1.25rem;
-        opacity: 0.9;
+        color: rgba(255, 255, 255, 0.85);
+        letter-spacing: 0.03em;
+        margin-top: 4px;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
       }
 
       /* Responsive styles */
@@ -348,10 +369,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       await this.authService.login({ username: username.trim(), password });
       // Navigation is handled by authState$ subscription
     } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Login failed. Please try again.';
+      const message = "Sai tài khoản hoặc mật khẩu. Vui lòng thử lại."
       this.errorMessage.set(message);
       this.isSubmitting.set(false);
     }
