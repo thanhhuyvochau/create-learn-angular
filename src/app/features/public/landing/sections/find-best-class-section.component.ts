@@ -58,7 +58,7 @@ import { NotificationService } from '../../../../core/notifications/notification
           <div class="form-layout">
             <div class="form-image">
               <img
-                src="https://cdn.create-learn.us/next-image/create-learn-prod/strapi-studio/Class_Recommendation_Widge_3321183a76.png?width=640"
+                src="/image/Class_Recommendation_Widge_3321183a76.png"
                 alt="Consultation Form Image"
               />
             </div>
