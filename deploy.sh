@@ -17,13 +17,13 @@ case $PROFILE in
     CONFIGURATION="development"
     TAG="dev"
     echo "Building for DEVELOPMENT environment..."
-    echo "API URL: http://103.81.84.247:8080"
+    echo "API URL: http://103.12.76.205:8080"
     ;;
   prod|production)
     CONFIGURATION="production"
     TAG="prod"
     echo "Building for PRODUCTION environment..."
-    echo "API URL: http://76.13.181.170:8080"
+    echo "API URL: http://103.12.76.205:8080"
     ;;
   *)
     echo "Unknown profile: $PROFILE"
