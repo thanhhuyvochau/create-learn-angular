@@ -58,7 +58,7 @@ import { NotificationService } from '../../../../core/notifications/notification
           <div class="form-layout">
             <div class="form-image">
               <img
-                src="/image/Class_Recommendation_Widge_3321183a76.png"
+                src="/images/Class_Recommendation_Widge_3321183a76.png"
                 alt="Consultation Form Image"
               />
             </div>
