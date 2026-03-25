@@ -11,7 +11,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
-import { API_BASE_URL } from './core/tokens';
+import { API_BASE_URL, RESOURCE_URL_SUFFIX } from './core/tokens';
 import { authInterceptor } from './core/auth/auth.interceptor';
 import { AuthService } from './core/auth/auth.service';
 import { GlobalErrorHandler } from './core/error/global-error-handler';
@@ -27,7 +27,14 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
-    { provide: API_BASE_URL, useValue: environment.apiBaseUrl },
+    {
+      provide: API_BASE_URL,
+      useFactory: () =>
+        window.location.protocol === 'https:'
+          ? environment.apiBaseUrlHttps
+          : environment.apiBaseUrlHttp,
+    },
+    { provide: RESOURCE_URL_SUFFIX, useValue: environment.resourceUrl },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     {
       provide: APP_INITIALIZER,

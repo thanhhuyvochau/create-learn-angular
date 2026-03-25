@@ -14,3 +14,6 @@ export { ConsultationApiService } from './consultation-api.service';
 
 // File upload service
 export { FileUploadApiService, type FileUploadResponse } from './file-upload-api.service';
+
+// Resource URL service — resolves the MinIO base URL based on HTTP/HTTPS protocol
+export { ResourceUrlService } from './resource-url.service';
