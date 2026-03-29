@@ -88,6 +88,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'recruitment/:id',
+    title: 'Job Detail | AlgoCore Education',
+    loadComponent: () =>
+      import('./features/public/recruitment/job-detail/job-detail.component').then(
+        (m) => m.JobDetailComponent
+      ),
+  },
+  {
     path: 'subjects',
     redirectTo: 'class',
     pathMatch: 'full',

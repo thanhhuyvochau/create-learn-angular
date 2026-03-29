@@ -6,28 +6,28 @@ import type { RecruitmentBenefit } from '../../../../models/recruitment.model';
 
 const BENEFITS: RecruitmentBenefit[] = [
   {
-    icon: 'trending_up',       // classic: trending_up ✓
-    title: 'Professional Growth',
+    icon: 'trending_up',
+    title: 'Phát Triển Nghề Nghiệp',
     description:
-      'Continuous learning stipends, weekly knowledge-sharing sessions, and a clear path to leadership.',
+      'Học bổng học tập liên tục, buổi chia sẻ kiến thức hàng tuần và lộ trình rõ ràng lên vị trí lãnh đạo.',
   },
   {
-    icon: 'group',             // classic equivalent of Material Symbols 'groups'
-    title: 'Collaborative Environment',
+    icon: 'group',
+    title: 'Môi Trường Hợp Tác',
     description:
-      'Work alongside world-class educators and software engineers in a flat, high-trust organizational structure.',
+      'Làm việc cùng các nhà giáo dục và kỹ sư phần mềm đẳng cấp thế giới trong cơ cấu tổ chức phẳng, tin tưởng cao.',
   },
   {
-    icon: 'stars',             // classic equivalent of Material Symbols 'auto_awesome'
-    title: 'Student Success',
+    icon: 'stars',
+    title: 'Thành Công Của Học Sinh',
     description:
-      'Directly impact thousands of learners. We measure our success by the breakthroughs our students achieve.',
+      'Tác động trực tiếp đến hàng nghìn người học. Chúng tôi đo thành công bằng những đột phá mà học sinh đạt được.',
   },
   {
-    icon: 'favorite',          // classic equivalent of Material Symbols 'health_and_safety'
-    title: 'Holistic Wellbeing',
+    icon: 'favorite',
+    title: 'Sức Khỏe Toàn Diện',
     description:
-      'Comprehensive healthcare, flexible remote-work options, and a genuine commitment to work-life harmony.',
+      'Chăm sóc sức khỏe toàn diện, lựa chọn làm việc từ xa linh hoạt và cam kết thực sự với sự cân bằng công việc – cuộc sống.',
   },
 ];
 
@@ -41,10 +41,10 @@ const BENEFITS: RecruitmentBenefit[] = [
       <div class="benefits-container">
         <!-- Left heading column -->
         <div class="benefits-heading">
-          <h2 class="benefits-title">Why Join AlgoCore Education?</h2>
+          <h2 class="benefits-title">Tại Sao Gia Nhập AlgoCore Education?</h2>
           <p class="benefits-subtitle">
-            We provide an environment where your intellectual curiosity meets
-            real-world impact.
+            Chúng tôi tạo ra môi trường nơi sự tò mò trí tuệ của bạn
+            gặp gỡ tác động thực tế.
           </p>
           <div class="benefits-divider"></div>
         </div>

@@ -31,6 +31,23 @@ const LOCATIONS: JobLocation[] = [
   'London',
 ];
 
+const DEPARTMENT_LABELS: Record<JobDepartment, string> = {
+  'All Departments': 'Tất Cả Bộ Phận',
+  'Mathematics': 'Toán Học',
+  'Coding': 'Lập Trình',
+  'Admissions': 'Tuyển Sinh',
+};
+
+const LOCATION_LABELS: Record<JobLocation, string> = {
+  'All Locations': 'Tất Cả Địa Điểm',
+  'Remote': 'Từ Xa',
+  'San Francisco': 'San Francisco',
+  'London': 'London',
+  'Remote / SF': 'Từ Xa / SF',
+  'Remote / London': 'Từ Xa / London',
+  'Cambridge (Hybrid)': 'Cambridge (Kết Hợp)',
+};
+
 const PAGE_SIZE = 10;
 
 @Component({
@@ -45,8 +62,8 @@ const PAGE_SIZE = 10;
         <!-- Section header -->
         <div class="openings-header">
           <div class="openings-header-text">
-            <h2 class="openings-title">Current Openings</h2>
-            <p class="openings-subtitle">Find your next challenge in one of our core departments.</p>
+            <h2 class="openings-title">Vị Trí Tuyển Dụng Hiện Tại</h2>
+            <p class="openings-subtitle">Tìm thử thách tiếp theo của bạn tại một trong các bộ phận cốt lõi của chúng tôi.</p>
           </div>
 
           <!-- Filters -->
@@ -55,10 +72,10 @@ const PAGE_SIZE = 10;
               class="filter-select"
               [(ngModel)]="selectedDepartment"
               (ngModelChange)="onFilterChange()"
-              aria-label="Filter by department"
+              aria-label="Lọc theo bộ phận"
             >
               @for (dept of departments; track dept) {
-                <option [value]="dept">{{ dept }}</option>
+                <option [value]="dept">{{ departmentLabels[dept] }}</option>
               }
             </select>
 
@@ -66,10 +83,10 @@ const PAGE_SIZE = 10;
               class="filter-select"
               [(ngModel)]="selectedLocation"
               (ngModelChange)="onFilterChange()"
-              aria-label="Filter by location"
+              aria-label="Lọc theo địa điểm"
             >
               @for (loc of locations; track loc) {
-                <option [value]="loc">{{ loc }}</option>
+                <option [value]="loc">{{ locationLabels[loc] }}</option>
               }
             </select>
           </div>
@@ -86,7 +103,7 @@ const PAGE_SIZE = 10;
         @if (!isLoading() && error()) {
           <div class="openings-error">
             <mat-icon class="error-icon">error_outline</mat-icon>
-            <p>Failed to load job postings. Please try again later.</p>
+            <p>Không thể tải danh sách vị trí. Vui lòng thử lại sau.</p>
           </div>
         }
 
@@ -97,8 +114,8 @@ const PAGE_SIZE = 10;
           @if (allJobs().length === 0) {
             <div class="openings-empty">
               <mat-icon class="empty-icon">work_off</mat-icon>
-              <p class="empty-title">No current job openings at this time.</p>
-              <p class="empty-sub">Please check back later — we're always growing.</p>
+              <p class="empty-title">Hiện chưa có vị trí tuyển dụng nào.</p>
+              <p class="empty-sub">Vui lòng quay lại sau — chúng tôi luôn phát triển.</p>
             </div>
           }
 
@@ -106,8 +123,8 @@ const PAGE_SIZE = 10;
           @if (allJobs().length > 0 && filteredJobs().length === 0) {
             <div class="openings-empty">
               <mat-icon class="empty-icon">find_in_page</mat-icon>
-              <p class="empty-title">No openings match the selected filters.</p>
-              <p class="empty-sub">Try adjusting the department or location filter.</p>
+              <p class="empty-title">Không có vị trí nào phù hợp với bộ lọc đã chọn.</p>
+              <p class="empty-sub">Hãy thử điều chỉnh bộ lọc bộ phận hoặc địa điểm.</p>
             </div>
           }
 
@@ -121,14 +138,14 @@ const PAGE_SIZE = 10;
 
             <!-- Pagination -->
             @if (totalPages() > 1) {
-              <nav class="pagination" aria-label="Job listings pagination">
+              <nav class="pagination" aria-label="Phân trang danh sách việc làm">
                 <!-- Previous -->
                 <button
                   class="page-btn page-btn--nav"
                   [class.page-btn--disabled]="currentPage() === 1"
                   [disabled]="currentPage() === 1"
                   (click)="goToPage(currentPage() - 1)"
-                  aria-label="Previous page"
+                  aria-label="Trang trước"
                 >
                   <mat-icon class="nav-icon">chevron_left</mat-icon>
                 </button>
@@ -142,7 +159,7 @@ const PAGE_SIZE = 10;
                       class="page-btn"
                       [class.page-btn--active]="page === currentPage()"
                       [attr.aria-current]="page === currentPage() ? 'page' : null"
-                      [attr.aria-label]="'Page ' + page"
+                      [attr.aria-label]="'Trang ' + page"
                       (click)="goToPage(page)"
                     >
                       {{ page }}
@@ -156,7 +173,7 @@ const PAGE_SIZE = 10;
                   [class.page-btn--disabled]="currentPage() === totalPages()"
                   [disabled]="currentPage() === totalPages()"
                   (click)="goToPage(currentPage() + 1)"
-                  aria-label="Next page"
+                  aria-label="Trang sau"
                 >
                   <mat-icon class="nav-icon">chevron_right</mat-icon>
                 </button>
@@ -164,7 +181,7 @@ const PAGE_SIZE = 10;
 
               <!-- Page summary -->
               <p class="pagination-summary" aria-live="polite">
-                Showing {{ pageStart() }}–{{ pageEnd() }} of {{ filteredJobs().length }} openings
+                Đang hiển thị {{ pageStart() }}–{{ pageEnd() }} trong {{ filteredJobs().length }} vị trí
               </p>
             }
           }
@@ -445,6 +462,8 @@ export class RecruitmentOpeningsComponent implements OnInit {
 
   readonly departments: JobDepartment[] = DEPARTMENTS;
   readonly locations: JobLocation[] = LOCATIONS;
+  readonly departmentLabels = DEPARTMENT_LABELS;
+  readonly locationLabels = LOCATION_LABELS;
 
   // ── Filter state ───────────────────────────────────────────────────────────
   selectedDepartment: JobDepartment = 'All Departments';

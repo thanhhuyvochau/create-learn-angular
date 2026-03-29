@@ -4,6 +4,7 @@ import {
   input,
   computed,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 import type {
@@ -25,7 +26,7 @@ const BADGE_CONFIG: Record<DepartmentBadgeVariant, BadgeConfig> = {
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [RouterModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="job-card">
@@ -41,7 +42,7 @@ const BADGE_CONFIG: Record<DepartmentBadgeVariant, BadgeConfig> = {
         <span>{{ job().location }}</span>
       </div>
 
-      <a class="job-card-link" href="#">
+      <a class="job-card-link" [routerLink]="['/recruitment', job().id]">
         View Details
         <mat-icon class="link-arrow">arrow_forward</mat-icon>
       </a>

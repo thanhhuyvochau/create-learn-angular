@@ -32,16 +32,16 @@ import { RecruitmentApiService } from '../../../../core/api/recruitment-api.serv
 
           <!-- Content -->
           <div class="newsletter-content">
-            <h2 class="newsletter-title">Stay in the Loop</h2>
+            <h2 class="newsletter-title">Luôn Cập Nhật</h2>
             <p class="newsletter-desc">
-              Not ready to apply just yet? Join our talent network to receive
-              updates on new openings and company news.
+              Chưa sẵn sàng ứng tuyển? Tham gia mạng lưới nhân tài của chúng tôi để nhận
+              thông tin về các vị trí mới và tin tức công ty.
             </p>
 
             @if (submitSuccess()) {
-              <div class="success-message" role="alert">
+                <div class="success-message" role="alert">
                 <mat-icon class="success-icon">check_circle</mat-icon>
-                <span>You're on the list! We'll be in touch.</span>
+                <span>Bạn đã đăng ký thành công! Chúng tôi sẽ liên hệ sớm.</span>
               </div>
             } @else {
               <form
@@ -54,13 +54,13 @@ import { RecruitmentApiService } from '../../../../core/api/recruitment-api.serv
                     class="email-input"
                     [class.email-input--error]="showEmailError()"
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="Nhập email của bạn"
                     [formControl]="emailControl"
                     autocomplete="email"
-                    aria-label="Email address"
+                    aria-label="Địa chỉ email"
                   />
                   @if (showEmailError()) {
-                    <span class="field-error">Please enter a valid email address.</span>
+                    <span class="field-error">Vui lòng nhập địa chỉ email hợp lệ.</span>
                   }
                 </div>
 
@@ -71,9 +71,9 @@ import { RecruitmentApiService } from '../../../../core/api/recruitment-api.serv
                 >
                   @if (isSubmitting()) {
                     <span class="btn-spinner" aria-hidden="true"></span>
-                    Joining...
+                    Đang tham gia...
                   } @else {
-                    Join Network
+                    Tham Gia Mạng Lưới
                   }
                 </button>
               </form>

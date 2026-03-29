@@ -22,21 +22,21 @@ import { MatIconModule } from '@angular/material/icon';
       <!-- Content -->
       <div class="hero-content">
         <div class="hero-inner">
-          <span class="hero-eyebrow">Career Opportunities</span>
+          <span class="hero-eyebrow">Cơ Hội Nghề Nghiệp</span>
           <h1 class="hero-title">
-            Join Our Mission to
-            <span class="hero-title-accent">Transform</span>
-            Education
+            Gia Nhập Sứ Mệnh
+            <span class="hero-title-accent">Chuyển Hóa</span>
+            Giáo Dục
           </h1>
           <p class="hero-description">
-            Help us build the future of algorithmic learning. We're looking for
-            passionate educators, innovators, and thinkers to redefine the
-            classroom experience.
+            Hãy cùng chúng tôi xây dựng tương lai của tư duy thuật toán. Chúng tôi đang tìm kiếm
+            những nhà giáo dục, nhà sáng tạo và nhà tư duy đam mê để tái định nghĩa
+            trải nghiệm lớp học.
           </p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#openings">Explore Openings</a>
+            <a class="btn-primary" href="#openings">Khám Phá Vị Trí</a>
             <a class="btn-ghost" href="#">
-              Our Culture
+              Văn Hóa Của Chúng Tôi
               <mat-icon class="btn-ghost-icon">arrow_forward</mat-icon>
             </a>
           </div>
