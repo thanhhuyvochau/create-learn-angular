@@ -14,3 +14,4 @@ export * from './class.model';
 export * from './news.model';
 export * from './registration.model';
 export * from './consultation.model';
+export * from './recruitment.model';

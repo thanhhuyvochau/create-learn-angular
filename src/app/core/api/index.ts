@@ -17,3 +17,6 @@ export { FileUploadApiService, type FileUploadResponse } from './file-upload-api
 
 // Resource URL service — resolves the MinIO base URL based on HTTP/HTTPS protocol
 export { ResourceUrlService } from './resource-url.service';
+
+// Recruitment service (mock data — swap for real HTTP calls when API is ready)
+export { RecruitmentApiService } from './recruitment-api.service';

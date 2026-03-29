@@ -81,9 +81,10 @@ export const routes: Routes = [
   },
   {
     path: 'recruitment',
+    title: 'Recruitment | AlgoCore Education',
     loadComponent: () =>
-      import('./features/public/landing/landing.component').then(
-        (m) => m.LandingComponent
+      import('./features/public/recruitment/recruitment.component').then(
+        (m) => m.RecruitmentComponent
       ),
   },
   {
