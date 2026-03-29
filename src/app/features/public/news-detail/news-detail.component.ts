@@ -19,9 +19,9 @@ import type { News } from '../../../models';
         </div>
       } @else if (error() || !newsData()) {
         <div class="error-container">
-          <p>Bai viet khong ton tai hoac co loi xay ra.</p>
+          <p>Bài viết không tồn tại hoặc có lỗi xảy ra.</p>
           <button mat-raised-button color="primary" (click)="goBack()">
-            Quay lai
+            Quay lại danh sách bài viết
           </button>
         </div>
       } @else {
