@@ -71,6 +71,13 @@ export const SIDEBAR_ITEMS: SidebarItem[] = [
     route: '/management/registration',
     description: 'Quản lý đăng ký',
   },
+  {
+    id: 'recruitment',
+    label: 'Tuyển dụng',
+    icon: 'work',
+    route: '/management/recruitment',
+    description: 'Quản lý vị trí tuyển dụng',
+  },
 ];
 
 @Component({

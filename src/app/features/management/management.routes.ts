@@ -75,6 +75,30 @@ export const MANAGEMENT_ROUTES: Routes = [
         title: 'Registration - Management',
       },
       {
+        path: 'recruitment',
+        loadComponent: () =>
+          import('./pages/recruitment/recruitment-list.component').then(
+            (m) => m.RecruitmentListComponent
+          ),
+        title: 'Tuyển dụng - Quản lý',
+      },
+      {
+        path: 'recruitment/create',
+        loadComponent: () =>
+          import('./pages/recruitment/recruitment-form.component').then(
+            (m) => m.RecruitmentFormComponent
+          ),
+        title: 'Tạo vị trí - Quản lý',
+      },
+      {
+        path: 'recruitment/:id/edit',
+        loadComponent: () =>
+          import('./pages/recruitment/recruitment-form.component').then(
+            (m) => m.RecruitmentFormComponent
+          ),
+        title: 'Chỉnh sửa vị trí - Quản lý',
+      },
+      {
         path: '',
         redirectTo: 'subject',
         pathMatch: 'full',

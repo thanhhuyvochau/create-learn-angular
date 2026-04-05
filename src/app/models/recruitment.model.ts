@@ -1,3 +1,5 @@
+import type { ApiFilters } from './base.model';
+
 export type JobDepartment = 'Mathematics' | 'Coding' | 'Admissions' | 'All Departments';
 export type JobLocation =
   | 'Remote'
@@ -9,6 +11,10 @@ export type JobLocation =
   | 'All Locations';
 
 export type DepartmentBadgeVariant = 'secondary' | 'primary' | 'tertiary';
+
+/** Enum names sent to the backend in create/update requests */
+export type BadgeVariantEnum = 'PRIMARY' | 'SECONDARY' | 'TERTIARY';
+export type JobTypeEnum = 'FULL_TIME' | 'CONTRACT' | 'PART_TIME';
 
 export interface JobResponsibility {
   icon: string;
@@ -54,4 +60,42 @@ export interface RecruitmentBenefit {
   icon: string;
   title: string;
   description: string;
+}
+
+// ── Admin request types ───────────────────────────────────────────────────────
+
+export interface JobResponsibilityRequest {
+  icon: string;
+  title: string;
+  body: string;
+}
+
+export interface JobBenefitRequest {
+  icon: string;
+  title: string;
+  body: string;
+}
+
+export interface CreateJobPostingRequest {
+  title: string;
+  department: string;
+  location: string;
+  badgeVariant: BadgeVariantEnum;
+  type: JobTypeEnum;
+  isActive: boolean;
+  deadline?: string;
+  recruiter?: string;
+  reference?: string;
+  description: string[];
+  responsibilities: JobResponsibilityRequest[];
+  requirements: string[];
+  benefits: JobBenefitRequest[];
+}
+
+export interface UpdateJobPostingRequest extends Partial<CreateJobPostingRequest> {
+  id: number;
+}
+
+export interface JobPostingApiFilters extends ApiFilters {
+  search?: string;
 }
