@@ -71,7 +71,7 @@ const HERO_CONTENT = {
     `
       .hero {
         width: 100%;
-        background:var(--gradient-brand)
+        background: var(--gradient-brand);
       }
 
       /* Desktop Hero */
@@ -143,17 +143,11 @@ const HERO_CONTENT = {
         display: none;
         position: relative;
         min-height: 540px;
-        background: linear-gradient(
-          135deg,
-          rgba(26, 54, 93, 0.9) 0%,
-          rgba(15, 23, 42, 0.9) 100%
-        );
       }
 
       .mobile-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.55);
       }
 
       .mobile-content {
@@ -169,22 +163,23 @@ const HERO_CONTENT = {
       }
 
       .mobile-title {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 4vw, 3rem);
         font-weight: 700;
-        color: white;
+        color: var(--color-brand-navy-6);
         margin: 0 0 8px 0;
+        line-height: 1.2;
       }
 
       .mobile-subtitle {
-        font-size: 1.75rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
         font-weight: 600;
-        color: white;
-        margin: 0 0 20px 0;
+        color: var(--color-brand-navy-6);
+        margin: 0 0 24px 0;
       }
 
       .mobile-description {
         font-size: 1.125rem;
-        color: #f1f5f9;
+        color: #64748b;
         line-height: 1.5;
         margin: 0 0 24px 0;
         max-width: 400px;
@@ -231,6 +226,7 @@ const HERO_CONTENT = {
 
         .hero-mobile {
           display: block;
+          background-color: var(--gradient-brand);
         }
 
         .experts-bar {
