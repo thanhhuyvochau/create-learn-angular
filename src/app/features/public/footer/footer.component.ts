@@ -119,6 +119,7 @@ import type { Subject } from '../../../models';
       font-size: 1.5rem;
       font-weight: 700;
       margin: 0 0 16px 0;
+      color: white
     }
 
     .footer-description {
