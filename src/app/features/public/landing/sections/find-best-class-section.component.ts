@@ -151,118 +151,97 @@ import { NotificationService } from '../../../../core/notifications/notification
       </mat-card>
     </section>
   `,
-  styles: [
-    `
-      .consultation-section {
-        background: var(--gradient-brand);
-        padding: 48px 24px;
-      }
+  styles: [`
+    .consultation-section {
+      background: var(--gradient-brand);
+      padding: 48px 24px;
+    }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-title {
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--color-brand-navy-6);
+      margin: 0 0 16px 0;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: #64748b;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .consultation-card {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 32px;
+      border-radius: 12px;
+    }
+    .notification {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .notification.success { background: #d1fae5; color: #065f46; }
+    .notification.error   { background: #fee2e2; color: #991b1b; }
+    .consultation-form { width: 100%; }
+    .form-layout {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+    .form-image { flex: 0 0 254px; }
+    .form-image img { width: 100%; height: auto; }
+    .form-fields {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    mat-form-field { width: 100%; max-width: 400px; }
+    .submit-button {
+      width: 232px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 8px;
+      background-color: var(--color-brand-teal-6);
+      color: var(--color-surface-1);
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
 
-      .section-header {
-        text-align: center;
-        margin-bottom: 40px;
+    /* ── Tablet / large phone (≤ 768 px) ─────────────────────────── */
+    @media (max-width: 768px) {
+      .form-layout {
+        flex-direction: column;
+        gap: 20px;
       }
-
-      .section-title {
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 500;
-        color: var(--color-brand-navy-6);
-        margin: 0 0 16px 0;
+      .form-image {
+        flex: none;
+        width: 200px;
       }
-
-      .section-subtitle {
-        font-size: 1rem;
-        color: #64748b;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
       .consultation-card {
-        max-width: 1152px;
-        margin: 0 auto;
-        padding: 32px;
-        border-radius: 12px;
+        padding: 20px 16px;
       }
+      mat-form-field {
+        max-width: 100%;
+      }
+      .submit-button {
+        width: 100%;
+      }
+    }
 
-      .notification {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px;
-        border-radius: 8px;
+    /* ── Small phone (≤ 480 px — iPhone SE, Galaxy A-series) ─────── */
+    @media (max-width: 480px) {
+      .consultation-section {
+        padding: 32px 12px;
+      }
+      .section-header {
         margin-bottom: 24px;
       }
-
-      .notification.success {
-        background: #d1fae5;
-        color: #065f46;
-      }
-
-      .notification.error {
-        background: #fee2e2;
-        color: #991b1b;
-      }
-
-      .consultation-form {
-        width: 100%;
-      }
-
-      .form-layout {
-        display: flex;
-        align-items: center;
-        gap: 50px;
-      }
-
-      .form-image {
-        flex: 0 0 254px;
-      }
-
-      .form-image img {
-        width: 100%;
-        height: auto;
-      }
-
-      .form-fields {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      mat-form-field {
-        width: 100%;
-        max-width: 400px;
-      }
-
-      .submit-button {
-        width: 232px;
-        padding: 12px 24px;
-        font-size: 1rem;
-        border-radius: 8px;
-        background-color: var(--color-brand-teal-6);
-        color: var(--color-surface-1);
-        font-weight: 500;
-        transition: background-color 0.3s;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .form-layout {
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        .form-image {
-          flex: none;
-          width: 200px;
-        }
-
-        mat-form-field {
-          max-width: 90%;
-        }
-      }
-    `,
-  ],
+    }
+  `],
 })
 export class FindBestClassSectionComponent {
   private readonly fb = inject(FormBuilder);
