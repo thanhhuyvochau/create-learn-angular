@@ -1,4 +1,13 @@
-import { Component, inject, signal, OnInit, TemplateRef, viewChild, computed } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  OnInit,
+  TemplateRef,
+  viewChild,
+  computed,
+  DestroyRef,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,7 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { finalize } from 'rxjs';
+import { finalize, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
   PageHeaderComponent,
@@ -20,7 +31,11 @@ import {
 } from '../../../../shared/components';
 import { GradeApiService } from '../../../../core/api';
 import { NotificationService } from '../../../../core/notifications/notification.service';
-import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../models';
+import type {
+  Grade,
+  CreateGradeRequest,
+  UpdateGradeRequest,
+} from '../../../../models';
 
 @Component({
   selector: 'app-grade-list',
@@ -52,10 +67,28 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
         <div class="error-message">
           <mat-icon>error</mat-icon>
           <span>{{ error() }}</span>
-          <button mat-button color="primary" (click)="loadGrades()">Thử lại</button>
+          <button mat-button color="primary" (click)="loadGrades()">
+            Thử lại
+          </button>
         </div>
       } @else {
         <div class="table-section">
+          <div class="search-bar">
+            <mat-form-field
+              appearance="outline"
+              subscriptSizing="dynamic"
+              class="search-field small"
+            >
+              <mat-label>Tìm kiếm</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input
+                matInput
+                [value]="searchTerm()"
+                (input)="onSearch($event)"
+                placeholder="Tìm theo tên..."
+              />
+            </mat-form-field>
+          </div>
           <app-data-table
             [data]="grades()"
             [columns]="columns"
@@ -99,15 +132,25 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
         <div class="dialog-overlay" (click)="closeDialog()">
           <div class="dialog-content" (click)="$event.stopPropagation()">
             <div class="dialog-header">
-              <h2>{{ editingGrade() ? 'Chỉnh sửa khối lớp' : 'Tạo khối lớp' }}</h2>
+              <h2>
+                {{ editingGrade() ? 'Chỉnh sửa khối lớp' : 'Tạo khối lớp' }}
+              </h2>
               <button mat-icon-button (click)="closeDialog()">
                 <mat-icon>close</mat-icon>
               </button>
             </div>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-body">
+            <form
+              [formGroup]="form"
+              (ngSubmit)="onSubmit()"
+              class="dialog-body"
+            >
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Tên</mat-label>
-                <input matInput formControlName="name" placeholder="Nhập tên khối lớp" />
+                <input
+                  matInput
+                  formControlName="name"
+                  placeholder="Nhập tên khối lớp"
+                />
                 @if (form.controls.name.hasError('required')) {
                   <mat-error>Tên là bắt buộc</mat-error>
                 }
@@ -315,6 +358,15 @@ import type { Grade, CreateGradeRequest, UpdateGradeRequest } from '../../../../
         align-items: center;
         justify-content: center;
       }
+
+      .search-bar {
+        padding: 16px 16px 16px;
+      }
+
+      .search-field {
+        width: 100%;
+        max-width: 400px;
+      }
     `,
   ],
 })
@@ -325,7 +377,8 @@ export class GradeListComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
 
   // Template references for custom cell rendering
-  iconTemplate = viewChild.required<TemplateRef<CellTemplateContext<Grade>>>('iconTemplate');
+  iconTemplate =
+    viewChild.required<TemplateRef<CellTemplateContext<Grade>>>('iconTemplate');
 
   // Computed cell templates map
   cellTemplates = computed(() => ({
@@ -345,6 +398,9 @@ export class GradeListComponent implements OnInit {
   submitting = signal(false);
   selectedFile = signal<File | null>(null);
   previewUrl = signal<string | null>(null);
+  searchTerm = signal('');
+  private readonly searchInput$ = new Subject<string>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Form
   form = this.fb.group({
@@ -358,8 +414,8 @@ export class GradeListComponent implements OnInit {
       key: 'iconBase64',
       header: 'Biểu tượng',
       sortable: false,
-      width: '80px',
-      align: 'center',
+      width: '120px',
+      align: 'left',
     },
     { key: 'name', header: 'Tên' },
     { key: 'description', header: 'Mô tả' },
@@ -367,6 +423,18 @@ export class GradeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadGrades();
+
+    this.searchInput$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((term: string) => {
+        this.searchTerm.set(term);
+        this.pageIndex.set(0);
+        this.loadGrades();
+      });
   }
 
   loadGrades(): void {
@@ -374,7 +442,11 @@ export class GradeListComponent implements OnInit {
     this.error.set(null);
 
     this.gradeApi
-      .getAll({ page: this.pageIndex(), size: this.pageSize() })
+      .getAll({
+        page: this.pageIndex(),
+        size: this.pageSize(),
+        search: this.searchTerm() || undefined,
+      })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
@@ -492,6 +564,11 @@ export class GradeListComponent implements OnInit {
           },
         });
     }
+  }
+
+  onSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchInput$.next(value);
   }
 
   openDeleteDialog(grade: Grade): void {

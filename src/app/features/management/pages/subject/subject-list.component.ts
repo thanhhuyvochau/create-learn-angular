@@ -74,7 +74,11 @@ import type {
       } @else {
         <div class="table-section">
           <div class="search-bar">
-            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="search-field">
+            <mat-form-field
+              appearance="outline"
+              subscriptSizing="dynamic"
+              class="search-field small"
+            >
               <mat-label>Tìm kiếm</mat-label>
               <mat-icon matPrefix>search</mat-icon>
               <input
@@ -374,7 +378,7 @@ import type {
       }
 
       .search-bar {
-        padding: 16px 16px 0;
+        padding: 16px 16px 16px;
       }
 
       .search-field {
@@ -430,8 +434,8 @@ export class SubjectListComponent implements OnInit {
       key: 'iconBase64',
       header: 'Biểu tượng',
       sortable: false,
-      width: '80px',
-      align: 'center',
+      width: '120px',
+      align: 'left',
     },
     { key: 'name', header: 'Tên' },
     { key: 'description', header: 'Mô tả' },
@@ -439,15 +443,17 @@ export class SubjectListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSubjects();
-    this.searchInput$.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      takeUntilDestroyed(this.destroyRef),
-    ).subscribe(term => {
-      this.searchTerm.set(term);
-      this.pageIndex.set(0);
-      this.loadSubjects();
-    });
+    this.searchInput$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((term) => {
+        this.searchTerm.set(term);
+        this.pageIndex.set(0);
+        this.loadSubjects();
+      });
   }
 
   loadSubjects(): void {
@@ -455,7 +461,11 @@ export class SubjectListComponent implements OnInit {
     this.error.set(null);
 
     this.subjectApi
-      .getAll({ page: this.pageIndex(), size: this.pageSize(), search: this.searchTerm() || undefined })
+      .getAll({
+        page: this.pageIndex(),
+        size: this.pageSize(),
+        search: this.searchTerm() || undefined,
+      })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {

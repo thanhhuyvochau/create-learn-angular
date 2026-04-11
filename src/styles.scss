@@ -3,10 +3,10 @@
 // =============================================================================
 
 // Import design tokens (CSS custom properties)
-@use 'styles/theme';
+@use "styles/theme";
 
 // Import and apply Angular Material custom theme
-@use 'styles/material-theme';
+@use "styles/material-theme";
 
 // Base styles
 html,
@@ -24,7 +24,12 @@ body {
 }
 
 // Typography defaults
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-family-heading);
   color: var(--text-color-heading);
   margin-top: 0;
@@ -100,4 +105,9 @@ a {
   &:hover {
     background: var(--color-slate-5);
   }
+}
+
+mat-form-field.small {
+  --mat-form-field-container-height: 45px;
+  --mat-form-field-container-vertical-padding: 8px;
 }
