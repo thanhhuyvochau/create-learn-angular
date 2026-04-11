@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   inject,
   signal,
   computed,
@@ -7,6 +8,7 @@ import {
   TemplateRef,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { finalize } from 'rxjs';
+import { Subject as RxSubject, finalize } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import {
   PageHeaderComponent,
@@ -70,6 +73,18 @@ import type {
         </div>
       } @else {
         <div class="table-section">
+          <div class="search-bar">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="search-field">
+              <mat-label>Tìm kiếm</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input
+                matInput
+                [value]="searchTerm()"
+                (input)="onSearch($event)"
+                placeholder="Tìm theo tên..."
+              />
+            </mat-form-field>
+          </div>
           <app-data-table
             [data]="subjects()"
             [columns]="columns"
@@ -357,6 +372,15 @@ import type {
         align-items: center;
         justify-content: center;
       }
+
+      .search-bar {
+        padding: 16px 16px 0;
+      }
+
+      .search-field {
+        width: 100%;
+        max-width: 400px;
+      }
     `,
   ],
 })
@@ -390,6 +414,9 @@ export class SubjectListComponent implements OnInit {
   submitting = signal(false);
   selectedFile = signal<File | null>(null);
   previewUrl = signal<string | null>(null);
+  searchTerm = signal('');
+  private readonly searchInput$ = new RxSubject<string>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Form
   form = this.fb.group({
@@ -412,6 +439,15 @@ export class SubjectListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSubjects();
+    this.searchInput$.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(term => {
+      this.searchTerm.set(term);
+      this.pageIndex.set(0);
+      this.loadSubjects();
+    });
   }
 
   loadSubjects(): void {
@@ -419,7 +455,7 @@ export class SubjectListComponent implements OnInit {
     this.error.set(null);
 
     this.subjectApi
-      .getAll({ page: this.pageIndex(), size: this.pageSize() })
+      .getAll({ page: this.pageIndex(), size: this.pageSize(), search: this.searchTerm() || undefined })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
@@ -440,6 +476,11 @@ export class SubjectListComponent implements OnInit {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
     this.loadSubjects();
+  }
+
+  onSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchInput$.next(value);
   }
 
   openCreateDialog(): void {
