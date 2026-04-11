@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, TemplateRef, viewChild, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, TemplateRef, viewChild, computed, DestroyRef } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,7 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { finalize } from 'rxjs';
+import { finalize, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
   PageHeaderComponent,
@@ -64,6 +66,22 @@ import type {
         </div>
       } @else {
         <div class="table-section">
+          <div class="search-bar">
+            <mat-form-field
+              appearance="outline"
+              subscriptSizing="dynamic"
+              class="search-field"
+            >
+              <mat-label>Tìm kiếm</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input
+                matInput
+                [value]="searchTerm()"
+                (input)="onSearch($event)"
+                placeholder="Tìm theo tên, email, số điện thoại..."
+              />
+            </mat-form-field>
+          </div>
           <app-data-table
             [data]="consultations()"
             [columns]="columns"
@@ -172,6 +190,15 @@ import type {
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         overflow: hidden;
+      }
+
+      .search-bar {
+        padding: 16px 16px 0;
+      }
+
+      .search-field {
+        width: 100%;
+        max-width: 400px;
       }
 
       .table-footer {
@@ -284,6 +311,9 @@ export class ConsultationListComponent implements OnInit {
   dialogOpen = signal(false);
   editingConsultation = signal<Consultation | null>(null);
   submitting = signal(false);
+  searchTerm = signal('');
+  private readonly searchInput$ = new Subject<string>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Form
   form = this.fb.group({
@@ -309,6 +339,18 @@ export class ConsultationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadConsultations();
+
+    this.searchInput$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((term: string) => {
+        this.searchTerm.set(term);
+        this.pageIndex.set(0);
+        this.loadConsultations();
+      });
   }
 
   loadConsultations(): void {
@@ -316,7 +358,7 @@ export class ConsultationListComponent implements OnInit {
     this.error.set(null);
 
     this.consultationApi
-      .getAll({ page: this.pageIndex(), size: this.pageSize() })
+      .getAll({ page: this.pageIndex(), size: this.pageSize(), search: this.searchTerm() || undefined })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
@@ -337,6 +379,11 @@ export class ConsultationListComponent implements OnInit {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
     this.loadConsultations();
+  }
+
+  onSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchInput$.next(value);
   }
 
   openEditDialog(consultation: Consultation): void {

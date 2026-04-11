@@ -6,6 +6,7 @@ import {
   TemplateRef,
   viewChild,
   computed,
+  DestroyRef,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -23,7 +24,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { finalize, forkJoin } from 'rxjs';
+import { finalize, forkJoin, Subject as RxSubject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
   PageHeaderComponent,
@@ -102,6 +105,22 @@ interface ScheduleEntry {
         </div>
       } @else {
         <div class="table-section">
+          <div class="search-bar">
+            <mat-form-field
+              appearance="outline"
+              subscriptSizing="dynamic"
+              class="search-field"
+            >
+              <mat-label>Tìm kiếm</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input
+                matInput
+                [value]="searchTerm()"
+                (input)="onSearch($event)"
+                placeholder="Tìm theo tên..."
+              />
+            </mat-form-field>
+          </div>
           <app-data-table
             [data]="classes()"
             [columns]="columns"
@@ -415,6 +434,15 @@ interface ScheduleEntry {
         overflow: hidden;
       }
 
+      .search-bar {
+        padding: 16px 16px 0;
+      }
+
+      .search-field {
+        width: 100%;
+        max-width: 400px;
+      }
+
       .table-footer {
         display: flex;
         justify-content: space-between;
@@ -616,6 +644,9 @@ export class ClassListComponent implements OnInit {
   previewUrl = signal<string | null>(null);
   uploadedImageUrl = signal<string | null>(null);
   deletedScheduleIds = signal<number[]>([]);
+  searchTerm = signal('');
+  private readonly searchInput$ = new RxSubject<string>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Form with FormArray for schedules
   form = this.fb.group({
@@ -690,6 +721,18 @@ export class ClassListComponent implements OnInit {
   ngOnInit(): void {
     this.loadClasses();
     this.loadDropdownData();
+
+    this.searchInput$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((term: string) => {
+        this.searchTerm.set(term);
+        this.pageIndex.set(0);
+        this.loadClasses();
+      });
   }
 
   loadClasses(): void {
@@ -697,7 +740,7 @@ export class ClassListComponent implements OnInit {
     this.error.set(null);
 
     this.classApi
-      .getAllForAdmin({ page: this.pageIndex(), size: this.pageSize() })
+      .getAllForAdmin({ page: this.pageIndex(), size: this.pageSize(), search: this.searchTerm() || undefined })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
@@ -733,6 +776,11 @@ export class ClassListComponent implements OnInit {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
     this.loadClasses();
+  }
+
+  onSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchInput$.next(value);
   }
 
   addSchedule(): void {

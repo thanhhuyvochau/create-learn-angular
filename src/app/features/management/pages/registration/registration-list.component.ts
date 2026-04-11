@@ -1,12 +1,15 @@
-import { Component, inject, signal, OnInit, TemplateRef, viewChild, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, TemplateRef, viewChild, computed, DestroyRef } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { finalize, forkJoin } from 'rxjs';
+import { finalize, forkJoin, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
   PageHeaderComponent,
@@ -38,6 +41,7 @@ import type {
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
+    MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
     PageHeaderComponent,
@@ -64,6 +68,22 @@ import type {
         </div>
       } @else {
         <div class="table-section">
+          <div class="search-bar">
+            <mat-form-field
+              appearance="outline"
+              subscriptSizing="dynamic"
+              class="search-field"
+            >
+              <mat-label>Tìm kiếm</mat-label>
+              <mat-icon matPrefix>search</mat-icon>
+              <input
+                matInput
+                [value]="searchTerm()"
+                (input)="onSearch($event)"
+                placeholder="Tìm theo tên, email, số điện thoại..."
+              />
+            </mat-form-field>
+          </div>
           <app-data-table
             [data]="registrations()"
             [columns]="columns"
@@ -196,6 +216,15 @@ import type {
         overflow: hidden;
       }
 
+      .search-bar {
+        padding: 16px 16px 0;
+      }
+
+      .search-field {
+        width: 100%;
+        max-width: 400px;
+      }
+
       .table-footer {
         display: flex;
         justify-content: space-between;
@@ -319,6 +348,9 @@ export class RegistrationListComponent implements OnInit {
   dialogOpen = signal(false);
   editingRegistration = signal<Registration | null>(null);
   submitting = signal(false);
+  searchTerm = signal('');
+  private readonly searchInput$ = new Subject<string>();
+  private readonly destroyRef = inject(DestroyRef);
 
   // Form
   form = this.fb.group({
@@ -360,6 +392,18 @@ export class RegistrationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadInitialData();
+
+    this.searchInput$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((term: string) => {
+        this.searchTerm.set(term);
+        this.pageIndex.set(0);
+        this.loadRegistrations();
+      });
   }
 
   private loadInitialData(): void {
@@ -400,7 +444,7 @@ export class RegistrationListComponent implements OnInit {
     this.error.set(null);
 
     this.registrationApi
-      .getAll({ page: this.pageIndex(), size: this.pageSize() })
+      .getAll({ page: this.pageIndex(), size: this.pageSize(), search: this.searchTerm() || undefined })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
@@ -421,6 +465,11 @@ export class RegistrationListComponent implements OnInit {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
     this.loadRegistrations();
+  }
+
+  onSearch(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchInput$.next(value);
   }
 
   openEditDialog(registration: Registration): void {
