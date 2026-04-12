@@ -72,7 +72,7 @@ import type {
             <mat-form-field
               appearance="outline"
               subscriptSizing="dynamic"
-              class="search-field"
+              class="search-field small"
             >
               <mat-label>Tìm kiếm</mat-label>
               <mat-icon matPrefix>search</mat-icon>
